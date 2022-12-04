@@ -1,0 +1,17 @@
+<div class="places-container">
+  <p>Last searching:</p>
+  <button
+    class="clear"
+    (click)="clear()"
+    [class.disabled]="(places$$ | async)!.length < 1"
+  >
+    Clear
+  </button>
+  <div
+    class="item-container"
+    *ngFor="let place of places$$ | async"
+    (click)="callPlace(place)"
+  >
+    <p>{{ place?.name }}, {{ place?.country }}, {{ place?.state }}</p>
+  </div>
+</div>

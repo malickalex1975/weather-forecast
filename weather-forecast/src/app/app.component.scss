@@ -1,0 +1,16 @@
+.app-container{
+    position: absolute;
+    top:0;
+    left: 0;
+    width:100%;
+    min-height: 100%;
+    height:auto;
+    background-color: rgba($color: #cceeff, $alpha: 0.3);
+
+}
+
+.dark {
+  color: bisque;
+  background-color: black;
+  opacity: .8;
+}

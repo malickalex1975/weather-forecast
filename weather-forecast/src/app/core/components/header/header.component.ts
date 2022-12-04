@@ -1,0 +1,30 @@
+import { Component } from '@angular/core';
+import { switchMap, tap } from 'rxjs';
+import { LANG, THEME } from 'src/app/constants';
+import { LanguageService } from '../../services/language.service';
+import { StorageService } from '../../services/storage.service';
+import { ThemeService } from '../../services/theme.service';
+
+@Component({
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+})
+export class HeaderComponent {
+  currentLang$$ = this.langService.getLang();
+  currentTheme$$ = this.themeService.getTheme();
+  constructor(
+    private langService: LanguageService,
+    private storage: StorageService,
+    private themeService: ThemeService
+  ) {}
+
+  langToggle() {
+    let newLang = this.storage.getItem(LANG) === 'ru' ? 'en' : 'ru';
+    this.langService.setLang(newLang);
+  }
+  themeToggle() {
+    let newTheme = this.storage.getItem(THEME) === 'light' ? 'dark' : 'light';
+    this.themeService.setTheme(newTheme);
+  }
+}

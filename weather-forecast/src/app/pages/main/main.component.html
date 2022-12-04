@@ -1,0 +1,49 @@
+<div class="main-container">
+  <div class="input-container">
+    <input
+      type="search"
+      class="input-search"
+      [placeholder]="'search place'"
+      [(ngModel)]="searchRequest"
+      (ngModelChange)="rememberSearch(); findPlaces()"
+      autofocus
+    />
+  </div>
+
+  <app-last-places class="last-places"></app-last-places>
+
+  <div class="places-container" *ngIf="isChosen == false">
+    <div
+      class="place-item"
+      *ngFor="let place of places$ | async"
+      (click)="getCurrentWeather(place.lat, place.lon); rememberPlace(place)"
+    >
+      <span>{{ place.name }}</span>
+      <span> , </span>
+      <span>{{ place.country }}</span>
+      <span> , </span>
+      <span>{{ place.state }}</span>
+    </div>
+  </div>
+  <div
+    class="forecast-container"
+    *ngIf="isChosen && (currentWeather$ | async) as current"
+  >
+    <p class="place">{{ current?.name }} , {{ current?.sys?.country }}</p>
+    <p>{{ getTime(current?.dt) | date : "long" }}</p>
+    <p>{{ current?.weather[0]?.main }}</p>
+    <p>{{ current?.weather[0]?.description }}</p>
+    <div class="current-temp">
+      <p>{{ current?.main?.temp }} ℃</p>
+    </div>
+    <p>Feels like: {{ current?.main?.feels_like }} ℃</p>
+    <p>
+      min...max: {{ current?.main?.temp_min }} ...
+      {{ current?.main?.temp_max }} ℃
+    </p>
+    <p>Pressure: {{ current?.main?.pressure }} KPa</p>
+    <p>Humidity: {{ current?.main?.humidity }} %</p>
+    <p>Cloudnees: {{ current?.clouds?.all }} %</p>
+    <p>Wind: {{ current?.wind?.speed }} m/s</p>
+  </div>
+</div>
