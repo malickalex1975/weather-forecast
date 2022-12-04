@@ -47,10 +47,10 @@ export class MainComponent implements OnInit, OnDestroy {
       .getPlace()
       .subscribe((data: any) => {
         this.getCurrentWeather(
-          data.geoplugin_latitude,
-          data.geoplugin_longitude
+          data.latitude,
+          data.longitude
         );
-        this.searchRequest = data.geoplugin_city;
+        this.searchRequest = data.city;
         this.rememberSearch();
       });
     this.subscription3 = this.requestService

@@ -14,7 +14,7 @@ export class GetCurrentPlaceService {
     return this.getIP().pipe(
       map((data: any) => data.ip),
       switchMap((ip) =>
-        this.http.get(`http://www.geoplugin.net/json.gp?ip=${ip}`)
+        this.http.get(`https://ipwho.is/${ip}`)
       )
     );
   }

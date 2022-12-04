@@ -3,7 +3,7 @@ export const THEME = 'THEME';
 export const LAST_SEARCH = 'LAST_SEARCH';
 export const LAST_PLACES = 'LAST_PLACES';
 export const API_KEY = '9ce0d03cd9b9459245da9121910dfdb1';
-export const BASE_GEO_URL = 'http://api.openweathermap.org/geo/1.0/direct';
+export const BASE_GEO_URL = 'https://api.openweathermap.org/geo/1.0/direct';
 export const CURRENT_WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather?';
 
 export interface IPlace {
