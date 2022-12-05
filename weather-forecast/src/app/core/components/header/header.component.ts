@@ -27,4 +27,9 @@ export class HeaderComponent {
     let newTheme = this.storage.getItem(THEME) === 'light' ? 'dark' : 'light';
     this.themeService.setTheme(newTheme);
   }
+  getStyle(theme: string | null) {
+    return theme === 'light'
+      ? 'background-color: yellow'
+      : 'background-color: black';
+  }
 }

@@ -8,10 +8,15 @@
     Clear
   </button>
   <div
-    class="item-container"
+    class="main-container"
     *ngFor="let place of places$$ | async"
     (click)="callPlace(place)"
+    (mouseenter)="hovered = place" (mouseleave)="hovered = null"
   >
-    <p>{{ place?.name }}, {{ place?.country }}, {{ place?.state }}</p>
+    <div class="item-container">
+      {{ place?.name }}, {{ place?.country }}, {{ place?.state }}
+    </div>
+    <div class="flag" [style]="getFlagStyle(place.country)"></div>
+    <p class="delete" [class.visible]="hovered==place"(click)="delete(place)">x</p>
   </div>
 </div>

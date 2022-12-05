@@ -7,7 +7,7 @@ import { NotFoundComponent } from '../not-found/not-found.component';
 import { CoreModule } from 'src/app/core/core.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LastPlacesComponent } from './components/last-places/last-places.component';
-
+import { LetModule } from '@ngrx/component';
 
 @NgModule({
   declarations: [MainComponent, NotFoundComponent, LastPlacesComponent],
@@ -16,6 +16,8 @@ import { LastPlacesComponent } from './components/last-places/last-places.compon
     MainRoutingModule,
     CoreModule,
     SharedModule,
+    LetModule
+    
     
   ]
 })

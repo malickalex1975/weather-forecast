@@ -8,16 +8,26 @@ import { RequestService } from 'src/app/core/services/request.service';
   templateUrl: './last-places.component.html',
   styleUrls: ['./last-places.component.scss'],
 })
-export class LastPlacesComponent  {
+export class LastPlacesComponent {
   places$$ = this.rememberPlaces.getSubject();
-  constructor(private rememberPlaces: RememberPlacesService, private requestService:RequestService) {}
-
+  hovered?: IPlace | null;
+  constructor(
+    private rememberPlaces: RememberPlacesService,
+    private requestService: RequestService
+  ) {}
 
   callPlace(place: IPlace) {
-    this.requestService.setRequest(place.name)
-    this.requestService.setCoords(place.lat,place.lon)
+    this.requestService.setRequest(place.name);
+    this.requestService.setCoords(place.lat, place.lon);
+    window.scrollTo(0, 0);
   }
-  clear(){
-    this.rememberPlaces.clearPlaces()
+  clear() {
+    this.rememberPlaces.clearPlaces();
   }
+  delete(place:IPlace){
+    this.rememberPlaces.delete(place)
+  }
+  getFlagStyle(country:string){
+    return `background-image: url(assets/img/png/${country.toLowerCase()}.png)`
+   }
 }

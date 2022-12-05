@@ -2,27 +2,12 @@
   padding: 0;
   margin: 0;
 }
-.places-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 200px;
-  height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  gap: 10px;
-  padding: 10px;
-}
-.item-container {
-  cursor: pointer;
+.main-container{
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 180px;
-  height: fit-content;
-  opacity: 0.7;
-  background-color: rgba($color: #cceeff, $alpha: 0.3);
+  justify-content: space-evenly;
+  width: 300px;
+  background-color: rgba($color: #cceeff, $alpha: 0.7);
   box-shadow: 1px 1px 2px rgb(4, 134, 241);
   &:hover {
     opacity: 1;
@@ -31,13 +16,39 @@
     transition: 200ms;
   }
 }
+.places-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  gap: 10px;
+  padding: 10px;
+  margin-bottom: 100px;
+  margin-left: auto;
+  margin-right: auto;
+ 
+}
+.item-container {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 280px;
+  height: fit-content;
+  opacity: 0.7;
+  
+}
 .clear {
   width: 100px;
   margin-bottom: 20px;
   border: 5px solid transparent;
   cursor: pointer;
   opacity: 0.7;
-  background-color: rgba($color: #cceeff, $alpha: 0.3);
+  background-color: rgba($color: #cceeff, $alpha: 0.7);
   &:hover {
     opacity: 1;
     background-color: rgba($color: #cceeff, $alpha: 1);
@@ -55,4 +66,33 @@
     background-color: rgba($color: #cceeff, $alpha: 0.3);
     box-shadow: 0px 0px 0px rgb(100, 100, 100);
   }
+}
+.delete{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color:rgb(4, 134, 241);
+  visibility: hidden;
+  position: relative;
+  width:20px;
+  height:20px;
+  border-radius: 50%;
+  left:0px;
+  top:0px;
+  transition: 100ms;
+  font-size: 20px;
+}
+.visible{
+  visibility: visible;
+  cursor: pointer;
+  &:hover{
+    background-color: #eee;
+  }
+}
+.flag{
+  width: 22px;
+  height: 14px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  
 }

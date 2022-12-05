@@ -4,13 +4,12 @@
     left: 0;
     width:100%;
     min-height: 100%;
-    height:auto;
+    height:fit-content;
     background-color: rgba($color: #cceeff, $alpha: 0.3);
 
 }
 
 .dark {
-  color: bisque;
   background-color: black;
-  opacity: .8;
+  opacity: 1;
 }

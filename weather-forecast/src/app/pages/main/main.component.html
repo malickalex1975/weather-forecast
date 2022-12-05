@@ -10,8 +10,6 @@
     />
   </div>
 
-  <app-last-places class="last-places"></app-last-places>
-
   <div class="places-container" *ngIf="isChosen == false">
     <div
       class="place-item"
@@ -23,27 +21,37 @@
       <span>{{ place.country }}</span>
       <span> , </span>
       <span>{{ place.state }}</span>
+      <div class="flag-small" [style]="getFlagStyle(place.country)"></div>
     </div>
   </div>
+  <div  class='loading'*ngIf="isChosen && !(currentWeather$ | async)"><p>LOADING...</p></div>
   <div
     class="forecast-container"
-    *ngIf="isChosen && (currentWeather$ | async) as current"
+    [class.container-appear]="(isChosen && (currentWeather$ | async)) "
+    (mouseenter)="isMoreInfo=true"
+    (mouseleave)="isMoreInfo=false"
+    [class.more]="isMoreInfo"
+    *ngrxLet=" currentWeather$ as current "
   >
     <p class="place">{{ current?.name }} , {{ current?.sys?.country }}</p>
+    <div class="flag" [style]="getFlagStyle(current?.sys?.country)"></div>
     <p>{{ getTime(current?.dt) | date : "long" }}</p>
     <p>{{ current?.weather[0]?.main }}</p>
-    <p>{{ current?.weather[0]?.description }}</p>
     <div class="current-temp">
-      <p>{{ current?.main?.temp }} ℃</p>
+      <p class="description">{{ current?.weather[0]?.description }}</p>
+      <p class="temp" [style]="'color:'+getColor(current?.main?.temp)">
+        {{ (current?.main?.temp).toFixed(1) }} ℃
+      </p>
+      <p class="feels-like">Feels like: {{ (current?.main?.feels_like).toFixed(1) }} ℃</p>
     </div>
-    <p>Feels like: {{ current?.main?.feels_like }} ℃</p>
     <p>
-      min...max: {{ current?.main?.temp_min }} ...
-      {{ current?.main?.temp_max }} ℃
+      min...max: {{ (current?.main?.temp_min).toFixed(1) }} ...
+      {{ (current?.main?.temp_max).toFixed(1) }} ℃
     </p>
-    <p>Pressure: {{ current?.main?.pressure }} KPa</p>
+    <p>Pressure: {{ convertPressure(current?.main?.pressure) }} mmHG</p>
     <p>Humidity: {{ current?.main?.humidity }} %</p>
     <p>Cloudnees: {{ current?.clouds?.all }} %</p>
     <p>Wind: {{ current?.wind?.speed }} m/s</p>
   </div>
+  <app-last-places class="last-places"></app-last-places>
 </div>

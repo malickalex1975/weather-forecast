@@ -40,4 +40,13 @@ export class RememberPlacesService {
     this.storage.setItem(LAST_PLACES, JSON.stringify([]));
     this.emitPlaces();
   }
+  delete(place:IPlace){
+    console.log("delete", place)
+    let arr = this.getLastPlaces();
+    arr=arr.filter((i:IPlace)=> i.name !== place.name &&
+    i.country !== place.country &&
+    i.state !== place.state);
+    this.storage.setItem(LAST_PLACES, JSON.stringify(arr));
+    this.emitPlaces();
+  }
 }

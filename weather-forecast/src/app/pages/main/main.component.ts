@@ -17,7 +17,7 @@ import { LastPlacesComponent } from './components/last-places/last-places.compon
 export class MainComponent implements OnInit, OnDestroy {
   @ViewChild(LastPlacesComponent, { static: false })
   private lastPlaces: LastPlacesComponent | undefined;
-
+  isMoreInfo = false;
   searchRequest = '';
   places$ = this.searchService.findPlaces();
   currentWeather$?: Observable<any>;
@@ -46,10 +46,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscription2 = this.getCurrentPlace
       .getPlace()
       .subscribe((data: any) => {
-        this.getCurrentWeather(
-          data.latitude,
-          data.longitude
-        );
+        this.getCurrentWeather(data.latitude, data.longitude);
         this.searchRequest = data.city;
         this.rememberSearch();
       });
@@ -84,6 +81,17 @@ export class MainComponent implements OnInit, OnDestroy {
   }
   rememberPlace(place: IPlace) {
     this.rememberPlaces.remember(place);
+  }
+  convertPressure(p: number) {
+    return (p * 0.750062).toFixed(0);
+  }
+  getColor(t: number) {
+    return t > 0 ? '#f00' : '#4c6df0';
+  }
+  getFlagStyle(country: string) {
+    if (country) {
+      return `background-image: url(assets/img/png/${country?.toLowerCase()}.png)`;
+    } else return '';
   }
   ngOnDestroy() {
     this.subscription1?.unsubscribe();

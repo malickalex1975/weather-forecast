@@ -1,5 +1,11 @@
 <div class="header-container">
-<button class="lang" (click)="langToggle()">{{ currentLang$$ | async }}</button>
-<button class="theme" (click)="themeToggle()">{{ ((currentTheme$$ | async)! | translate)|async }}</button>
-<p>{{ "hello" | translate | async }}</p>
+  <p>{{ "hello" | translate | async }}</p>
+  <button
+    class="theme"
+    (click)="themeToggle()"
+    [style]="getStyle(currentTheme$$ | async)"
+  ></button>
+  <button class="lang" (click)="langToggle()">
+    {{ (currentLang$$ | async)?.toUpperCase() }}
+  </button>
 </div>
