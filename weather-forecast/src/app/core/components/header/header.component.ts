@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { switchMap, tap } from 'rxjs';
 import { LANG, THEME } from 'src/app/constants';
+import { ColorService } from '../../services/color.service';
 import { LanguageService } from '../../services/language.service';
 import { StorageService } from '../../services/storage.service';
 import { ThemeService } from '../../services/theme.service';
@@ -13,10 +14,12 @@ import { ThemeService } from '../../services/theme.service';
 export class HeaderComponent {
   currentLang$$ = this.langService.getLang();
   currentTheme$$ = this.themeService.getTheme();
+  tempColor$$ = this.colorService.emitColor();
   constructor(
     private langService: LanguageService,
     private storage: StorageService,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private colorService:ColorService
   ) {}
 
   langToggle() {
@@ -32,4 +35,5 @@ export class HeaderComponent {
       ? 'background-color: yellow'
       : 'background-color: black';
   }
+  getHeaderColor(){}
 }

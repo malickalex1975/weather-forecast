@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { map, Observable, Subscription, tap } from 'rxjs';
 import { IPlace, LANG, LAST_SEARCH } from 'src/app/constants';
+import { ColorService } from 'src/app/core/services/color.service';
 import { GetCurrentPlaceService } from 'src/app/core/services/get-current-place.service';
 import { HttpService } from 'src/app/core/services/http.service';
 import { RememberPlacesService } from 'src/app/core/services/remember-places.service';
@@ -25,13 +26,16 @@ export class MainComponent implements OnInit, OnDestroy {
   subscription1?: Subscription;
   subscription2?: Subscription;
   subscription3?: Subscription;
+  subscription4?: Subscription;
+  tempColor$$ = this.colorService.emitColor();
   constructor(
     private storage: StorageService,
     private searchService: SearchService,
     private requestService: RequestService,
     private http: HttpService,
     private rememberPlaces: RememberPlacesService,
-    private getCurrentPlace: GetCurrentPlaceService
+    private getCurrentPlace: GetCurrentPlaceService,
+    private colorService: ColorService
   ) {}
 
   ngOnInit(): void {
@@ -74,6 +78,9 @@ export class MainComponent implements OnInit, OnDestroy {
         'metric',
         currentLanguage
       );
+      this.subscription4 = this.currentWeather$.subscribe((weather: any) =>
+        this.colorService.setTemp(weather?.main?.temp)
+      );
     }
   }
   getTime(time: number) {
@@ -85,9 +92,7 @@ export class MainComponent implements OnInit, OnDestroy {
   convertPressure(p: number) {
     return (p * 0.750062).toFixed(0);
   }
-  getColor(t: number) {
-    return t > 0 ? '#f00' : '#4c6df0';
-  }
+
   getFlagStyle(country: string) {
     if (country) {
       return `background-image: url(assets/img/png/${country?.toLowerCase()}.png)`;
@@ -97,5 +102,6 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscription1?.unsubscribe();
     this.subscription2?.unsubscribe();
     this.subscription3?.unsubscribe();
+    this.subscription4?.unsubscribe();
   }
 }

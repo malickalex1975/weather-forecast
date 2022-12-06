@@ -1,11 +1,20 @@
-<div class="header-container">
+<div
+  class="header-container"
+  [style]="
+    'background-image: linear-gradient(#cceeff 30%,' + (tempColor$$ | async) + ' 100%)'
+  "
+>
   <p>{{ "hello" | translate | async }}</p>
   <button
     class="theme"
     (click)="themeToggle()"
     [style]="getStyle(currentTheme$$ | async)"
   ></button>
-  <button class="lang" (click)="langToggle()">
+  <button
+    class="lang"
+    (click)="langToggle()"
+    
+  >
     {{ (currentLang$$ | async)?.toUpperCase() }}
   </button>
 </div>

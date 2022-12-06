@@ -24,14 +24,15 @@
       <div class="flag-small" [style]="getFlagStyle(place.country)"></div>
     </div>
   </div>
-  <div  class='loading'*ngIf="isChosen && !(currentWeather$ | async)"><p>LOADING...</p></div>
+  <div  class='loading'[class.visible]="isChosen && !(currentWeather$ | async)"><p>LOADING...</p></div>
   <div
     class="forecast-container"
-    [class.container-appear]="(isChosen && (currentWeather$ | async)) "
+    *ngrxLet=" currentWeather$ as current "
+    [class.container-appear]="(isChosen && current) "
     (mouseenter)="isMoreInfo=true"
     (mouseleave)="isMoreInfo=false"
     [class.more]="isMoreInfo"
-    *ngrxLet=" currentWeather$ as current "
+    
   >
     <p class="place">{{ current?.name }} , {{ current?.sys?.country }}</p>
     <div class="flag" [style]="getFlagStyle(current?.sys?.country)"></div>
@@ -39,7 +40,7 @@
     <p>{{ current?.weather[0]?.main }}</p>
     <div class="current-temp">
       <p class="description">{{ current?.weather[0]?.description }}</p>
-      <p class="temp" [style]="'color:'+getColor(current?.main?.temp)">
+      <p class="temp" [style]="'color:'+(tempColor$$|async)">
         {{ (current?.main?.temp).toFixed(1) }} ℃
       </p>
       <p class="feels-like">Feels like: {{ (current?.main?.feels_like).toFixed(1) }} ℃</p>
