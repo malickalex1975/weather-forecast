@@ -2,8 +2,13 @@
   margin: 0;
   padding: 0;
 }
+input,
+input:focus {
+  outline: 0;
+  border: transparent;
+  font-size: 16px;
+}
 .main-container {
-  
 }
 
 .input-container {
@@ -20,7 +25,6 @@
   flex-direction: column;
   gap: 20px;
   padding-top: 50px;
-  //transform: scale(0);
   transition: 500ms;
 }
 .forecast-container {
@@ -28,16 +32,17 @@
   margin-right: auto;
   transform: scale(0);
   width: 300px;
-  height: 230px;
+  height: 262px;
   overflow: hidden;
-  //display: flex;
+  display: flex;
+  flex-shrink: 0;
+  flex-grow: 0;
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
   gap: 5px;
   padding: 10px;
   margin-top: 50px;
-  margin-bottom: 100px;
   background-color: rgba($color: #cceeff, $alpha: 0.7);
   box-shadow: 1px 1px 2px rgba(4, 134, 241, 0.5);
   border-radius: 5px;
@@ -47,13 +52,12 @@
     opacity: 1;
     background-color: rgba($color: #cceeff, $alpha: 1);
     box-shadow: 1px 1px 5px rgb(100, 100, 100);
-    
   }
 }
-.more{
-  height:300px;
+.more {
+  height: 390px;
 }
-.container-appear{
+.container-appear {
   transform: scale(1);
 }
 .place-item {
@@ -75,13 +79,12 @@
   }
 }
 .last-places {
-  position:absolute;
-  top:50px;
-  left:10px;
+  position: absolute;
+  top: 50px;
+  left: 10px;
   margin-left: auto;
   margin-right: auto;
   padding-bottom: 100px;
-  
 }
 .current-temp {
   display: flex;
@@ -89,13 +92,13 @@
   align-items: center;
   justify-content: space-evenly;
   width: 180px;
-  height: 150px;
+  min-height: 150px;
   background-color: rgba($color: #fff, $alpha: 1);
   box-shadow: 1px 1px 2px rgb(100, 100, 100);
   border-radius: 5px;
+  margin-bottom: 10px;
 }
 .temp {
- 
   font-size: 24px;
 }
 .feels-like {
@@ -108,25 +111,23 @@
   color: #4c6df0;
   font-size: 24px;
 }
-.flag{
+.flag {
   width: 36px;
-  height: 24px;
+  min-height: 24px;
   background-repeat: no-repeat;
   background-size: cover;
-  
 }
-.flag-small{
+.flag-small {
   width: 22px;
   height: 14px;
   background-repeat: no-repeat;
   background-size: cover;
-  
 }
-.loading{
+.loading {
   display: flex;
   align-items: center;
   justify-content: center;
-  width:300px;
+  width: 300px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 100px;
@@ -134,15 +135,15 @@
   visibility: hidden;
   transform: 100ms;
 }
-.visible{
+.visible {
   opacity: 1;
   visibility: visible;
 }
 
 
-
 @media (max-width: 980px) {
   .last-places {
-    position:static; 
+    position: static;
+    margin: 100px;
   }
 }

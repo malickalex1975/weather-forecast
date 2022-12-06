@@ -2,3 +2,16 @@ html{
     scroll-behavior: smooth;
     user-select: none;
 }
+::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: rgba($color: #000000, $alpha: 0);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    border-radius: 0.815rem;
+    background-color: #cceeff;
+  }

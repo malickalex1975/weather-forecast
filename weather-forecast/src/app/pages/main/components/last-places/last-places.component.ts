@@ -21,7 +21,7 @@ export class LastPlacesComponent {
     this.requestService.setCoords(place.lat, place.lon);
     window.scrollTo(0, 0);
   }
-  clear() {
+  clean() {
     this.rememberPlaces.clearPlaces();
   }
   delete(place:IPlace){

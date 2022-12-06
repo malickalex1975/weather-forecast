@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { switchMap, tap } from 'rxjs';
 import { LANG, THEME } from 'src/app/constants';
 import { ColorService } from '../../services/color.service';
@@ -19,12 +20,17 @@ export class HeaderComponent {
     private langService: LanguageService,
     private storage: StorageService,
     private themeService: ThemeService,
-    private colorService:ColorService
+    private colorService:ColorService,
+    private translateService:TranslateService
   ) {}
 
   langToggle() {
     let newLang = this.storage.getItem(LANG) === 'ru' ? 'en' : 'ru';
     this.langService.setLang(newLang);
+    
+      this.translateService.use(newLang);
+      
+    
   }
   themeToggle() {
     let newTheme = this.storage.getItem(THEME) === 'light' ? 'dark' : 'light';

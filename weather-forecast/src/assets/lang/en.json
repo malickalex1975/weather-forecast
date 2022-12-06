@@ -1,5 +1,14 @@
 {
     "hello":"HELLO",
-    "dark":"dark",
-    "light":"light"
+    "Last searching":"Searching history",
+    "Clean":"Clean history",
+    "There is no bad weather":"There is no bad weather",
+    "Pressure":"Pressure",
+    "Humidity":"Humidity",
+    "Cloudness":"Cloudness",
+    "Wind":"Wind",
+    "Feels like":"Feeels like",
+    "min...max":"min...max",
+    "mmHG":"mmHG",
+    "LOADING":"LOADING"
 }
