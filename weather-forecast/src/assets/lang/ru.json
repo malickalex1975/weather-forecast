@@ -10,5 +10,16 @@
     "Feels like":"Ощущается",
     "min...max":"мин...макс",
     "mmHG":"мм.рт.ст.",
-    "LOADING":"ЗАГРУЗКА"
+    "LOADING":"ЗАГРУЗКА",
+    "search place":"поиск места",
+    "Visibility":"Видимость",
+    "m/s":"м/с",
+    "m":"м",
+    "Now":"Сейчас",
+    "Precipitation":"Осадки",
+    "Air quality in this location":"Качество воздуха в этом месте",
+    "μg/m3":"мкг/м3",
+    "Air quality index":"Индекс качества воздуха",
+    "Pollution concentration":"Концентрация загрязнений",
+    "Use your current position":"Использовать текущее местоположение"
 }

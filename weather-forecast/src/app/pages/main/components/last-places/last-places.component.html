@@ -1,5 +1,5 @@
 <div class="places-container" *ngrxLet="places$$; let places">
-  <p *ngIf="places.length >0">{{'Last searching'| translate}}:</p>
+  <p class="title" *ngIf="places.length >0">{{'Last searching'| translate}}:</p>
   <button
     class="clean"
     (click)="clean()"

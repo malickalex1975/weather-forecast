@@ -10,24 +10,24 @@ export class ColorService {
   constructor() {}
   setTemp(t: number) {
     this.temp = t;
-    this.color$$.next(this.getColorByTemp());
+    this.color$$.next(this.getColorByTemp(this.temp));
   }
-  getColorByTemp() {
-    return this.temp < -10
+  getColorByTemp(temp:number) {
+    return temp < -10
       ? '#00c'
-      : this.temp < 0
+      : temp < 0
       ? '#0ae'
-      : this.temp < 5
+      : temp < 5
       ? '#0fe'
-      : this.temp < 10
+      : temp < 10
       ? '#0fd'
-      : this.temp < 15
+      : temp < 15
       ? '#0fc'
-      : this.temp < 20
+      : temp < 20
       ? '#0fa'
-      : this.temp < 25
+      : temp < 25
       ? '#0f5'
-      : this.temp < 30
+      : temp < 30
       ? '#ea0'
       : '#f00';
   }

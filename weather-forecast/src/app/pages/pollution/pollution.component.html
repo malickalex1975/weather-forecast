@@ -1,0 +1,46 @@
+<div class="main-container" *ngrxLet="pollution$ as pollution">
+  <div class="loading" [class.visible]="!(pollution$ | async)!">
+    <p>{{ "LOADING" | translate }}...</p>
+  </div>
+  <p class="place">{{ place }}</p>
+  <div class="pollution-container">
+    <div class="inner-container" *ngIf="pollution$ | async">
+      <p  class='pollution-index' [style]="getStyle(pollution?.list[0]?.main?.aqi)">
+        {{ "Air quality index" | translate }}: 
+        {{ pollution?.list[0]?.main?.aqi }} ({{ getDescription(pollution?.list[0]?.main?.aqi) | translate }})
+      </p>
+      <p class="pollution-concentration">
+        {{ "Pollution concentration" | translate }}:
+      </p>
+      <p>
+        CO: {{ pollution?.list[0]?.components?.co }} {{ "μg/m3" | translate }}
+      </p>
+      <p>
+        NO: {{ pollution?.list[0]?.components?.no }} {{ "μg/m3" | translate }}
+      </p>
+      <p>
+        NO2: {{ pollution?.list[0]?.components?.no2 }} {{ "μg/m3" | translate }}
+      </p>
+      <p>
+        O3: {{ pollution?.list[0]?.components?.o3 }} {{ "μg/m3" | translate }}
+      </p>
+      <p>
+        SO2: {{ pollution?.list[0]?.components?.so2 }} {{ "μg/m3" | translate }}
+      </p>
+      <p>
+        PM2_5: {{ pollution?.list[0]?.components?.pm2_5 }}
+        {{ "μg/m3" | translate }}
+      </p>
+      <p>
+        PM10: {{ pollution?.list[0]?.components?.pm10 }}
+        {{ "μg/m3" | translate }}
+      </p>
+      <p>
+        NH3: {{ pollution?.list[0]?.components?.nh3 }} {{ "μg/m3" | translate }}
+      </p>
+    </div>
+  </div>
+  <p class="go-back" [routerLink]="['../../../../']">
+    {{ "Back to weather forecast" | translate }}
+  </p>
+</div>

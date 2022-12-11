@@ -1,11 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import {
   API_KEY,
   BASE_GEO_URL,
   CURRENT_WEATHER_URL,
+  FORECAST_URL,
   IPlace,
+  POLLUTION_URL,
 } from 'src/app/constants';
 
 @Injectable({
@@ -27,6 +29,28 @@ export class HttpService {
   ): Observable<any> {
     return this.http.get(
       CURRENT_WEATHER_URL +
+        `lat=${lat}&lon=${lon}&appid=${API_KEY}&units=${units}&lang=${lang}`
+    );
+  }
+  getCurrentPollution(
+    lat: number | undefined,
+    lon: number | undefined
+  ): Observable<any> {
+    if (lat && lon) {
+      return this.http.get(
+        POLLUTION_URL + `lat=${lat}&lon=${lon}&appid=${API_KEY}`
+      );
+    }
+    return of([])
+  }
+  getForecast(
+    lat: number,
+    lon: number,
+    units = 'metric',
+    lang = 'en'
+  ): Observable<any> {
+    return this.http.get(
+      FORECAST_URL +
         `lat=${lat}&lon=${lon}&appid=${API_KEY}&units=${units}&lang=${lang}`
     );
   }

@@ -1,20 +1,40 @@
-<div class="main-container">
+<div class="main-container" *ngrxLet="currentWeather$ as current">
   <div class="input-container">
     <input
       type="search"
       class="input-search"
-      [placeholder]="'search place'"
+      [placeholder]="'search place' | translate"
       [(ngModel)]="searchRequest"
       (ngModelChange)="rememberSearch(); findPlaces()"
       autofocus
     />
+    <div class="radio-container">
+    <input type="checkbox" id="radio-button" [(ngModel)]="isUseCurrentPosition"
+    (ngModelChange)="changeSearch()">
+    <label for="radio-button">{{"Use your current position"|translate}}</label>
   </div>
-
+  </div>
+  <p
+    class="link-pollution"
+    [routerLink]="[
+      '../pollution',
+      current?.coord?.lat,
+      current?.coord?.lon,
+      [current?.name, current?.sys?.country].join(', ')
+    ]"
+    *ngIf="isChosen"
+  >
+    {{ "Air quality in this location" | translate }}...
+  </p>
   <div class="places-container" *ngIf="isChosen == false">
     <div
       class="place-item"
       *ngFor="let place of places$ | async"
-      (click)="getCurrentWeather(place.lat, place.lon); rememberPlace(place)"
+      (click)="
+        getCurrentWeather(place.lat, place.lon);
+        getForecast(place.lat, place.lon);
+        rememberPlace(place)
+      "
     >
       <span>{{ place.name }}</span>
       <span> , </span>
@@ -29,7 +49,6 @@
   </div>
   <div
     class="forecast-container"
-    *ngrxLet="currentWeather$ as current"
     [class.container-appear]="isChosen && current"
     (mouseenter)="isMoreInfo = true"
     (mouseleave)="isMoreInfo = false"
@@ -37,10 +56,14 @@
   >
     <p class="place">{{ current?.name }} , {{ current?.sys?.country }}</p>
     <div class="flag" [style]="getFlagStyle(current?.sys?.country)"></div>
-    <p>{{ getTime(current?.dt) | date : "short" }}</p>
-    <p>{{ current?.weather[0]?.main }}</p>
+    <p>{{ "Now" | translate }}</p>
     <div class="current-temp">
       <p class="description">{{ current?.weather[0]?.description }}</p>
+      <img
+        class="weather-image"
+        src="{{ getIcon(current?.weather[0]?.icon) }}"
+        alt="icon"
+      />
       <p class="temp" [style]="'color:' + (tempColor$$ | async)">
         {{ (current?.main?.temp).toFixed(1) }} ℃
       </p>
@@ -60,7 +83,41 @@
     </p>
     <p>{{ "Humidity" | translate }}: {{ current?.main?.humidity }} %</p>
     <p>{{ "Cloudness" | translate }}: {{ current?.clouds?.all }} %</p>
-    <p>{{ "Wind" | translate }}: {{ current?.wind?.speed }} m/s</p>
+    <div class="wind">
+      {{ "Wind" | translate }}: {{ current?.wind?.speed }}
+      {{ "m/s" | translate }}
+      <div
+        class="wind-deg"
+        [style]="
+          'transform: rotate(' +
+          current?.wind?.deg +
+          'deg)'
+        "
+      >
+        ↓
+      </div>
+    </div>
+    <p>
+      {{ "Visibility" | translate }}: {{ current?.visibility }}
+      {{ "m" | translate }}
+    </p>
+  </div>
+  <div class="common-container" *ngIf="isChosen && (forecast$ | async )as forecast">
+    <div class="forecast-5days-container" *ngrxLet="forecastDays$$ as days">
+      <div class="day" *ngFor="let day of days">
+        <p [class.red-note]="checkWeekend(day[0])">
+          {{ defineDay(day[1], day[2]) }} {{ getDayOfWeek(day[0]) }},
+          {{ getMonth(day[2]) }}, {{ day[1] }}
+        </p>
+        <div class="forecast-5days">
+          <app-forecast-card
+            #forecastCard
+            *ngFor="let weather of forecast.list | chooseDate : day[1]"
+            [weather]="weather"
+          ></app-forecast-card>
+        </div>
+      </div>
+    </div>
   </div>
   <app-last-places class="last-places"></app-last-places>
 </div>

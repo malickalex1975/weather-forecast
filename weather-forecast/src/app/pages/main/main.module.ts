@@ -9,9 +9,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { LastPlacesComponent } from './components/last-places/last-places.component';
 import { LetModule } from '@ngrx/component';
 import { TranslateModule } from '@ngx-translate/core';
+import { ForecastCardComponent } from './components/forecast-card/forecast-card.component';
 
 @NgModule({
-  declarations: [MainComponent, NotFoundComponent, LastPlacesComponent],
+  declarations: [MainComponent, NotFoundComponent, LastPlacesComponent, ForecastCardComponent],
   imports: [
     CommonModule,
     MainRoutingModule,

@@ -4,6 +4,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SharedModule } from '../shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -14,7 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
   ],
   imports: [
     CommonModule,
-    SharedModule, TranslateModule
+    SharedModule, TranslateModule, RouterModule
   ],
   exports:[HeaderComponent,FooterComponent]
 })

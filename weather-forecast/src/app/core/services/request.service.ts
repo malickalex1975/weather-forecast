@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { LAST_SEARCH } from 'src/app/constants';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RequestService {
-  request$$ = new BehaviorSubject('');
+  request$$ = new BehaviorSubject(this.storage.getItem(LAST_SEARCH));
   coords$$ = new BehaviorSubject<[number | undefined, number | undefined]>([
     undefined,
     undefined,
   ]);
-  constructor() {}
+  constructor(private storage:StorageService) {}
 
   getRequest() {
     return this.request$$;

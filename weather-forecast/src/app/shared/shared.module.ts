@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ChooseDatePipe } from './pipes/choose-date.pipe';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ChooseDatePipe
+  ],
   imports: [CommonModule,FormsModule],
-  exports: [ FormsModule],
+  exports: [ FormsModule,ChooseDatePipe],
 })
 export class SharedModule {}

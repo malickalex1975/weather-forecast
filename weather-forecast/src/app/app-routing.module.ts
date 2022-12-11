@@ -8,6 +8,11 @@ const routes: Routes = [
       import('./pages/main/main.module').then((m) => m.MainModule),
   },
   {
+    path: 'pollution/:lat/:lon/:place',
+    loadChildren: () =>
+      import('./pages/pollution/pollution.module').then((m) => m.PollutionModule),
+  },
+  {
     path: '',
     loadChildren: () =>
       import('./pages/main/main.module').then((m) => m.MainModule),

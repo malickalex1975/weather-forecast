@@ -1,0 +1,53 @@
+<div
+class="forecast-container"
+
+(mouseenter)="isMore=true"
+(mouseleave)="isMore=false"
+>
+<div class="inner-container" [class.full-card]="isMore">
+<p>{{ getTime(weather?.dt!)}}</p>
+<div class="current-temp" [class.wide]="isMore">
+  <p class="description" [class.visible]="isMore">{{ weather?.weather![0].description }}</p>
+  <img
+    class="weather-image"
+    src="{{ getIcon(weather?.weather![0].icon) }}"
+    alt="icon"
+  />
+  <p class="temp" [style]="'color:' + getColor(weather?.main?.temp!)">
+    {{ (weather?.main?.temp)?.toFixed(1) }} ℃
+  </p>
+  <p class="feels-like" [class.visible]="isMore">
+    {{ "Feels like" | translate }}:
+    {{ (weather?.main?.feels_like)?.toFixed(1) }} ℃
+  </p>
+</div>
+<p>
+  {{ "Pressure" | translate }}:
+  {{ convertPressure(weather?.main?.pressure!) }} {{ "mmHG" | translate }}
+</p>
+<p>{{ "Humidity" | translate }}: {{ weather?.main?.humidity }} %</p>
+<p>{{ "Cloudness" | translate }}: {{ weather?.clouds?.all }} %</p>
+<div class="wind">
+  {{ "Wind" | translate }}: {{ weather?.wind?.speed }}
+  {{ "m/s" | translate }}
+  <div
+  class="wind-deg"
+  [style]="
+    'transform: rotate(' +
+    weather?.wind?.deg +
+    'deg)'
+  "
+>
+  ↓
+</div>
+</div>
+<p>
+  {{ "Visibility" | translate }}: {{ weather?.visibility }}
+  {{ "m" | translate }}
+</p>
+<p>
+  {{ "Precipitation" | translate }}: {{ (weather?.pop! *100).toFixed(0)}}%
+ 
+</p>
+</div>
+</div>

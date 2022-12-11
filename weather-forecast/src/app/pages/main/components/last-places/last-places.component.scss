@@ -49,11 +49,15 @@
   cursor: pointer;
   opacity: 0.7;
   background-color: transparent;
+  color: #4c6df0;
   &:hover {
     opacity: 1;
     background-color: rgba($color: #cceeff, $alpha: 1);
     box-shadow: 1px 1px 5px rgb(100, 100, 100);
     transition: 200ms;
+  }
+  &:active {
+    background-color: #fff;
   }
 }
 
@@ -94,5 +98,8 @@
   height: 14px;
   background-repeat: no-repeat;
   background-size: cover;
-  
+}
+.title{
+  color: #4c6df0;
+  font-size: 20px;
 }
