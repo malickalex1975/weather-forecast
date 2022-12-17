@@ -29,9 +29,10 @@ export class SearchService {
       switchMap(() => this.requestService.getRequest()),
       debounceTime(1000),
       switchMap((request) => {
-        if (!request) {request=' '}
+        if (request) {
+        this.requestService.setListRequests(request)
           return this.http.getPlaces(request);
-        
+        } else return of([])
       })
     );
   }

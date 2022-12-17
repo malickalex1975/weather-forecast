@@ -21,5 +21,14 @@
     "μg/m3":"мкг/м3",
     "Air quality index":"Индекс качества воздуха",
     "Pollution concentration":"Концентрация загрязнений",
-    "Use your current position":"Использовать текущее местоположение"
+    "Use your current position":"Использовать текущее местоположение",
+    "Back to weather forecast":"Назад к прогнозу погоды",
+    "3h":"3ч",
+    "1h":"1ч",
+    "mm":"мм",
+    "Excellent":"Отлично",
+    "Good":"Хорошо", 
+    "Lightly Polluted":"Легкое загрязнение",
+    "Moderately Polluted":"Среднее загрязнение",
+    "Heavily Polluted":"Сильное загрязнение"
 }

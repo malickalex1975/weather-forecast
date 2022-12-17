@@ -1,8 +1,14 @@
+.outer-container{
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 11;
+}
 .header-container {
   position: sticky;
   top: 0;
   left: 0;
-  height: 50px;
+  height: 80px;
   width: 100wv;
   display: flex;
   align-items: center;
@@ -10,7 +16,7 @@
   gap: 100px;
   padding-right: 20px;
   z-index: 11;
-  transition: 1s;
+  transition: .2s;
 }
 .lang {
   display: flex;

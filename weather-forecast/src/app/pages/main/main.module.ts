@@ -10,9 +10,11 @@ import { LastPlacesComponent } from './components/last-places/last-places.compon
 import { LetModule } from '@ngrx/component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ForecastCardComponent } from './components/forecast-card/forecast-card.component';
+import { WeatherForecastComponent } from './components/weather-forecast/weather-forecast.component';
+import { PollutionForecastElementComponent } from './components/pollution-forecast-element/pollution-forecast-element.component';
 
 @NgModule({
-  declarations: [MainComponent, NotFoundComponent, LastPlacesComponent, ForecastCardComponent],
+  declarations: [MainComponent, NotFoundComponent, LastPlacesComponent, ForecastCardComponent, WeatherForecastComponent, PollutionForecastElementComponent],
   imports: [
     CommonModule,
     MainRoutingModule,
@@ -22,6 +24,7 @@ import { ForecastCardComponent } from './components/forecast-card/forecast-card.
     TranslateModule
     
     
-  ]
+  ],
+  exports:[PollutionForecastElementComponent]
 })
 export class MainModule { }

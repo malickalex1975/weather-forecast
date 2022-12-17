@@ -55,6 +55,13 @@
 .wide {
   width: 200px;
   height: 150px;
+  & .temp{
+    font-size: 24px;
+  }
+   & .weather-image {
+    width: 50px;
+    height: 50px;
+  }
 }
 .temp {
   font-size: 24px;
@@ -82,15 +89,20 @@
 }
 
 .full-card {
-  z-index: 10;
+  z-index: 13;
   transition: 200ms;
   width: 220px;
-  height: 300px;
+  height: 360px;
   opacity: 1;
 }
 .wind {
   display: flex;
   gap: 10px;
+}
+.wind-deg{
+  color: #4c6df0;
+  font-size: 20px;
+  margin-top: -5px;
 }
 @media (max-width: 1040px) {
   .forecast-container {
@@ -118,7 +130,7 @@
   }
   .full-card {
     width: 180px;
-    height: 300px;
+    height: 340px;
   }
   p{
     font-size: 14px;
@@ -150,7 +162,7 @@
   }
   .full-card {
     width: 160px;
-    height: 300px;
+    height: 340px;
   }
   p{
     font-size: 14px;
@@ -182,7 +194,7 @@
   }
   .full-card {
     width: 160px;
-    height: 300px;
+    height: 340px;
   }
   p{
     font-size: 14px;

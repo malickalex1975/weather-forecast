@@ -1,20 +1,17 @@
-<div
-  class="header-container"
-  [style]="
-    'background-image: linear-gradient(#cceeff 30%,' + (tempColor$$ | async) + ' 100%)'
-  "
->
-  <p class="phrase">{{ "There is no bad weather" | translate  }}...</p>
-  <button
-    class="theme"
-    (click)="themeToggle()"
-    [style]="getStyle(currentTheme$$ | async)"
-  ></button>
-  <button
-    class="lang"
-    (click)="langToggle()"
-    
+<div class="outer-container" *ngrxLet="posY$$ as posY">
+  <div
+    *ngrxLet="tempColor$$ as tempColor"
+    class="header-container"
+    [style]="getHeaderColor(tempColor, posY)"
   >
-    {{ (currentLang$$ | async)?.toUpperCase() }}
-  </button>
+    <p class="phrase">{{ "There is no bad weather" | translate }}...</p>
+    <button
+      class="theme"
+      (click)="themeToggle()"
+      [style]="getStyle(currentTheme$$ | async)"
+    ></button>
+    <button class="lang" (click)="langToggle()">
+      {{ (currentLang$$ | async)?.toUpperCase() }}
+    </button>
+  </div>
 </div>

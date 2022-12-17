@@ -5,6 +5,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SharedModule } from '../shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
+import { LetModule } from '@ngrx/component';
 
 
 
@@ -15,7 +16,7 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    SharedModule, TranslateModule, RouterModule
+    SharedModule, TranslateModule, RouterModule, LetModule,
   ],
   exports:[HeaderComponent,FooterComponent]
 })

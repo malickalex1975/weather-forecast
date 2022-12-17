@@ -3,15 +3,26 @@ export const THEME = 'THEME';
 export const LAST_SEARCH = 'LAST_SEARCH';
 export const LAST_PLACES = 'LAST_PLACES';
 export const LAST_COORD = 'LAST_COORD';
+export const LIST_REQUESTS = 'LIST_REQUESTS';
 export const USE_CURRENT_POSITION = 'USE_CURRENT_POSITION';
 export const API_KEY = '9ce0d03cd9b9459245da9121910dfdb1';
 export const BASE_GEO_URL = 'https://api.openweathermap.org/geo/1.0/direct';
 export const CURRENT_WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather?';
 export const FORECAST_URL = 'https://api.openweathermap.org/data/2.5/forecast?';
 export const POLLUTION_URL = 'https://api.openweathermap.org/data/2.5/air_pollution?';
+export const FORECAST_POLLUTION_URL = 'https://api.openweathermap.org/data/2.5/air_pollution/forecast?';
 export const BASE_ICON_URL = 'https://openweathermap.org/img/wn/';
 export const ENDPOINT_ICON = '@2x.png';
-
+export const POLLUTION_MAX={
+  CO:3000,
+  NO:60,
+  NO2:40,
+  O3:50,
+  SO2:40,
+  PM2_5:30,
+  PM10:50,
+  HN3:200,
+}
 export interface IPlace {
   lat?: number;
   lon?: number;

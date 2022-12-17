@@ -2,45 +2,119 @@
   <div class="loading" [class.visible]="!(pollution$ | async)!">
     <p>{{ "LOADING" | translate }}...</p>
   </div>
-  <p class="place">{{ place }}</p>
+  <p class="place" [routerLink]="['../../../../forecast', lat, lon]">
+    {{ place }} 
+  </p>
   <div class="pollution-container">
     <div class="inner-container" *ngIf="pollution$ | async">
-      <p  class='pollution-index' [style]="getStyle(pollution?.list[0]?.main?.aqi)">
-        {{ "Air quality index" | translate }}: 
-        {{ pollution?.list[0]?.main?.aqi }} ({{ getDescription(pollution?.list[0]?.main?.aqi) | translate }})
+      <p
+        class="pollution-index"
+        [style]="getStyle(pollution?.list[0]?.main?.aqi)"
+      >
+        {{ "Air quality index" | translate }}:
+        {{ pollution?.list[0]?.main?.aqi }} ({{
+          getDescription(pollution?.list[0]?.main?.aqi) | translate
+        }})
       </p>
       <p class="pollution-concentration">
         {{ "Pollution concentration" | translate }}:
       </p>
-      <p>
-        CO: {{ pollution?.list[0]?.components?.co }} {{ "μg/m3" | translate }}
-      </p>
-      <p>
+      <div class="component">
+        <p class="component-title">
+          CO: {{ pollution?.list[0]?.components?.co }} {{ "μg/m3" | translate }}
+        </p>
+        <div class="wrapper">
+          <div class="diagram">
+            <div class="arrow" [style]="getCOStyle(pollution?.list[0]?.components?.co)">⌂</div>
+          </div>  
+      </div>
+      </div>
+      <div class="component">
+      <p class="component-title">
         NO: {{ pollution?.list[0]?.components?.no }} {{ "μg/m3" | translate }}
       </p>
-      <p>
-        NO2: {{ pollution?.list[0]?.components?.no2 }} {{ "μg/m3" | translate }}
+      <div class="wrapper">
+        <div class="diagram">
+          <div class="arrow" [style]="getNOStyle(pollution?.list[0]?.components?.no)">⌂</div>
+        </div>  
+    </div>
+    </div>
+    <div class="component">
+      <p class="component-title">
+        NO<sub>2</sub>: {{ pollution?.list[0]?.components?.no2 }} {{ "μg/m3" | translate }}
       </p>
-      <p>
-        O3: {{ pollution?.list[0]?.components?.o3 }} {{ "μg/m3" | translate }}
+      <div class="wrapper">
+        <div class="diagram">
+          <div class="arrow" [style]="getNO2Style(pollution?.list[0]?.components?.no2)">⌂</div>
+        </div>  
+    </div>
+    </div>
+    <div class="component">
+      <p class="component-title">
+        O<sub>3</sub>: {{ pollution?.list[0]?.components?.o3 }} {{ "μg/m3" | translate }}
       </p>
-      <p>
-        SO2: {{ pollution?.list[0]?.components?.so2 }} {{ "μg/m3" | translate }}
+      <div class="wrapper">
+        <div class="diagram">
+          <div class="arrow" [style]="getO3Style(pollution?.list[0]?.components?.o3)">⌂</div>
+        </div>  
+    </div>
+    </div>
+    <div class="component">
+      <p class="component-title">
+        SO<sub>2</sub>: {{ pollution?.list[0]?.components?.so2 }} {{ "μg/m3" | translate }}
       </p>
-      <p>
-        PM2_5: {{ pollution?.list[0]?.components?.pm2_5 }}
+      <div class="wrapper">
+        <div class="diagram">
+          <div class="arrow" [style]="getSO2Style(pollution?.list[0]?.components?.so2)">⌂</div>
+        </div>  
+    </div>
+    </div>
+    <div class="component">
+      <p class="component-title">
+        PM<sub>2.5</sub>: {{ pollution?.list[0]?.components?.pm2_5 }}
         {{ "μg/m3" | translate }}
       </p>
-      <p>
-        PM10: {{ pollution?.list[0]?.components?.pm10 }}
+      <div class="wrapper">
+        <div class="diagram">
+          <div class="arrow" [style]="getPM2_5Style(pollution?.list[0]?.components?.pm2_5)">⌂</div>
+        </div>  
+    </div>
+    </div>
+    <div class="component">
+      <p class="component-title">
+        PM<sub>10</sub>: {{ pollution?.list[0]?.components?.pm10 }}
         {{ "μg/m3" | translate }}
       </p>
-      <p>
-        NH3: {{ pollution?.list[0]?.components?.nh3 }} {{ "μg/m3" | translate }}
+      <div class="wrapper">
+        <div class="diagram">
+          <div class="arrow" [style]="getPM10Style(pollution?.list[0]?.components?.pm10)">⌂</div>
+        </div>  
+    </div>
+    </div>
+    <div class="component">
+      <p class="component-title">
+        NH<sub>3</sub>: {{ pollution?.list[0]?.components?.nh3 }} {{ "μg/m3" | translate }}
       </p>
+      <div class="wrapper">
+        <div class="diagram">
+          <div class="arrow" [style]="getHN3Style(pollution?.list[0]?.components?.hn3)">⌂</div>
+        </div>  
+    </div>
+    </div>
     </div>
   </div>
-  <p class="go-back" [routerLink]="['../../../../']">
+  <div class="pollution-forecast-container" *ngrxLet="pollutionForecast$ as forecast">
+    <div class="pollution-forecast">
+    <app-pollution-forecast-element [forecast]="forecast" [index]="'co'">
+    </app-pollution-forecast-element>
+  </div>
+    <div class="pollution-forecast">
+    <app-pollution-forecast-element [forecast]="forecast" [index]="'pm10'">
+    </app-pollution-forecast-element>
+  </div>
+</div>
+  
+  <p class="go-back" [routerLink]="['../../../../forecast', lat, lon]">
     {{ "Back to weather forecast" | translate }}
   </p>
 </div>

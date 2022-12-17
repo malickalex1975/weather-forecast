@@ -5,6 +5,7 @@ import {
   API_KEY,
   BASE_GEO_URL,
   CURRENT_WEATHER_URL,
+  FORECAST_POLLUTION_URL,
   FORECAST_URL,
   IPlace,
   POLLUTION_URL,
@@ -39,6 +40,17 @@ export class HttpService {
     if (lat && lon) {
       return this.http.get(
         POLLUTION_URL + `lat=${lat}&lon=${lon}&appid=${API_KEY}`
+      );
+    }
+    return of([])
+  }
+  getPollutionForecast(
+    lat: number | undefined,
+    lon: number | undefined
+  ): Observable<any> {
+    if (lat && lon) {
+      return this.http.get(
+        FORECAST_POLLUTION_URL + `lat=${lat}&lon=${lon}&appid=${API_KEY}`
       );
     }
     return of([])

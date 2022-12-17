@@ -14,6 +14,7 @@ export class PollutionComponent implements OnInit {
   lon?: number;
   place = '';
   pollution$?: Observable<any>;
+  pollutionForecast$?: Observable<any>;
   subscription?: Subscription;
   constructor(
     private route: ActivatedRoute,
@@ -27,15 +28,58 @@ export class PollutionComponent implements OnInit {
       this.place = params['place'];
     });
     this.pollution$ = this.http.getCurrentPollution(this.lat, this.lon);
+    this.pollutionForecast$ = this.http.getPollutionForecast(this.lat, this.lon);
   }
 
-getDescription(level:number){
-  return this.pollutionService.getPollutionDescription(level)
-}
-getStyle(level:number){
-  return `background-color: ${this.pollutionService.getPollutionColor(level)}`
-}
+  getDescription(level: number) {
+    return this.pollutionService.getPollutionDescription(level);
+  }
+  getStyle(level: number) {
+    return `background-color: ${this.pollutionService.getPollutionColor(
+      level
+    )}`;
+  }
 
+  getCOStyle(level: number) {
+    let percent = this.pollutionService.getCOPercent(level);
+    let leftPoint = 150 * percent - 7;
+    return `left: ${leftPoint}px`;
+  }
+  getNOStyle(level: number) {
+    let percent = this.pollutionService.getNOPercent(level);
+    let leftPoint = 150 * percent - 7;
+    return `left: ${leftPoint}px`;
+  }
+  getNO2Style(level: number) {
+    let percent = this.pollutionService.getNO2Percent(level);
+    let leftPoint = 150 * percent - 7;
+    return `left: ${leftPoint}px`;
+  }
+  getO3Style(level: number) {
+    let percent = this.pollutionService.getO3Percent(level);
+    let leftPoint = 150 * percent - 7;
+    return `left: ${leftPoint}px`;
+  }
+  getSO2Style(level: number) {
+    let percent = this.pollutionService.getSO2Percent(level);
+    let leftPoint = 150 * percent - 7;
+    return `left: ${leftPoint}px`;
+  }
+  getPM2_5Style(level: number) {
+    let percent = this.pollutionService.getPM2_5Percent(level);
+    let leftPoint = 150 * percent - 7;
+    return `left: ${leftPoint}px`;
+  }
+  getPM10Style(level: number) {
+    let percent = this.pollutionService.getPM10Percent(level);
+    let leftPoint = 150 * percent - 7;
+    return `left: ${leftPoint}px`;
+  }
+  getHN3Style(level: number) {
+    let percent = this.pollutionService.getHN3Percent(level);
+    let leftPoint = 150 * percent - 7;
+    return `left: ${leftPoint}px`;
+  }
   ngOnDestroy() {
     this.subscription?.unsubscribe();
   }

@@ -1,0 +1,27 @@
+<div class="main-container">
+  <div class="arrows">↔</div>
+  <div class="forecast-5days-container" *ngrxLet="forecastDays$$ as days" 
+  >
+    <div class="day" *ngFor="let day of days">
+      <p [class.red-note]="checkWeekend(day[0])">
+        {{ defineDay(day[1], day[2]) }} {{ getDayOfWeek(day[0]) }},
+        {{ getMonth(day[2]) }}, {{ day[1] }}
+      </p>
+      <p class="index">({{ index.toUpperCase() }}) {{ "μg/m3" | translate }}</p>
+      <div class="diagramm-container">
+        <div
+          class="diagramm-element"
+          *ngFor="let item of forecast?.list | chooseDate : day[1]"
+          [style]="getElementStyle(item?.components?.[index])"
+          (mouseenter)="hovered = item"
+          (mouseleave)="hovered = null"
+        >
+          <div class="more" [class.invisible]="hovered !== item">
+            <p>{{getTime(item?.dt)}}</p>
+            <p>{{item?.components?.[index]}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

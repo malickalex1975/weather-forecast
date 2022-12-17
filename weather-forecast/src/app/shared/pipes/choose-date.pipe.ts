@@ -6,7 +6,7 @@ import { IWeather } from 'src/app/constants';
 })
 export class ChooseDatePipe implements PipeTransform {
 
-  transform(value: IWeather[], date: number): IWeather[]{
+  transform(value: IWeather[], date: number): any[]{
     let out=value.filter(i=>new Date((i.dt!)*1000).getDate()===date)
     
     return out

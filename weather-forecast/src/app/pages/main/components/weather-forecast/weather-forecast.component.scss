@@ -2,55 +2,12 @@
   margin: 0;
   padding: 0;
 }
-input,
-input:focus {
-  outline: 0;
-  border: transparent;
-  font-size: 16px;
-}
-.main-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.input-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-top: 50px;
-  gap:20px;
-}
-.radio-container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap:10px;
-  & label{
-    color: #4c6df0;
-    font-size: 20px;
-  }
-}
-
-.places-container {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 20px;
-  padding-top: 50px;
-  transition: 500ms;
-}
 .forecast-container {
   margin-left: auto;
   margin-right: auto;
   transform: scale(0);
   width: 300px;
-  height: 240px;
+  height: 0px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -68,43 +25,20 @@ input:focus {
     background-color: rgba($color: #cceeff, $alpha: 1);
     box-shadow: 1px 1px 5px rgb(100, 100, 100);
   }
+
   &:hover .current-temp {
     box-shadow: 1px 1px 5px rgb(100, 100, 100);
     transition: 200ms;
   }
 }
 .more {
-  height: 390px;
+  height: 410px;
 }
 .container-appear {
   transform: scale(1);
+  min-height: 240px;
 }
-.place-item {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 300px;
-  min-width: 50px;
-  height: fit-content;
-  opacity: 0.7;
-  background-color: rgba($color: #cceeff, $alpha: 0.7);
-  box-shadow: 1px 1px 2px rgb(4, 134, 241);
-  &:hover {
-    opacity: 1;
-    background-color: rgba($color: #cceeff, $alpha: 1);
-    box-shadow: 1px 1px 5px rgb(100, 100, 100);
-    transition: 200ms;
-  }
-}
-.last-places {
-  position: absolute;
-  top: 50px;
-  left: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-bottom: 100px;
-}
+
 .current-temp {
   display: flex;
   flex-direction: column;
@@ -166,9 +100,10 @@ input:focus {
   width: 50px;
   height: 50px;
 }
-.common-container{
+.common-container {
   margin-left: 130px;
   margin-right: 130px;
+  margin-bottom: 150px;
 }
 .forecast-5days {
   display: flex;
@@ -194,6 +129,11 @@ input:focus {
   display: flex;
   gap: 10px;
 }
+.wind-deg {
+  color: #4c6df0;
+  font-size: 20px;
+  margin-top: -5px;
+}
 .red-note {
   color: red;
 }
@@ -205,51 +145,20 @@ input:focus {
   margin-top: 20px;
   margin-bottom: 20px;
   padding-left: 10px;
- 
+
   & p {
     font-size: 20px;
   }
 }
 
-.link-pollution{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  width:280px;
-  padding: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  color: #4c6df0;
-  margin-top: 40px;
-  cursor: pointer;
-  opacity: 0.7;
-  &:hover {
-    opacity: 1;
-    background-color: rgba($color: #cceeff, $alpha: 1);
-    box-shadow: 1px 1px 5px rgb(100, 100, 100);
-    transition: 200ms;
-  }
-  &:active {
-    background-color: #fff;
-  }
-}
-@media (max-width: 1040px) {
-  .last-places {
-    position: static;
-    margin: 100px;
-  }
-}
 @media (max-width: 880px) {
-  .common-container{
+  .common-container {
     margin-left: 100px;
     margin-right: 100px;
   }
-  
 }
 @media (max-width: 640px) {
-  .day > p{
-font-size: 16px;
+  .day > p {
+    font-size: 16px;
   }
-
 }
