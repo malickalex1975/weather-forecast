@@ -7,12 +7,13 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { LetModule } from '@ngrx/component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { StartPageComponent } from './pages/start-page/start-page.component';
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
   return new TranslateHttpLoader(http, './assets/lang/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, StartPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

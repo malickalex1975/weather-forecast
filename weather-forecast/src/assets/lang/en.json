@@ -30,5 +30,7 @@
     "Good":"Good", 
     "Lightly Polluted":"Lightly Polluted",
     "Moderately Polluted":"Moderately Polluted",
-    "Heavily Polluted":"Heavily Polluted"
+    "Heavily Polluted":"Heavily Polluted",
+    "Welcome to the App":"Welcome to the App!",
+    "I hope you will like my weather forecast service":"I hope you will like my weather forecast service."
 }

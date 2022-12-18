@@ -35,12 +35,11 @@
   font-size: 24px;
   border-radius: 50%;
   border: 2px solid #4c6df0;
+  background-color: rgba($color: #cceeff, $alpha: 1);
   color: #4c6df0;
-  opacity: 0.7;
   cursor: pointer;
   &:hover {
-    opacity: 1;
-    background-color: rgba($color: #cceeff, $alpha: 1);
+    background-color: rgba($color: #ddffff, $alpha: 1);
     transition: 200ms;
   }
   &:active {

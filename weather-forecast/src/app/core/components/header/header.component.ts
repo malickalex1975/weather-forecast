@@ -45,6 +45,6 @@ export class HeaderComponent {
   }
   getHeaderColor(color:string, posY:number) {
     if (posY===0){return `background-image: linear-gradient(#cceeff 30%, ${color} 100%)`}
-    return `background-image: linear-gradient(${color} 10%, #cceeff 100%); height:50px;`
+    return `background-image: linear-gradient(${color} 10%, rgba(204, 238, 255, 0.8 ) 100%); height:50px;`
   }
 }
