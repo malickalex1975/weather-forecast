@@ -10,8 +10,20 @@
       (click)="themeToggle()"
       [style]="getStyle(currentTheme$$ | async)"
     ></button>
-    <button class="lang" (click)="langToggle()">
+    <button mat-icon-button class="lang" (click)="langToggle()">
       {{ (currentLang$$ | async)?.toUpperCase() }}
     </button>
+   
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu_vert</mat-icon>
+    </button>
+  
+  <mat-menu  #menu>
+    <ng-container>
+    <button mat-menu-item [routerLink]='["./about"]'>{{"About developer"|translate}}</button>
+    <button mat-menu-item (click)="exit()">{{"Exit"|translate}}</button>
+    </ng-container>
+  </mat-menu>
+
   </div>
 </div>

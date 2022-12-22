@@ -2,9 +2,12 @@
   <div class="loading" [class.visible]="!(pollution$ | async)!">
     <p>{{ "LOADING" | translate }}...</p>
   </div>
-  <p class="place" [routerLink]="['../../../../forecast', lat, lon]">
+  <div class="place" [routerLink]="['../../../../forecast', lat, lon]">
+    <mat-icon>arrow_back</mat-icon>
+  <p >
     {{ place }} 
   </p>
+</div>
   <div class="pollution-container">
     <div class="inner-container" *ngIf="pollution$ | async">
       <p
@@ -114,7 +117,8 @@
   </div>
 </div>
   
-  <p class="go-back" [routerLink]="['../../../../forecast', lat, lon]">
-    {{ "Back to weather forecast" | translate }}
-  </p>
+  <div class="go-back" [routerLink]="['../../../../forecast', lat, lon]">
+    <mat-icon>arrow_back</mat-icon>
+    <p>{{ "Back to weather forecast" | translate }}</p>
+  </div>
 </div>

@@ -12,19 +12,23 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ForecastCardComponent } from './components/forecast-card/forecast-card.component';
 import { WeatherForecastComponent } from './components/weather-forecast/weather-forecast.component';
 import { PollutionForecastElementComponent } from './components/pollution-forecast-element/pollution-forecast-element.component';
+import { MaterialModule } from 'src/app/material/material.module';
+import { DeveloperComponent } from './components/developer/developer.component';
+import { AboutComponent } from '../about/about.component';
 
 @NgModule({
-  declarations: [MainComponent, NotFoundComponent, LastPlacesComponent, ForecastCardComponent, WeatherForecastComponent, PollutionForecastElementComponent],
+  declarations: [MainComponent, NotFoundComponent, LastPlacesComponent, ForecastCardComponent, WeatherForecastComponent, PollutionForecastElementComponent, DeveloperComponent, AboutComponent],
   imports: [
     CommonModule,
     MainRoutingModule,
     CoreModule,
     SharedModule,
     LetModule,
-    TranslateModule
+    TranslateModule,
+    MaterialModule
     
     
   ],
-  exports:[PollutionForecastElementComponent]
+  exports:[PollutionForecastElementComponent, MaterialModule]
 })
 export class MainModule { }

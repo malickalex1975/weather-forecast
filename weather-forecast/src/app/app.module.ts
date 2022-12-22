@@ -8,8 +8,11 @@ import { LetModule } from '@ngrx/component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { StartPageComponent } from './pages/start-page/start-page.component';
+import { SharedModule } from './shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AboutComponent } from './pages/about/about.component';
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
-  return new TranslateHttpLoader(http, './assets/lang/', '.json');
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -18,8 +21,10 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
     BrowserModule,
     AppRoutingModule,
     CoreModule,
+    SharedModule,
     HttpClientModule,
     LetModule,
+    BrowserAnimationsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
 import { LetModule } from '@ngrx/component';
+import { MaterialModule } from '../material/material.module';
 
 
 
@@ -16,7 +17,7 @@ import { LetModule } from '@ngrx/component';
   ],
   imports: [
     CommonModule,
-    SharedModule, TranslateModule, RouterModule, LetModule,
+    SharedModule, TranslateModule, RouterModule, LetModule, MaterialModule
   ],
   exports:[HeaderComponent,FooterComponent]
 })

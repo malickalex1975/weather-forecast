@@ -1,0 +1,13 @@
+<section class="cards-wrapper">
+    <section class="cards-container">
+      <app-developer
+        *ngFor="let developer of (developers$|async); index as i"
+        [developer]="developer"
+        [index]="i"
+        class="card"></app-developer>
+    </section>
+    <div class="to-app" [routerLink]="['../']">
+        <mat-icon>arrow_back</mat-icon>
+        <p>{{ "Go to App" | translate }}</p>
+      </div>
+  </section>

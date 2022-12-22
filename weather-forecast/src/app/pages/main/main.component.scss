@@ -7,6 +7,7 @@ input:focus {
   outline: 0;
   border: transparent;
   font-size: 16px;
+  padding-left: 30px;
 }
 .main-container {
   display: flex;
@@ -23,6 +24,14 @@ input:focus {
   align-items: center;
   padding-top: 50px;
   gap:20px;
+}
+.icon-search{
+  position: relative;
+  top:45px;
+  left:-95px;
+  color: #4c6df0;
+  font-size: 18px;
+
 }
 .radio-container{
   display: flex;

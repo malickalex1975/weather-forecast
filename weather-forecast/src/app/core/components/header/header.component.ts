@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { switchMap, tap } from 'rxjs';
 import { LANG, THEME } from 'src/app/constants';
 import { ColorService } from '../../services/color.service';
 import { LanguageService } from '../../services/language.service';
@@ -45,6 +44,7 @@ export class HeaderComponent {
   }
   getHeaderColor(color:string, posY:number) {
     if (posY===0){return `background-image: linear-gradient(#cceeff 30%, ${color} 100%)`}
-    return `background-image: linear-gradient(${color} 10%, rgba(204, 238, 255, 0.8 ) 100%); height:50px;`
+    return `background-image: linear-gradient(${color} 10%, rgba(204, 238, 255, 0.9 ) 100%); height:50px;`
   }
+  exit(){}
 }

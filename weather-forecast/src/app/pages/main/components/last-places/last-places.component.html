@@ -1,22 +1,26 @@
 <div class="places-container" *ngrxLet="places$$; let places">
-  <p class="title" *ngIf="places.length >0">{{'Last searching'| translate}}:</p>
-  <button
-    class="clean"
-    (click)="clean()"
-    *ngIf="places.length >0"
-  >
-    {{'Clean'|translate}}
+  <p class="title" *ngIf="places.length > 0">
+    {{ "Last searching" | translate }}:
+  </p>
+  <button class="clean" (click)="clean()" *ngIf="places.length > 0">
+    {{ "Clean" | translate }}
   </button>
   <div
     class="main-container"
     *ngFor="let place of places"
-    (click)="callPlace(place)"
-    (mouseenter)="hovered = place" (mouseleave)="hovered = null"
+    [matMenuTriggerFor]="menu"
   >
     <div class="item-container">
       {{ place?.name }}, {{ place?.country }}, {{ place?.state }}
     </div>
+    <mat-menu #menu>
+      <button mat-menu-item class="menu-button" (click)="callPlace(place)">
+        <mat-icon>arrow_back_ios</mat-icon>{{ "Go to" | translate }} {{ place.name }}
+      </button>
+      <button mat-menu-item class="menu-button" (click)="delete(place)">
+       <mat-icon>delete</mat-icon> {{ "Delete" | translate }} {{ place.name }}
+      </button>
+    </mat-menu>
     <div class="flag" [style]="getFlagStyle(place.country)"></div>
-    <p class="delete" [class.visible]="hovered==place"(click)="delete(place)">x</p>
   </div>
 </div>
