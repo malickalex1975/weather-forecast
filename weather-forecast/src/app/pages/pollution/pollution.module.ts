@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MainModule } from '../main/main.module';
 
 
+
 @NgModule({
   declarations: [
     PollutionComponent
@@ -17,6 +18,7 @@ import { MainModule } from '../main/main.module';
     LetModule,
     TranslateModule,
     MainModule
+    
   ]
 })
 export class PollutionModule { }

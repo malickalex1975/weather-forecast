@@ -1,12 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import {
-  IPlace,
-  LAST_COORD,
-  LAST_SEARCH,
-  USE_CURRENT_POSITION,
-} from 'src/app/constants';
+import { IPlace, LAST_COORD, LAST_SEARCH } from 'src/app/constants';
 import { ColorService } from 'src/app/core/services/color.service';
 import { GetCurrentPlaceService } from 'src/app/core/services/get-current-place.service';
 import { HttpService } from 'src/app/core/services/http.service';
@@ -26,16 +21,19 @@ export class MainComponent implements OnInit, OnDestroy {
   places$ = this.searchService.findPlaces();
   currentWeather$?: Observable<any>;
   isChosen$$ = this.requestService.getIsChosen();
-  listRequests$$=this.requestService.getListRequests()
-  isUseCurrentPosition =
-    JSON.parse(this.storage.getItem(USE_CURRENT_POSITION) || 'false');
+  listRequests$$ = this.requestService.getListRequests();
+  isUseCurrentPosition = true;
   subscription1?: Subscription;
   subscription2?: Subscription;
   subscription3?: Subscription;
   subscription4?: Subscription;
   subscription5?: Subscription;
   subscription6?: Subscription;
+  subscription7?: Subscription;
+  subscription8?: Subscription;
   tempColor$$ = this.colorService.emitColor();
+  lat = 0;
+  lon = 0;
   constructor(
     private storage: StorageService,
     private searchService: SearchService,
@@ -48,24 +46,22 @@ export class MainComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.subscription8 = this.getCurrentPlace
+      .getUsedCurrent()
+      .subscribe((value) => (this.isUseCurrentPosition = value));
     this.requestService.setIsChosen(true);
     this.searchRequest = this.storage.getItem(LAST_SEARCH) || '';
     this.requestService.setCoords(
       ...JSON.parse(this.storage.getItem(LAST_COORD))
     );
-    this.subscription1 = this.requestService
-      .getRequest()
-      .subscribe((data: string) => {
-        this.searchRequest = data;
-        this.rememberSearch();
-      });
-    this.useSubscriptionSecond();
-    this.subscription3 = this.requestService
-      .getCoords()
-      .subscribe((data: [number | undefined, number | undefined]) => {
-        this.getCurrentWeather(...data);
-        this.requestService.setIsChosen(true);
-      });
+    this.setCurrentPlaceCoords();
+    if (this.isUseCurrentPosition) {
+      this.useCurrentLocation();
+      this.searchRequest = '';
+    } else {
+      this.useCoords();
+      this.useRequest();
+    }
   }
   rememberSearch() {
     if (this.searchRequest) {
@@ -75,44 +71,76 @@ export class MainComponent implements OnInit, OnDestroy {
   findPlaces() {
     this.requestService.setIsChosen(false);
     this.requestService.setRequest(this.searchRequest);
+    this.getCurrentPlace.setUsedCurrent(false);
   }
   getCurrentWeather(lat?: number, lon?: number) {
     this.requestService.setIsChosen(true);
     this.router.navigate(['forecast', lat, lon]);
-    this.storage.setItem(LAST_COORD, JSON.stringify([lat, lon]));
-    if (lat && lon) {
+
+    if (lat && lon && (lat !== 0 || lon !== 0)) {
       this.currentWeather$ = this.http.getCurrentWeather(lat!, lon!);
+      if (!this.isUseCurrentPosition) {
+        this.storage.setItem(LAST_COORD, JSON.stringify([lat, lon]));
+      }
     }
   }
-
   rememberPlace(place: IPlace) {
     this.rememberPlaces.remember(place);
   }
-
+  rememberCoords(lat: number, lon: number) {
+    this.requestService.setCoords(lat, lon);
+    this.storage.setItem(LAST_COORD, JSON.stringify([lat, lon]));
+  }
   getFlagStyle(country: string) {
     if (country) {
       return `background-image: url(assets/img/png/${country?.toLowerCase()}.png)`;
     } else return '';
   }
   changeSearch() {
-    this.storage.setItem(
-      USE_CURRENT_POSITION,
-      JSON.stringify(this.isUseCurrentPosition)
-    );
+    this.getCurrentPlace.setUsedCurrent(this.isUseCurrentPosition);
     if (this.isUseCurrentPosition) {
-      this.useSubscriptionSecond();
+      this.useCurrentLocation();
+      this.searchRequest = '';
+    } else {
+      this.useCoords();
+      this.useRequest();
     }
   }
-  useSubscriptionSecond() {
-    this.subscription2 = this.getCurrentPlace
-      .getPlace()
-      .subscribe((data: any) => {
-        if (this.isUseCurrentPosition === true) {
-          this.getCurrentWeather(data.latitude, data.longitude);
-          this.searchRequest = data.city;
-          this.rememberSearch();
-        } 
+  useCurrentLocation() {
+    if (
+      this.isUseCurrentPosition === true &&
+      this.lat !== 0 &&
+      this.lon !== 0
+    ) {
+      this.getCurrentWeather(this.lat, this.lon);
+    }
+  }
+
+  useCoords() {
+    this.subscription3 = this.requestService
+      .getCoords()
+      .subscribe((data: [number | undefined, number | undefined]) => {
+        this.getCurrentWeather(...data);
+        this.requestService.setIsChosen(true);
       });
+  }
+  useRequest() {
+    this.subscription1 = this.requestService
+      .getRequest()
+      .subscribe((data: string) => {
+        this.searchRequest = data;
+        this.rememberSearch();
+      });
+  }
+  setCurrentPlaceCoords() {
+    this.subscription7 = this.getCurrentPlace.getCoords().subscribe((data) => {
+      this.lat = data.lat;
+      this.lon = data.lon;
+    });
+  }
+
+  define(value: number) {
+    return value !== 0 ? value.toString() : "isn't defined";
   }
   ngOnDestroy() {
     this.subscription1?.unsubscribe();
@@ -121,5 +149,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscription4?.unsubscribe();
     this.subscription5?.unsubscribe();
     this.subscription6?.unsubscribe();
+    this.subscription7?.unsubscribe();
+    this.subscription8?.unsubscribe();
   }
 }

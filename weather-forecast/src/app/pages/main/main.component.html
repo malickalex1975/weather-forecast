@@ -14,13 +14,19 @@
     <datalist id="listRequests">
 <option *ngFor="let value of listRequests$$| async">{{value}}</option>
     </datalist>
-
+<div class="current-place-container">
     <div class="radio-container">
     <input type="checkbox" id="radio-button" [(ngModel)]="isUseCurrentPosition"
     (ngModelChange)="changeSearch()">
     <label for="radio-button">{{"Use your current position"|translate}}</label>
   </div>
+    <div class="coords" *ngIf="isUseCurrentPosition ">
+    <p>{{"latitude"|translate}}: {{(define(lat))!|translate}}</p>
+    <p>{{"longitude"|translate}}: {{define(lon)!|translate}}</p>
+  
   </div>
+  </div>
+</div>
   <p
     class="link-pollution"
     [routerLink]="[
@@ -39,6 +45,8 @@
       *ngFor="let place of places$ | async"
       (click)="
         getCurrentWeather(place.lat, place.lon);
+
+        rememberCoords(place.lat, place.lon);
        
         rememberPlace(place)
       "

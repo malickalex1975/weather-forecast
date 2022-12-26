@@ -1,8 +1,10 @@
-<div class="container" *ngrxLet="isChosen$$ as isChosen ">
-<div class="loading" [class.visible]="isChosen && !(currentWeather$ | async)" >
+<div class="container" *ngrxLet="isChosen$$ as isChosen">
+  <div class="loading" [class.visible]="isChosen && !(currentWeather$ | async)">
     <p>{{ "LOADING" | translate }}...</p>
+    <mat-spinner diameter="30" color="primary"></mat-spinner>
   </div>
-  <div *ngrxLet="currentWeather$ as current"
+  <div
+    *ngrxLet="currentWeather$ as current"
     class="forecast-container"
     [class.container-appear]="isChosen && current"
     (mouseenter)="isMoreInfo = true"
@@ -34,7 +36,10 @@
     </p>
     <p>
       {{ "Pressure" | translate }}:
-      {{ convertPressure(current?.main?.grnd_level || current?.main?.pressure) }} {{ "mmHG" | translate }}
+      {{
+        convertPressure(current?.main?.grnd_level || current?.main?.pressure)
+      }}
+      {{ "mmHG" | translate }}
     </p>
     <p>{{ "Humidity" | translate }}: {{ current?.main?.humidity }} %</p>
     <p>{{ "Cloudness" | translate }}: {{ current?.clouds?.all }} %</p>
@@ -43,13 +48,15 @@
       {{ "m/s" | translate }}
       <div
         class="wind-deg"
-        [style]="
-          'transform: rotate(' +
-          current?.wind?.deg +
-          'deg)'
-        "
+        (mouseenter)="isWindHovered = true"
+        (mouseleave)="isWindHovered = false"
       >
-        ↓
+        <div [style]="'transform: rotate(' + current?.wind?.deg + 'deg)'">
+          ↓
+        </div>
+      </div>
+      <div class="wind-definition" [class.visible]="isWindHovered">
+        {{ defineWind(current?.wind?.deg) }}
       </div>
     </div>
     <p>
@@ -57,18 +64,24 @@
       {{ "m" | translate }}
     </p>
     <p>
-      {{ "Precipitation" | translate }} {{"1h"|translate}}:
-      {{ current?.snow?.['1h']||current?.rain?.['1h']||0}} {{ "mm" | translate }}
+      {{ "Precipitation" | translate }} {{ "1h" | translate }}:
+      {{ current?.snow?.['1h']||current?.rain?.['1h']||0}}
+      {{ "mm" | translate }}
     </p>
   </div>
 
-  <div class="common-container" *ngIf="isChosen && (forecast$ | async )as forecast">
+  <div
+    class="common-container"
+    *ngIf="isChosen && (forecast$ | async) as forecast"
+  >
     <div class="forecast-5days-container" *ngrxLet="forecastDays$$ as days">
       <div class="day" *ngFor="let day of days">
-        <p [class.red-note]="checkWeekend(day[0])">
-          {{ defineDay(day[1], day[2]) }} {{ getDayOfWeek(day[0]) }},
-          {{ getMonth(day[2]) }}, {{ day[1] }}
-        </p>
+        <div class="day-container">
+          <p [class.red-note]="checkWeekend(day[0])">
+            {{ defineDay(day[1], day[2]) }} {{ getDayOfWeek(day[0]) }},
+            {{ getMonth(day[2]) }}, {{ day[1] }}
+          </p>
+        </div>
         <div class="forecast-5days">
           <app-forecast-card
             #forecastCard

@@ -1,16 +1,10 @@
 import { Injectable } from '@angular/core';
 import {
-  BehaviorSubject,
-  debounce,
   debounceTime,
-  map,
-  mergeMap,
   Observable,
   of,
   switchMap,
-  tap,
 } from 'rxjs';
-import { IPlace } from 'src/app/constants';
 import { HttpService } from './http.service';
 import { RequestService } from './request.service';
 

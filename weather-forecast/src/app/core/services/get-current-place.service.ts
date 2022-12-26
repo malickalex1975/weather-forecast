@@ -1,21 +1,47 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, switchMap } from 'rxjs';
+import { BehaviorSubject, map, switchMap } from 'rxjs';
+import { USE_CURRENT_POSITION } from 'src/app/constants';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GetCurrentPlaceService {
-  constructor(private http: HttpClient) {}
-  getIP() {
-    return this.http.get('https://jsonip.com');
-  }
-  getPlace() {
-    return this.getIP().pipe(
-      map((data: any) => data.ip),
-      switchMap((ip) =>
-        this.http.get(`https://ipwho.is/${ip}`)
-      )
+  currentCoords$$ = new BehaviorSubject({ lat: 0, lon: 0 });
+  isUsedCurrent$$ = new BehaviorSubject(
+    JSON.parse(this.storage.getItem(USE_CURRENT_POSITION) || 'true')
+  );
+  constructor(private storage: StorageService) {}
+
+  defineCurrentLocation() {
+    let lat = 0;
+    let lon = 0;
+
+    let geolocation = navigator.geolocation;
+    geolocation.getCurrentPosition(
+      (pos) => {
+        lat = pos?.coords?.latitude;
+        lon = pos?.coords?.longitude;
+        this.currentCoords$$.next({
+          lat: Number(lat.toFixed(3)),
+          lon: Number(lon.toFixed(3)),
+        });
+      },
+      (err) => console.log(err.code, ' ', err.message),
+      {
+        timeout: 2000,
+      }
     );
+  }
+
+  getCoords() {
+    return this.currentCoords$$;
+  }
+  setUsedCurrent(value:boolean){
+    this.isUsedCurrent$$.next(value)
+    this.storage.setItem(USE_CURRENT_POSITION,JSON.stringify(value) )
+  }
+  getUsedCurrent(){
+    return this.isUsedCurrent$$
   }
 }

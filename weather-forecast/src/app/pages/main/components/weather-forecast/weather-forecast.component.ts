@@ -4,12 +4,10 @@ import { Observable, Subscription } from 'rxjs';
 import { BASE_ICON_URL, ENDPOINT_ICON, LANG } from 'src/app/constants';
 import { ColorService } from 'src/app/core/services/color.service';
 import { DateService } from 'src/app/core/services/date.service';
-import { GetCurrentPlaceService } from 'src/app/core/services/get-current-place.service';
 import { HttpService } from 'src/app/core/services/http.service';
-import { RememberPlacesService } from 'src/app/core/services/remember-places.service';
 import { RequestService } from 'src/app/core/services/request.service';
-import { SearchService } from 'src/app/core/services/search.service';
 import { StorageService } from 'src/app/core/services/storage.service';
+import { WindService } from 'src/app/core/services/wind.service';
 
 @Component({
   selector: 'app-weather-forecast',
@@ -27,6 +25,7 @@ export class WeatherForecastComponent {
   tempColor$$ = this.colorService.emitColor();
   subscription4?: Subscription;
   subscription5?: Subscription;
+  isWindHovered=false
   
 
   subscription?: Subscription;
@@ -36,7 +35,8 @@ export class WeatherForecastComponent {
     private storage: StorageService,
     private requestService: RequestService,
     private colorService: ColorService,
-    private dateService: DateService
+    private dateService: DateService,
+    private windService:WindService,
   ) {}
   ngOnInit() {
     this.subscription = this.route.params.subscribe((params) => {
@@ -93,6 +93,12 @@ export class WeatherForecastComponent {
   defineDay(day: number, month: number) {
     return this.dateService.defineDay(day, month);
   }
+  defineWind(deg:number){
+    return this.windService.getWind(deg)
+
+  }
+
+  
   ngOnDestroy() {
     this.subscription4?.unsubscribe();
     this.subscription5?.unsubscribe();

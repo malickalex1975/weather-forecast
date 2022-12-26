@@ -34,11 +34,14 @@
     <div class="wind">
       {{ "Wind" | translate }}: {{ weather?.wind?.speed }}
       {{ "m/s" | translate }}
-      <div
-        class="wind-deg"
-        [style]="'transform: rotate(' + weather?.wind?.deg + 'deg)'"
-      >
-        ↓
+      <div class="wind-deg"  (mouseenter)="isWindHovered = true"
+      (mouseleave)="isWindHovered = false">
+        <div [style]="'transform: rotate(' + weather?.wind?.deg + 'deg)'">
+          ↓
+        </div>
+      </div>
+      <div class="wind-definition" [class.visible]="isWindHovered">
+        {{ defineWind(weather?.wind?.deg!) }}
       </div>
     </div>
     <p>
@@ -49,8 +52,9 @@
       {{ "Precipitation" | translate }}: {{ (weather?.pop! * 100).toFixed(0) }}%
     </p>
     <p>
-      {{ "Precipitation" | translate }} {{"3h"|translate}}:
-      {{ weather?.snow?.['3h']||weather?.rain?.['3h']||0}} {{ "mm" | translate }}
+      {{ "Precipitation" | translate }} {{ "3h" | translate }}:
+      {{ weather?.snow?.['3h']||weather?.rain?.['3h']||0}}
+      {{ "mm" | translate }}
     </p>
   </div>
 </div>

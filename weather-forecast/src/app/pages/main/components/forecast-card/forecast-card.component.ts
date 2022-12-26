@@ -6,6 +6,7 @@ import {
   IWeather,
 } from 'src/app/constants';
 import { ColorService } from 'src/app/core/services/color.service';
+import { WindService } from 'src/app/core/services/wind.service';
 
 @Component({
   selector: 'app-forecast-card',
@@ -15,7 +16,8 @@ import { ColorService } from 'src/app/core/services/color.service';
 export class ForecastCardComponent {
   @Input() weather?: IWeather;
   isMore = false;
-  constructor(private colorService: ColorService) {}
+  isWindHovered = false;
+  constructor(private colorService: ColorService,  private windService:WindService,) {}
   getTime(time: number) {
     return new Date(time * 1000).getHours().toString() + ':00';
   }
@@ -44,5 +46,9 @@ export class ForecastCardComponent {
   }
   getColor(temp: number) {
     return this.colorService.getColorByTemp(temp);
+  }
+  defineWind(deg:number){
+    return this.windService.getWind(deg)
+
   }
 }

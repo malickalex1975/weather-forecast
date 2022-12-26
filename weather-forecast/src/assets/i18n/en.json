@@ -32,5 +32,14 @@
     "Moderately Polluted":"Moderately Polluted",
     "Heavily Polluted":"Heavily Polluted",
     "Welcome to the App":"Welcome to the App!",
-    "I hope you will like my weather forecast service":"I hope you will like my weather forecast service."
+    "I hope you will like my weather forecast service":"I hope you will like my weather forecast service.",
+    "Go back":"Go back",
+    "Delete":"Delete",
+    "Go to":"Go to",
+    "About developer":"About developer",
+    "latitude":"latitude",
+    "longitude":"longitude",
+    "Back":"Back",
+    "isn't defined":"isn't defined"
+
 }

@@ -46,5 +46,7 @@ export class HeaderComponent {
     if (posY===0){return `background-image: linear-gradient(#cceeff 30%, ${color} 100%)`}
     return `background-image: linear-gradient(${color} 10%, rgba(204, 238, 255, 0.9 ) 100%); height:50px;`
   }
-  exit(){}
+  exit(){
+    window.history.back()
+  }
 }

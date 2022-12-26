@@ -6,8 +6,8 @@
         [index]="i"
         class="card"></app-developer>
     </section>
-    <div class="to-app" [routerLink]="['../']">
+    <div class="to-app" (click)="goBack()">
         <mat-icon>arrow_back</mat-icon>
-        <p>{{ "Go to App" | translate }}</p>
+        <p>{{ "Go back" | translate }}</p>
       </div>
   </section>

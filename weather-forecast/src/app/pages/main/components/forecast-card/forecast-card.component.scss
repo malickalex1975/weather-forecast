@@ -79,10 +79,7 @@
   transition: 200ms;
 }
 
-.visible {
-  opacity: 1;
-  visibility: visible;
-}
+
 .weather-image {
   width: 50px;
   height: 50px;
@@ -99,10 +96,33 @@
   display: flex;
   gap: 10px;
 }
-.wind-deg{
+.wind-deg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width:16px;
+  height: 16px;
+  padding: 3px;
+  border: 1px dashed #4c6df0;
+  border-radius: 2px;
   color: #4c6df0;
   font-size: 20px;
-  margin-top: -5px;
+  margin-top: 0px;
+  cursor: pointer;
+  &:hover{
+    background-color: #fff;
+    
+  }
+}
+.wind-definition{
+  opacity:0;
+  visibility:hidden;
+  transition: 500ms;
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
 }
 @media (max-width: 1040px) {
   .forecast-container {

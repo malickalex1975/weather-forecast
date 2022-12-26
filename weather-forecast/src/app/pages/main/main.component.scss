@@ -28,7 +28,7 @@ input:focus {
 .icon-search{
   position: relative;
   top:45px;
-  left:-95px;
+  left:-105px;
   color: #4c6df0;
   font-size: 18px;
 
@@ -41,9 +41,29 @@ input:focus {
   & label{
     color: #4c6df0;
     font-size: 20px;
+    cursor: pointer;
   }
 }
+.current-place-container{
+  padding: 10px;
+  border: 1px dashed #4c6df0 ;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+    background-color: rgba($color: #cceeff, $alpha: 1);
+    box-shadow: 1px 1px 5px rgb(100, 100, 100);
+  }
+}
+.coords{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #4c6df0;
+    font-size: 20px;
 
+}
 .places-container {
   width: 100%;
   display: flex;
