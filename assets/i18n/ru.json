@@ -21,7 +21,7 @@
     "μg/m3":"мкг/м3",
     "Air quality index":"Индекс качества воздуха",
     "Pollution concentration":"Концентрация загрязнений",
-    "Use your current position":"Использовать текущее местоположение",
+    "Use your current position":"Текущее местоположение",
     "Back to weather forecast":"Назад к прогнозу погоды",
     "3h":"3ч",
     "1h":"1ч",
@@ -32,5 +32,13 @@
     "Moderately Polluted":"Среднее загрязнение",
     "Heavily Polluted":"Сильное загрязнение",
     "Welcome to the App":"Добро пожаловать в приложение!",
-    "I hope you will like my weather forecast service":"Я надеюсь вам понравится мой сервис прогноза погоды."
+    "I hope you will like my weather forecast service":"Я надеюсь вам понравится мой сервис прогноза погоды.",
+    "Go back":"Назад",
+    "Delete":"Удалить", 
+    "Go to":"Перейти к",
+    "About developer":"О разработчике",
+    "latitude":"широта",
+    "longitude":"долгота",
+    "Back":"Назад",
+    "isn't defined":"не определено"
 }
