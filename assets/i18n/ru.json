@@ -40,5 +40,7 @@
     "latitude":"широта",
     "longitude":"долгота",
     "Back":"Назад",
-    "isn't defined":"не определено"
+    "isn't defined":"не определено",
+    "5 days forecast":"Прогноз на 5 дней",
+    "Gust":"Порывы"
 }

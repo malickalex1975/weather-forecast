@@ -40,6 +40,8 @@
     "latitude":"latitude",
     "longitude":"longitude",
     "Back":"Back",
-    "isn't defined":"isn't defined"
+    "isn't defined":"isn't defined",
+    "5 days forecast":"5 days forecast",
+    "Gust":"Gust"
 
 }
