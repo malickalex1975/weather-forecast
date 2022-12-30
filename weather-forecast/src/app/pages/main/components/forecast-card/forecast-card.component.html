@@ -1,60 +1,44 @@
 <div
   class="forecast-container"
-  (mouseenter)="isMore = true"
-  (mouseleave)="isMore = false"
->
-  <div class="inner-container" [class.full-card]="isMore">
-    <p>{{ getTime(weather?.dt!) }}</p>
-    <div class="current-temp" [class.wide]="isMore">
-      <p class="description" [class.visible]="isMore">
-        {{ (weather?.weather)![0].description }}
-      </p>
+  (click)="getMore()">
+
+  <div class="inner-container" >
+    <div class='header-container'>
+      
+    <p>{{ getTime(weather?.dt!) }}</p></div>
+    <div class="current-temp" >
+      <div class="current-container">
+        <p>
+          
+          {{
+            convertPressure((weather?.main?.grnd_level || weather?.main?.pressure)!)
+          }}
+          {{ "mmHG" | translate }}
+        </p>
+        <p> {{ weather?.main?.humidity }} %</p>
+          <div class="wind-deg">
+            <p>{{ weather?.wind?.speed?.toFixed(1) }}
+              {{ "m/s" | translate }}</p>
+            <div [style]="'transform: rotate(' + weather?.wind?.deg + 'deg)'">
+              ↓
+            </div>
+          <div class="wind-definition" >
+            {{ defineWind(weather?.wind?.deg!) }}
+         
+        </div>
+        </div>
+      </div>
+     <div class="clouds-container"> 
       <img
         class="weather-image"
         src="{{ getIcon((weather?.weather)![0].icon) }}"
         alt="icon"
       />
+      <p>{{ weather?.clouds?.all }} %</p>
+    </div>
       <p class="temp" [style]="'color:' + getColor(weather?.main?.temp!)">
         {{ weather?.main?.temp?.toFixed(1) }} ℃
       </p>
-      <p class="feels-like" [class.visible]="isMore">
-        {{ "Feels like" | translate }}:
-        {{ weather?.main?.feels_like?.toFixed(1) }} ℃
-      </p>
     </div>
-    <p>
-      {{ "Pressure" | translate }}:
-      {{
-        convertPressure((weather?.main?.grnd_level || weather?.main?.pressure)!)
-      }}
-      {{ "mmHG" | translate }}
-    </p>
-    <p>{{ "Humidity" | translate }}: {{ weather?.main?.humidity }} %</p>
-    <p>{{ "Cloudness" | translate }}: {{ weather?.clouds?.all }} %</p>
-    <div class="wind">
-      {{ "Wind" | translate }}: {{ weather?.wind?.speed }}
-      {{ "m/s" | translate }}
-      <div class="wind-deg"  (mouseenter)="isWindHovered = true"
-      (mouseleave)="isWindHovered = false">
-        <div [style]="'transform: rotate(' + weather?.wind?.deg + 'deg)'">
-          ↓
-        </div>
-      </div>
-      <div class="wind-definition" [class.visible]="isWindHovered">
-        {{ defineWind(weather?.wind?.deg!) }}
-      </div>
-    </div>
-    <p>
-      {{ "Visibility" | translate }}: {{ weather?.visibility }}
-      {{ "m" | translate }}
-    </p>
-    <p>
-      {{ "Precipitation" | translate }}: {{ (weather?.pop! * 100).toFixed(0) }}%
-    </p>
-    <p>
-      {{ "Precipitation" | translate }} {{ "3h" | translate }}:
-      {{ weather?.snow?.['3h']||weather?.rain?.['3h']||0}}
-      {{ "mm" | translate }}
-    </p>
   </div>
 </div>

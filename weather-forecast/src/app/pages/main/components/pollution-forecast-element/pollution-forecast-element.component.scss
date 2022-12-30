@@ -1,10 +1,18 @@
-.main-container:hover .arrows{
+.main-container:hover .arrows {
   animation: animation 0s;
   visibility: hidden;
 }
-
+.wrapper {
+  display: flex;
+  background-color: #fff;
+  width: 35px;
+  height: 300px;
+ position: absolute;
+  left: -35px;
+  top: 100px;
+}
 .forecast-5days-container {
-  width: 300px;
+  width: 80vw;
   height: 300px;
   overflow-x: scroll;
   overflow-y: hidden;
@@ -30,7 +38,7 @@
   &:hover {
     opacity: 1;
     border: 1px solid #555;
-   
+    background-color: #fff;
   }
 }
 .red-note {
@@ -45,7 +53,6 @@
 }
 .diagramm-element {
   width: 8px;
-  background-color: greenyellow;
   border: 1px solid #555;
   &:hover {
     background-color: #aaa;
@@ -76,18 +83,19 @@
   background-color: rgba($color: #eee, $alpha: 1);
   box-shadow: 1px 1px 2px rgba(4, 134, 241, 0.5);
 }
+
 @keyframes animation {
   0% {
     margin-left: 0px;
   }
   5% {
-    margin-left: -100px;
+    margin-left: -100vw;
   }
   10% {
     margin-left: 0px;
   }
   15% {
-    margin-left: -100px;
+    margin-left: -100vw;
   }
   20% {
     margin-left: 0px;
@@ -96,14 +104,25 @@
     margin-left: 0px;
   }
 }
-.arrows{
+@keyframes cards-animation {
+  0% {
+    margin-left: 0px;
+  }
+  50% {
+    margin-left: -300px;
+  }
+  100% {
+    margin-left: 0px;
+  }
+  
+}
+.arrows {
   font-size: 30px;
-  width:50px;
+  width: 50px;
   height: 10px;
   color: #4c6df0;
   position: relative;
-  top:50px;
-  left:140px;
-  animation: animation 5s infinite;
-
+  top: 50px;
+  left: 140px;
+  animation: cards-animation 30s  ease-in-out infinite;
 }

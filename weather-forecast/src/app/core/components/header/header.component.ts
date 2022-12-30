@@ -30,23 +30,27 @@ export class HeaderComponent {
   langToggle() {
     let newLang = this.storage.getItem(LANG) === 'ru' ? 'en' : 'ru';
     this.langService.setLang(newLang);
-
     this.translateService.use(newLang);
   }
   themeToggle() {
     let newTheme = this.storage.getItem(THEME) === 'light' ? 'dark' : 'light';
     this.themeService.setTheme(newTheme);
   }
-  getStyle(theme: string | null) {
-    return theme === 'light'
-      ? 'background-color: yellow'
-      : 'background-color: black';
+  getStyle(theme: string | null, posY: number) {
+    let part1 =
+      theme === 'light'
+        ? 'background-color: yellow;'
+        : 'background-color: black;';
+    let part2 = posY === 0 ? 'transform: scale(1.5);' : '';
+    return part1 + part2;
   }
-  getHeaderColor(color:string, posY:number) {
-    if (posY===0){return `background-image: linear-gradient(#cceeff 30%, ${color} 100%)`}
-    return `background-image: linear-gradient(${color} 10%, rgba(204, 238, 255, 0.9 ) 100%); height:50px;`
+  getHeaderColor(color: string, posY: number) {
+    if (posY === 0) {
+      return `background-image: linear-gradient(#cceeff 30%, ${color} 100%)`;
+    }
+    return `background-image: linear-gradient(${color} 10%, rgba(204, 238, 255, 0.9 ) 100%); height:30px;`;
   }
-  exit(){
-    window.history.back()
+  exit() {
+    window.history.back();
   }
 }

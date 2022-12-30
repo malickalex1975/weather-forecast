@@ -22,6 +22,7 @@ export class RememberPlacesService {
       )
     ) {
       arr.push(place);
+      if(arr.length>10){arr.shift()}
       this.storage.setItem(LAST_PLACES, JSON.stringify(arr));
       this.emitPlaces();
     }

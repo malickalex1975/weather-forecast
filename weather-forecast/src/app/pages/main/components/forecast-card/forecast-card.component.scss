@@ -6,20 +6,27 @@
 .forecast-container {
   position: relative;
   width: 90px;
-  height: 140px;
-  margin-top: 50px;
+  height: 200px;
+  margin-top: 15px;
   overflow: visible;
   background-color: rgba($color: #cceeff, $alpha: 1);
   box-shadow: 1px 1px 2px rgba(4, 134, 241, 0.5);
   border-radius: 5px;
   color: #000;
   transition: 200ms;
-  
+}
+.header-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width:120px;
 }
 .inner-container {
   position: relative;
+  font-size: 14px;
   width: 90px;
-  height: 140px;
+  height: 200px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -32,6 +39,7 @@
   border-radius: 5px;
   color: #000;
   transition: 200ms;
+  cursor: pointer;
   &:hover {
     opacity: 1;
     background-color: rgba($color: #cceeff, $alpha: 1);
@@ -42,41 +50,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
   width: 90px;
-  height: 100px;
+  height: 180px;
   background-color: rgba($color: #fff, $alpha: 1);
   box-shadow: 1px 1px 2px rgb(100, 100, 100);
   border-radius: 5px;
   margin-bottom: 10px;
   gap: 5px;
+  flex-wrap: nowrap;
   transition: 200ms;
 }
-.wide {
-  width: 200px;
-  height: 150px;
-  & .temp{
-    font-size: 24px;
-  }
-   & .weather-image {
-    width: 50px;
-    height: 50px;
-  }
+.current-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap:5px;
+}
+.clouds-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 .temp {
   font-size: 24px;
-}
-.feels-like {
-  color: #999;
-  opacity: 0;
-  visibility: hidden;
-  transition: 200ms;
-}
-.description {
-  color: #000;
-  opacity: 0;
-  visibility: hidden;
-  transition: 200ms;
 }
 
 
@@ -84,139 +83,55 @@
   width: 50px;
   height: 50px;
 }
-
-.full-card {
-  z-index: 13;
-  transition: 200ms;
-  width: 220px;
-  height: 360px;
-  opacity: 1;
-}
 .wind {
   display: flex;
-  gap: 10px;
+  gap: 5px;
 }
 .wind-deg {
+  
   display: flex;
   align-items: center;
   justify-content: center;
-  width:16px;
-  height: 16px;
+  width: fit-content;
+  height: fit-content;
   padding: 3px;
   border: 1px dashed #4c6df0;
   border-radius: 2px;
   color: #4c6df0;
-  font-size: 20px;
   margin-top: 0px;
+  gap:5px;
   cursor: pointer;
-  &:hover{
+  &:hover {
     background-color: #fff;
-    
+    animation: flash 0s;
   }
 }
-.wind-definition{
-  opacity:0;
-  visibility:hidden;
-  transition: 500ms;
+.wind-definition {
+  
 }
 
 .visible {
   opacity: 1;
   visibility: visible;
+  display: block;
+}
+@keyframes flash {
+  0% {
+    background-color: transparent;
+  }
+  50%{
+    background-color: #fff;
+  }
+  100% {
+    background-color: transparent;
+  }
 }
 @media (max-width: 1040px) {
-  .forecast-container {
-    width: 70px;
-    height: 120px;
-  }
-  .inner-container {
-    width: 70px;
-    height: 120px;
-  }
-  .current-temp {
-    width: 70px;
-    height: 80px;
-  }
-  .temp {
-    font-size: 18px;
-  }
-  .wide {
-    width: 180px;
-    height: 150px;
-  }
-  .weather-image {
-    width: 40px;
-    height: 40px;
-  }
-  .full-card {
-    width: 180px;
-    height: 340px;
-  }
-  p{
-    font-size: 14px;
-  }
+  
 }
 @media (max-width: 880px) {
-  .forecast-container {
-    width: 60px;
-    height: 110px;
-  }
-  .inner-container {
-    width: 60px;
-    height: 110px;
-  }
-  .current-temp {
-    width: 60px;
-    height: 70px;
-  }
-  .temp {
-    font-size: 16px;
-  }
-  .wide {
-    width: 160px;
-    height: 150px;
-  }
-  .weather-image {
-    width: 30px;
-    height: 30px;
-  }
-  .full-card {
-    width: 160px;
-    height: 340px;
-  }
-  p{
-    font-size: 14px;
-  }
+ 
 }
 @media (max-width: 750px) {
-  .forecast-container {
-    width: 50px;
-    height: 100px;
-  }
-  .inner-container {
-    width: 50px;
-    height: 100px;
-  }
-  .current-temp {
-    width: 50px;
-    height: 60px;
-  }
-  .temp {
-    font-size: 14px;
-  }
-  .wide {
-    width: 160px;
-    height: 150px;
-  }
-  .weather-image {
-    width: 30px;
-    height: 30px;
-  }
-  .full-card {
-    width: 160px;
-    height: 340px;
-  }
-  p{
-    font-size: 14px;
-  }
+  
 }

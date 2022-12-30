@@ -6,6 +6,7 @@ import {
   IWeather,
 } from 'src/app/constants';
 import { ColorService } from 'src/app/core/services/color.service';
+import { PopupService } from 'src/app/core/services/popup.service';
 import { WindService } from 'src/app/core/services/wind.service';
 
 @Component({
@@ -15,9 +16,12 @@ import { WindService } from 'src/app/core/services/wind.service';
 })
 export class ForecastCardComponent {
   @Input() weather?: IWeather;
-  isMore = false;
-  isWindHovered = false;
-  constructor(private colorService: ColorService,  private windService:WindService,) {}
+  @Input() day=[]
+  constructor(
+    private colorService: ColorService,
+    private windService: WindService,
+    private popupService: PopupService
+  ) {}
   getTime(time: number) {
     return new Date(time * 1000).getHours().toString() + ':00';
   }
@@ -30,25 +34,15 @@ export class ForecastCardComponent {
     if (!icon) icon = '01d';
     return BASE_ICON_URL + icon + ENDPOINT_ICON;
   }
-  getRain(index: string) {
-    if (this.weather?.rain && index === '1h') {
-      return this.weather?.rain['1h'];
-    } else if (this.weather?.rain && index === '3h') {
-      return this.weather?.rain['3h'];
-    } else return null;
-  }
-  getSnow(index: string) {
-    if (this.weather?.snow && index === '1h') {
-      return this.weather?.snow['1h'];
-    } else if (this.weather?.snow && index === '3h') {
-      return this.weather?.snow['3h'];
-    } else return null;
-  }
+ 
   getColor(temp: number) {
     return this.colorService.getColorByTemp(temp);
   }
-  defineWind(deg:number){
-    return this.windService.getWind(deg)
-
+  defineWind(deg: number) {
+    return this.windService.getWind(deg);
+  }
+  getMore(){
+    this.popupService.setData(this.weather)
+    this.popupService.setDay(this.day)
   }
 }

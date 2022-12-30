@@ -8,13 +8,13 @@
     <button
       class="theme"
       (click)="themeToggle()"
-      [style]="getStyle(currentTheme$$ | async)"
+      [style]="getStyle(currentTheme$$ | async, posY)"
     ></button>
     <button mat-icon-button class="lang" (click)="langToggle()">
       {{ (currentLang$$ | async)?.toUpperCase() }}
     </button>
    
-    <button mat-icon-button [matMenuTriggerFor]="menu">
+    <button   class="menu-button" [matMenuTriggerFor]="menu">
       <mat-icon>menu_vert</mat-icon>
     </button>
   

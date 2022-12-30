@@ -26,7 +26,7 @@ export class AppComponent {
     translate.addLangs(['en', 'ru', ]);
     translate.setDefaultLang('ru');
     const language =
-      storage.getItem(LANG) ?? 'ru';
+      storage.getItem(LANG) || 'ru';
     translate.use(language);
   }
 goUp(){

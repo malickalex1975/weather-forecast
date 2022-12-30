@@ -15,9 +15,20 @@ import { PollutionForecastElementComponent } from './components/pollution-foreca
 import { MaterialModule } from 'src/app/material/material.module';
 import { DeveloperComponent } from './components/developer/developer.component';
 import { AboutComponent } from '../about/about.component';
+import { PopupComponent } from '../popup/popup.component';
 
 @NgModule({
-  declarations: [MainComponent, NotFoundComponent, LastPlacesComponent, ForecastCardComponent, WeatherForecastComponent, PollutionForecastElementComponent, DeveloperComponent, AboutComponent],
+  declarations: [
+    MainComponent,
+    NotFoundComponent,
+    LastPlacesComponent,
+    ForecastCardComponent,
+    WeatherForecastComponent,
+    PollutionForecastElementComponent,
+    DeveloperComponent,
+    AboutComponent,
+  
+  ],
   imports: [
     CommonModule,
     MainRoutingModule,
@@ -25,10 +36,8 @@ import { AboutComponent } from '../about/about.component';
     SharedModule,
     LetModule,
     TranslateModule,
-    MaterialModule
-    
-    
+    MaterialModule,
   ],
-  exports:[PollutionForecastElementComponent, MaterialModule]
+  exports: [PollutionForecastElementComponent, MaterialModule],
 })
-export class MainModule { }
+export class MainModule {}

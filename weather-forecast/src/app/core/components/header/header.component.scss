@@ -1,4 +1,4 @@
-.outer-container{
+.outer-container {
   position: sticky;
   top: 0;
   left: 0;
@@ -8,26 +8,27 @@
   position: sticky;
   top: 0;
   left: 0;
-  height: 80px;
+  height: 50px;
   width: 100wv;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 100px;
+  gap: 50px;
   padding-right: 20px;
+  padding-left: 20px;
   z-index: 14;
-  transition: .2s;
+  transition: 0.2s;
 }
 .lang {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   border: 1px solid transparent;
   background-color: transparent;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 16px;
   &:hover {
     background-color: #eee;
   }
@@ -36,11 +37,13 @@
   }
 }
 .theme {
-  width: 30px;
-  height: 30px;
+  margin-left: 20px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   border: 1px solid transparent;
   opacity: 0.6;
+  transition: 200ms;
   cursor: pointer;
   &:hover {
     opacity: 0.8;
@@ -49,10 +52,26 @@
     opacity: 1;
   }
 }
-@media (max-width: 540px){
-  .phrase{
+.menu-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  &:hover {
+    background-color: #eee;
+  }
+  &:active {
+    background-color: #fff;
+  }
+}
+@media (max-width: 540px) {
+  .phrase {
     display: none;
   }
 }
-
-

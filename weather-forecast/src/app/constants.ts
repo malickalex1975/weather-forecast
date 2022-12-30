@@ -14,15 +14,16 @@ export const FORECAST_POLLUTION_URL = 'https://api.openweathermap.org/data/2.5/a
 export const BASE_ICON_URL = 'https://openweathermap.org/img/wn/';
 export const ENDPOINT_ICON = '@2x.png';
 export const POLLUTION_MAX={
-  CO:3000,
-  NO:60,
-  NO2:40,
-  O3:50,
-  SO2:40,
-  PM2_5:30,
-  PM10:50,
-  HN3:200,
+  'CO':3000,
+  'NO':60,
+  'NO2':40,
+   'O3':50,
+  'SO2':40,
+  'PM2_5':30,
+  'PM10':50,
+  'NH3':200,
 }
+export type PollutionType='CO'| 'NO'|'NO2'|'O3'|'SO2'|'PM2_5'|'PM10'|'NH3'
 export interface IPlace {
   lat?: number;
   lon?: number;

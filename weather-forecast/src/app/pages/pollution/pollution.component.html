@@ -13,7 +13,7 @@
   </p>
 </div>
   <div class="pollution-container">
-    <div class="inner-container" *ngIf="pollution$ | async">
+    <div class="inner-container" [class.container-appear]="pollution$ | async" >
       <p
         class="pollution-index"
         [style]="getStyle(pollution?.list[0]?.main?.aqi)"
@@ -104,20 +104,111 @@
       </p>
       <div class="wrapper">
         <div class="diagram">
-          <div class="arrow" [style]="getHN3Style(pollution?.list[0]?.components?.hn3)">⌂</div>
+          <div class="arrow" [style]="getHN3Style(pollution?.list[0]?.components?.nh3)">⌂</div>
         </div>  
     </div>
     </div>
     </div>
   </div>
-  <div class="pollution-forecast-container" *ngrxLet="pollutionForecast$ as forecast">
+  <div class="pollution-forecast-container" *ngrxLet="pollutionForecast$ as forecast"
+  [class.container-appear]="pollutionForecast$ | async">
+    <div class="forecast-title">{{'5 days forecast'|translate}}:</div>
+    
     <div class="pollution-forecast">
-    <app-pollution-forecast-element [forecast]="forecast" [index]="'co'">
+      <app-pollution-forecast-element [forecast]="forecast" [index]="'CO'">
+      </app-pollution-forecast-element>
+      <div class="high-level-container">
+        <div class="level-text" [style]="getHighLevelPosition(forecast,'CO')">{{getHighLevel(forecast, "CO")}}</div>
+      <div class="high-level" [style]="getHighLevelPosition(forecast,'CO')"></div>
+    </div>
+      <div class="low-level-container">
+        <div class="level-text" [style]="getLowLevelPosition(forecast,'CO')">{{getLowLevel(forecast, "CO")}}</div>
+      <div class="low-level" [style]="getLowLevelPosition(forecast,'CO')"></div>
+    </div>
+    </div>
+    <div class="pollution-forecast">
+      <app-pollution-forecast-element [forecast]="forecast" [index]="'NO'">
+      </app-pollution-forecast-element>
+      <div class="high-level-container">
+        <div class="level-text" [style]="getHighLevelPosition(forecast,'NO')">{{getHighLevel(forecast, "NO")}}</div>
+      <div class="high-level" [style]="getHighLevelPosition(forecast,'NO')"></div>
+    </div>
+      <div class="low-level-container">
+        <div class="level-text" [style]="getLowLevelPosition(forecast,'NO')">{{getLowLevel(forecast, "NO")}}</div>
+      <div class="low-level" [style]="getLowLevelPosition(forecast,'NO')"></div>
+    </div>
+    </div>
+    <div class="pollution-forecast">
+      <app-pollution-forecast-element [forecast]="forecast" [index]="'NO2'">
+      </app-pollution-forecast-element>
+      <div class="high-level-container">
+        <div class="level-text" [style]="getHighLevelPosition(forecast,'NO2')">{{getHighLevel(forecast, "NO2")}}</div>
+      <div class="high-level" [style]="getHighLevelPosition(forecast,'NO2')"></div>
+    </div>
+      <div class="low-level-container">
+        <div class="level-text" [style]="getLowLevelPosition(forecast,'NO2')">{{getLowLevel(forecast, "NO2")}}</div>
+      <div class="low-level" [style]="getLowLevelPosition(forecast,'NO2')"></div>
+    </div>
+    </div>
+    <div class="pollution-forecast">
+      <app-pollution-forecast-element [forecast]="forecast" [index]="'O3'">
+      </app-pollution-forecast-element>
+      <div class="high-level-container">
+        <div class="level-text" [style]="getHighLevelPosition(forecast,'O3')">{{getHighLevel(forecast, "O3")}}</div>
+      <div class="high-level" [style]="getHighLevelPosition(forecast,'O3')"></div>
+    </div>
+      <div class="low-level-container">
+        <div class="level-text" [style]="getLowLevelPosition(forecast,'O3')">{{getLowLevel(forecast, "O3")}}</div>
+      <div class="low-level" [style]="getLowLevelPosition(forecast,'O3')"></div>
+    </div>
+    </div>
+    <div class="pollution-forecast">
+      <app-pollution-forecast-element [forecast]="forecast" [index]="'SO2'">
+      </app-pollution-forecast-element>
+      <div class="high-level-container">
+        <div class="level-text" [style]="getHighLevelPosition(forecast,'SO2')">{{getHighLevel(forecast, "SO2")}}</div>
+      <div class="high-level" [style]="getHighLevelPosition(forecast,'SO2')"></div>
+    </div>
+      <div class="low-level-container">
+        <div class="level-text" [style]="getLowLevelPosition(forecast,'SO2')">{{getLowLevel(forecast, "SO2")}}</div>
+      <div class="low-level" [style]="getLowLevelPosition(forecast,'SO2')"></div>
+    </div>
+    </div>
+    <div class="pollution-forecast">
+      <app-pollution-forecast-element [forecast]="forecast" [index]="'PM2_5'">
+      </app-pollution-forecast-element>
+      <div class="high-level-container">
+        <div class="level-text" [style]="getHighLevelPosition(forecast,'PM2_5')">{{getHighLevel(forecast, "PM2_5")}}</div>
+      <div class="high-level" [style]="getHighLevelPosition(forecast,'PM2_5')"></div>
+    </div>
+      <div class="low-level-container">
+        <div class="level-text" [style]="getLowLevelPosition(forecast,'PM2_5')">{{getLowLevel(forecast, "PM2_5")}}</div>
+      <div class="low-level" [style]="getLowLevelPosition(forecast,'PM2_5')"></div>
+    </div>
+    </div>
+    <div class="pollution-forecast">
+    <app-pollution-forecast-element [forecast]="forecast" [index]="'PM10'">
     </app-pollution-forecast-element>
+    <div class="high-level-container">
+      <div class="level-text" [style]="getHighLevelPosition(forecast,'PM10')">{{getHighLevel(forecast, "PM10")}}</div>
+    <div class="high-level" [style]="getHighLevelPosition(forecast,'PM10')"></div>
   </div>
-    <div class="pollution-forecast">
-    <app-pollution-forecast-element [forecast]="forecast" [index]="'pm10'">
+  <div class="low-level-container">
+    <div class="level-text" [style]="getLowLevelPosition(forecast,'PM10')">{{getLowLevel(forecast, "PM10")}}</div>
+  <div class="low-level" [style]="getLowLevelPosition(forecast,'PM10')"></div>
+</div>
+  </div>
+  <div class="pollution-forecast">
+    <app-pollution-forecast-element [forecast]="forecast" [index]="'NH3'">
     </app-pollution-forecast-element>
+    <div class="high-level-container">
+      <div class="level-text" [style]="getHighLevelPosition(forecast,'NH3')">{{getHighLevel(forecast, "NH3")}}</div>
+    <div class="high-level" [style]="getHighLevelPosition(forecast,'NH3')"></div>
+  </div>
+    <div class="low-level-container">
+      <div class="level-text" [style]="getLowLevelPosition(forecast,'NH3')">{{getLowLevel(forecast, "NH3")}}</div>
+    <div class="low-level" [style]="getLowLevelPosition(forecast,'NH3')"></div>
+  </div>
   </div>
 </div>
   

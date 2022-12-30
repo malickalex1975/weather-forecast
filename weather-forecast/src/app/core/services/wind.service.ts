@@ -6,8 +6,8 @@ import { StorageService } from './storage.service';
   providedIn: 'root',
 })
 export class WindService {
-  windsEn = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
-  windsRu = ['С', 'СВ', 'В', 'ЮВ', 'Ю', 'ЮЗ', 'з', 'СЗ'];
+  windsEn = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW','N'];
+  windsRu = ['С', 'СВ', 'В', 'ЮВ', 'Ю', 'ЮЗ', 'З', 'СЗ', 'С'];
   constructor(private storage: StorageService) {}
 
   getWind(deg: number) {

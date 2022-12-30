@@ -10,13 +10,15 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { StartPageComponent } from './pages/start-page/start-page.component';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AboutComponent } from './pages/about/about.component';
+import { PopupComponent } from './pages/popup/popup.component';
+import { MainModule } from './pages/main/main.module';
+import { MaterialModule } from './material/material.module';
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent, StartPageComponent],
+  declarations: [AppComponent, StartPageComponent,PopupComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -24,6 +26,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
     SharedModule,
     HttpClientModule,
     LetModule,
+    MaterialModule,
     BrowserAnimationsModule,
     TranslateModule.forRoot({
       loader: {

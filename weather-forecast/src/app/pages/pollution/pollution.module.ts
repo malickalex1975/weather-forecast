@@ -4,6 +4,7 @@ import { PollutionRoutingModule } from './pollution-routing.module';
 import { PollutionComponent } from './pollution.component';
 import { LetModule } from '@ngrx/component';
 import { TranslateModule } from '@ngx-translate/core';
+import { MaterialModule } from 'src/app/material/material.module';
 import { MainModule } from '../main/main.module';
 
 
@@ -17,7 +18,9 @@ import { MainModule } from '../main/main.module';
     PollutionRoutingModule,
     LetModule,
     TranslateModule,
+    MaterialModule,
     MainModule
+    
     
   ]
 })

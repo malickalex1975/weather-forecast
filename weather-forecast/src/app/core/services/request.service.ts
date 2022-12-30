@@ -53,6 +53,8 @@ export class RequestService {
     }
   }
   setCoords(lat?: number, lon?: number) {
-    this.coords$$.next([lat, lon]);
+    if (lat && lon) {
+      this.coords$$.next([lat, lon]);
+    }
   }
 }

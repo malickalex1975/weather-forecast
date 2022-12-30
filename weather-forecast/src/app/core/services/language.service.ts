@@ -7,15 +7,15 @@ import { StorageService } from './storage.service';
   providedIn: 'root'
 })
 export class LanguageService {
-language= new BehaviorSubject<string>("ru")
+language$$= new BehaviorSubject<string>("ru")
   constructor(private storage:StorageService) { 
-    this.language.next(this.storage.getItem(LANG)??'ru')
+    this.language$$.next(this.storage.getItem(LANG)||'ru')
   }
   getLang(){
-    return this.language
+    return this.language$$
   }
   setLang(lang:string){
-    this.language.next(lang);
+    this.language$$.next(lang);
     this.storage.setItem(LANG,lang)
   }
 }

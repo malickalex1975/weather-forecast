@@ -6,7 +6,7 @@
   <div
     *ngrxLet="currentWeather$ as current"
     class="forecast-container"
-    [class.container-appear]="isChosen && current"
+    [class.container-appear]="isChosen && (currentWeather$ | async)"
     (mouseenter)="isMoreInfo = true"
     (mouseleave)="isMoreInfo = false"
     [class.more]="isMoreInfo"
@@ -59,6 +59,9 @@
         {{ defineWind(current?.wind?.deg) }}
       </div>
     </div>
+    <div class="wind" *ngIf="current?.wind?.gust &&(current?.wind?.gust?.toFixed(1)!==current?.wind?.speed?.toFixed(1))">
+      {{ "Gust" | translate }}: {{ current?.wind?.gust?.toFixed(1) }}
+      {{ "m/s" | translate }}</div>
     <p>
       {{ "Visibility" | translate }}: {{ current?.visibility }}
       {{ "m" | translate }}
@@ -74,7 +77,11 @@
     class="common-container"
     *ngIf="isChosen && (forecast$ | async) as forecast"
   >
-    <div class="forecast-5days-container" *ngrxLet="forecastDays$$ as days">
+    <div
+      class="forecast-5days-container"
+      *ngrxLet="forecastDays$$ as days"
+      [class.container-appear]="isChosen && (forecast$ | async)"
+    >
       <div class="day" *ngFor="let day of days">
         <div class="day-container">
           <p [class.red-note]="checkWeekend(day[0])">
@@ -87,6 +94,7 @@
             #forecastCard
             *ngFor="let weather of forecast.list | chooseDate : day[1]"
             [weather]="weather"
+            [day]="day"
           ></app-forecast-card>
         </div>
       </div>

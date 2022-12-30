@@ -52,7 +52,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.requestService.setIsChosen(true);
     this.searchRequest = this.storage.getItem(LAST_SEARCH) || '';
     this.requestService.setCoords(
-      ...JSON.parse(this.storage.getItem(LAST_COORD))
+      ...JSON.parse(this.storage.getItem(LAST_COORD) || '[]')
     );
     this.setCurrentPlaceCoords();
     if (this.isUseCurrentPosition) {
@@ -120,8 +120,10 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscription3 = this.requestService
       .getCoords()
       .subscribe((data: [number | undefined, number | undefined]) => {
-        this.getCurrentWeather(...data);
-        this.requestService.setIsChosen(true);
+        if (data[0] || data[1]) {
+          this.getCurrentWeather(...data);
+          this.requestService.setIsChosen(true);
+        }
       });
   }
   useRequest() {

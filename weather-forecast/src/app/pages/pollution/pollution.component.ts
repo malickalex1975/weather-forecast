@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { IPollution, PollutionType } from 'src/app/constants';
 import { HttpService } from 'src/app/core/services/http.service';
 import { PollutionService } from 'src/app/core/services/pollution.service';
 
@@ -79,6 +80,21 @@ export class PollutionComponent implements OnInit {
     let percent = this.pollutionService.getHN3Percent(level);
     let leftPoint = 150 * percent - 7;
     return `left: ${leftPoint}px`;
+  }
+  getHighLevel(forecast:IPollution,index:PollutionType){
+return this.pollutionService.getHighLevel(forecast,index)
+  }
+  getLowLevel(forecast:IPollution,index:PollutionType){
+return this.pollutionService.getLowLevel(forecast,index)
+  }
+  getCoeff(forecast:IPollution,index:PollutionType){
+return this.pollutionService.getCoeff(forecast,index)
+  }
+  getHighLevelPosition(forecast:IPollution,index:PollutionType){
+    return `margin-top: ${-47-this.getHighLevel(forecast,index)*this.getCoeff(forecast,index)}px`
+  }
+  getLowLevelPosition(forecast:IPollution,index:PollutionType){
+    return `margin-top: ${-66-this.getLowLevel(forecast,index)*this.getCoeff(forecast,index)}px`
   }
   ngOnDestroy() {
     this.subscription?.unsubscribe();

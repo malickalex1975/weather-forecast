@@ -15,12 +15,16 @@
   box-shadow: 1px 1px 2px rgba(4, 134, 241, 0.5);
   border-radius: 5px;
   color: #000;
+  transform: scale(0);
   transition: 500ms;
   &:hover {
     opacity: 1;
     background-color: rgba($color: #cceeff, $alpha: 1);
     box-shadow: 1px 1px 5px rgb(100, 100, 100);
   }
+}
+.container-appear {
+  transform: scale(1);
 }
 .loading {
   display: flex;
@@ -29,7 +33,7 @@
   width: 300px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 100px;
+  margin-top: 20px;
   opacity: 0;
   visibility: hidden;
   transform: 100ms;
@@ -132,28 +136,88 @@
   padding: 10px;
   gap: 10px;
 }
+.pollution-forecast-container{
+  transition: 500ms;
+  transform: scale(0);
+}
 .pollution-forecast {
   margin-left: auto;
   margin-right: auto;
-  width: 300px;
+  width: 85vw;
+  min-width: 300px;
   height: 300px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 20px;
-  padding: 10px;
+  padding-top: 50px;
   margin-top: 20px;
   background-color: rgba($color: #cceeff, $alpha: 0.7);
   box-shadow: 1px 1px 2px rgba(4, 134, 241, 0.5);
   border-radius: 5px;
   color: #000;
-  transition: 500ms;
   &:hover {
     opacity: 1;
     background-color: rgba($color: #cceeff, $alpha: 1);
     box-shadow: 1px 1px 5px rgb(100, 100, 100);
   }
 }
+.high-level-container,
+.low-level-container {
+  display: flex;
+  gap: 10px;
+  margin-left: -47px;
+  &:hover {
+    z-index: 13;
+  }
+}
+.high-level,
+.low-level {
+  position: relative;
+  z-index: 10;
+  width: 78vw;
+  min-width: 300px;
+  max-height: 0px;
+  padding: 0;
+  border-top: 1px dashed #4c6df0;
+}
+.level-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 12;
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  padding: 5px;
+  color: #4c6df0;
+  font-size: 16px;
+  transition: 200ms;
+  background-color: rgba($color: #eee, $alpha: 1);
+  box-shadow: 1px 1px 2px rgba(4, 134, 241, 0.5);
+  top: -13px;
+}
+.forecast-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px dashed #4c6df0;
+  border-radius: 5px;
+  color: #4c6df0;
+  width: 280px;
+  font-size: 24px;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: rgba($color: #ffffff, $alpha: 0.7);
+}
+.container-appear {
+  transform: scale(1);
+}
+
 @keyframes arrow-animation {
   0% {
     transform: translateY(0px);
@@ -165,4 +229,8 @@
     transform: translateY(0px);
   }
 }
-
+@media (max-width: 550px) {
+  .level-text {
+    left: 50px;
+  }
+}

@@ -7,6 +7,7 @@ import { StorageService } from './storage.service';
   providedIn: 'root',
 })
 export class GetCurrentPlaceService {
+  attempts = 0;
   currentCoords$$ = new BehaviorSubject({ lat: 0, lon: 0 });
   isUsedCurrent$$ = new BehaviorSubject(
     JSON.parse(this.storage.getItem(USE_CURRENT_POSITION) || 'true')
@@ -27,7 +28,11 @@ export class GetCurrentPlaceService {
           lon: Number(lon.toFixed(3)),
         });
       },
-      (err) => console.log(err.code, ' ', err.message),
+      (err) => {console.log(err.message)
+        if (this.attempts < 3) {
+          this.attempts++, this.defineCurrentLocation();
+        }
+      },
       {
         timeout: 2000,
       }
@@ -37,11 +42,11 @@ export class GetCurrentPlaceService {
   getCoords() {
     return this.currentCoords$$;
   }
-  setUsedCurrent(value:boolean){
-    this.isUsedCurrent$$.next(value)
-    this.storage.setItem(USE_CURRENT_POSITION,JSON.stringify(value) )
+  setUsedCurrent(value: boolean) {
+    this.isUsedCurrent$$.next(value);
+    this.storage.setItem(USE_CURRENT_POSITION, JSON.stringify(value));
   }
-  getUsedCurrent(){
-    return this.isUsedCurrent$$
+  getUsedCurrent() {
+    return this.isUsedCurrent$$;
   }
 }
