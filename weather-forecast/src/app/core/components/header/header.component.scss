@@ -70,8 +70,8 @@
     background-color: #fff;
   }
 }
-@media (max-width: 540px) {
-  .phrase {
+@media (max-width: 740px) {
+  .phrase, .current-date {
     display: none;
   }
 }

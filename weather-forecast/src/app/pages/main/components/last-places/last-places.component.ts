@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { IPlace, LAST_COORD } from 'src/app/constants';
 import { GetCurrentPlaceService } from 'src/app/core/services/get-current-place.service';
 import { RememberPlacesService } from 'src/app/core/services/remember-places.service';
@@ -17,7 +18,8 @@ export class LastPlacesComponent {
     private rememberPlaces: RememberPlacesService,
     private requestService: RequestService,
     private storage: StorageService,
-    private getCurrentPlaceService: GetCurrentPlaceService
+    private getCurrentPlaceService: GetCurrentPlaceService,
+    private router:Router
   ) {}
 
   callPlace(place: IPlace) {
@@ -25,6 +27,7 @@ export class LastPlacesComponent {
     this.requestService.setCoords(place.lat, place.lon);
     this.storage.setItem(LAST_COORD, JSON.stringify([place.lat, place.lon]));
     this.getCurrentPlaceService.setUsedCurrent(false);
+    this.router.navigate(['/forecast', place.lat, place.lon])
     window.scrollTo(0, 0);
   }
   clean() {

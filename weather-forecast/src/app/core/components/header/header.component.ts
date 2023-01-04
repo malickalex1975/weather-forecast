@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LANG, THEME } from 'src/app/constants';
 import { ColorService } from '../../services/color.service';
+import { DateService } from '../../services/date.service';
 import { LanguageService } from '../../services/language.service';
 import { ScrollService } from '../../services/scroll.service';
 import { StorageService } from '../../services/storage.service';
@@ -17,6 +18,7 @@ export class HeaderComponent {
   currentTheme$$ = this.themeService.getTheme();
   tempColor$$ = this.colorService.emitColor();
   posY$$ = this.scrollService.getPositionY();
+  currentDate$$= this.dateService.getCurrentDate()
 
   constructor(
     private langService: LanguageService,
@@ -24,7 +26,8 @@ export class HeaderComponent {
     private themeService: ThemeService,
     private colorService: ColorService,
     private translateService: TranslateService,
-    private scrollService: ScrollService
+    private scrollService: ScrollService,
+    private dateService:DateService
   ) {}
 
   langToggle() {

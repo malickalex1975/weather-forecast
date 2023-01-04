@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { IPlace, LAST_COORD, LAST_SEARCH } from 'src/app/constants';
@@ -32,8 +32,9 @@ export class MainComponent implements OnInit, OnDestroy {
   subscription7?: Subscription;
   subscription8?: Subscription;
   tempColor$$ = this.colorService.emitColor();
-  lat = 0;
-  lon = 0;
+  lat?: number;
+  lon?: number;
+
   constructor(
     private storage: StorageService,
     private searchService: SearchService,
@@ -74,6 +75,7 @@ export class MainComponent implements OnInit, OnDestroy {
     this.getCurrentPlace.setUsedCurrent(false);
   }
   getCurrentWeather(lat?: number, lon?: number) {
+    setTimeout(() => this.loadFrame(), 1000);
     this.requestService.setIsChosen(true);
     this.router.navigate(['forecast', lat, lon]);
 
@@ -88,6 +90,8 @@ export class MainComponent implements OnInit, OnDestroy {
     this.rememberPlaces.remember(place);
   }
   rememberCoords(lat: number, lon: number) {
+    this.lat = lat;
+    this.lon = lon;
     this.requestService.setCoords(lat, lon);
     this.storage.setItem(LAST_COORD, JSON.stringify([lat, lon]));
   }
@@ -99,6 +103,7 @@ export class MainComponent implements OnInit, OnDestroy {
   changeSearch() {
     this.getCurrentPlace.setUsedCurrent(this.isUseCurrentPosition);
     if (this.isUseCurrentPosition) {
+      this.setCurrentPlaceCoords();
       this.useCurrentLocation();
       this.searchRequest = '';
     } else {
@@ -122,6 +127,9 @@ export class MainComponent implements OnInit, OnDestroy {
       .subscribe((data: [number | undefined, number | undefined]) => {
         if (data[0] || data[1]) {
           this.getCurrentWeather(...data);
+          if (!this.isUseCurrentPosition) {
+            [this.lat, this.lon] = data;
+          }
           this.requestService.setIsChosen(true);
         }
       });
@@ -141,9 +149,10 @@ export class MainComponent implements OnInit, OnDestroy {
     });
   }
 
-  define(value: number) {
-    return value !== 0 ? value.toString() : "isn't defined";
+  define(value?: number) {
+    return value !== 0 ? value?.toString() : "isn't defined";
   }
+
   ngOnDestroy() {
     this.subscription1?.unsubscribe();
     this.subscription2?.unsubscribe();
@@ -153,5 +162,10 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscription6?.unsubscribe();
     this.subscription7?.unsubscribe();
     this.subscription8?.unsubscribe();
+  }
+
+  loadFrame() {
+    let el = document.querySelector('.iframe') as HTMLIFrameElement;
+    el.src = `https://openweathermap.org/weathermap?basemap=map&cities=true&layer=radar&lat=${this.lat}&lon=${this.lon}&zoom=6`;
   }
 }

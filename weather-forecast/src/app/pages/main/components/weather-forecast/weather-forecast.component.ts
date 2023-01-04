@@ -25,8 +25,7 @@ export class WeatherForecastComponent {
   tempColor$$ = this.colorService.emitColor();
   subscription4?: Subscription;
   subscription5?: Subscription;
-  isWindHovered=false
-  
+  isWindHovered = false;
 
   subscription?: Subscription;
   constructor(
@@ -36,7 +35,7 @@ export class WeatherForecastComponent {
     private requestService: RequestService,
     private colorService: ColorService,
     private dateService: DateService,
-    private windService:WindService,
+    private windService: WindService
   ) {}
   ngOnInit() {
     this.subscription = this.route.params.subscribe((params) => {
@@ -93,12 +92,23 @@ export class WeatherForecastComponent {
   defineDay(day: number, month: number) {
     return this.dateService.defineDay(day, month);
   }
-  defineWind(deg:number){
-    return this.windService.getWind(deg)
-
+  defineWind(deg: number) {
+    return this.windService.getWind(deg);
+  }
+  getTime(time: number) {
+    time = time - 10800;
+    let date = new Date(time * 1000);
+    let hours = date.getHours().toString();
+    if (hours.length === 1) {
+      hours = '0' + hours;
+    }
+    let minutes = date.getMinutes().toString();
+    if (minutes.length === 1) {
+      minutes = '0' + minutes;
+    }
+    return hours + ':' + minutes;
   }
 
-  
   ngOnDestroy() {
     this.subscription4?.unsubscribe();
     this.subscription5?.unsubscribe();

@@ -5,6 +5,7 @@
     [style]="getHeaderColor(tempColor, posY)"
   >
     <p class="phrase">{{ "There is no bad weather" | translate }}...</p>
+    <p class="current-date">{{(currentDate$$|async)| date:'medium'}}</p>
     <button
       class="theme"
       (click)="themeToggle()"
@@ -21,6 +22,7 @@
   <mat-menu  #menu>
     <ng-container>
     <button mat-menu-item [routerLink]='["./about"]'>{{"About developer"|translate}}</button>
+    <button mat-menu-item [routerLink]='["./canvas"]'>{{"Canvas(admin only)"|translate}}</button>
     <button mat-menu-item (click)="exit()">{{"Back"|translate}}</button>
     </ng-container>
   </mat-menu>

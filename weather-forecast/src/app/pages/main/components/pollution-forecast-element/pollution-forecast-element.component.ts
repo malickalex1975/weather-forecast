@@ -34,7 +34,9 @@ export class PollutionForecastElementComponent implements OnInit {
     let coeff= this.pollutionService.getCoeff(this.forecast,index);
    
     let color=this.pollutionService.getDiagramColor(value,index)
-    return`height: ${value*coeff}px; background-color: ${color}`}
+    return`height: ${value*coeff}px; background-color: ${color};  &:hover {
+      background-color: #aaa;
+    }`}
 
   getTime(time: number) {
     return new Date(time * 1000).getHours().toString() + ':00';

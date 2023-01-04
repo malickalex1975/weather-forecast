@@ -17,7 +17,7 @@
         </p>
         <p> {{ weather?.main?.humidity }} %</p>
           <div class="wind-deg">
-            <p>{{ weather?.wind?.speed?.toFixed(1) }}
+            <p>{{ weather?.wind?.speed?.toFixed(0) }}
               {{ "m/s" | translate }}</p>
             <div [style]="'transform: rotate(' + weather?.wind?.deg + 'deg)'">
               ↓

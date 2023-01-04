@@ -13,7 +13,20 @@
   >
     <p class="place">{{ current?.name }} , {{ current?.sys?.country }}</p>
     <div class="flag" [style]="getFlagStyle(current?.sys?.country)"></div>
-    <p>{{ "Now" | translate }}</p>
+    <div class="sun-time">
+      <mat-icon>wb_sunny</mat-icon
+      >{{ getTime(current?.sys?.sunrise + current?.timezone) }}
+      <mat-icon>brightness_2</mat-icon
+      >{{ getTime(current?.sys?.sunset + current?.timezone) }}
+    </div>
+    <p >
+      {{ "Daylight hours" | translate }}:
+      {{ getTime(current?.sys?.sunset - current?.sys?.sunrise) }}
+    </p>
+    <p class="local-time">
+      {{ "Local time" | translate }}:
+      {{ getTime(current?.dt + current?.timezone) }}
+    </p>
     <div class="current-temp">
       <p class="description">{{ current?.weather[0]?.description }}</p>
       <img
@@ -29,6 +42,7 @@
         {{ (current?.main?.feels_like).toFixed(1) }} ℃
       </p>
     </div>
+    <p class="view-more">{{"more"| translate}}...</p>
     <p>
       {{ "min...max" | translate }}:
       {{ (current?.main?.temp_min).toFixed(1) }} ...
@@ -44,7 +58,7 @@
     <p>{{ "Humidity" | translate }}: {{ current?.main?.humidity }} %</p>
     <p>{{ "Cloudness" | translate }}: {{ current?.clouds?.all }} %</p>
     <div class="wind">
-      {{ "Wind" | translate }}: {{ current?.wind?.speed }}
+      {{ "Wind" | translate }}: {{ current?.wind?.speed?.toFixed(0) }}
       {{ "m/s" | translate }}
       <div
         class="wind-deg"
@@ -59,9 +73,16 @@
         {{ defineWind(current?.wind?.deg) }}
       </div>
     </div>
-    <div class="wind" *ngIf="current?.wind?.gust &&(current?.wind?.gust?.toFixed(1)!==current?.wind?.speed?.toFixed(1))">
-      {{ "Gust" | translate }}: {{ current?.wind?.gust?.toFixed(1) }}
-      {{ "m/s" | translate }}</div>
+    <div
+      class="wind"
+      *ngIf="
+        current?.wind?.gust &&
+        current?.wind?.gust?.toFixed(0) !== current?.wind?.speed?.toFixed(0)
+      "
+    >
+      {{ "Gust" | translate }}: {{ current?.wind?.gust?.toFixed(0) }}
+      {{ "m/s" | translate }}
+    </div>
     <p>
       {{ "Visibility" | translate }}: {{ current?.visibility }}
       {{ "m" | translate }}

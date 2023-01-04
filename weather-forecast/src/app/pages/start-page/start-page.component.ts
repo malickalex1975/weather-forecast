@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 import { GetCurrentPlaceService } from 'src/app/core/services/get-current-place.service';
+import { HashService } from 'src/app/core/services/hash.service';
 import { StartService } from 'src/app/core/services/start.service';
 
 @Component({
@@ -15,10 +16,12 @@ export class StartPageComponent implements OnInit {
   constructor(
     private startService: StartService,
     private router: Router,
-    private getCurrentPlace: GetCurrentPlaceService
+    private getCurrentPlace: GetCurrentPlaceService,
+    private hashService:HashService
   ) {}
 
   ngOnInit(): void {
+    console.log(this.hashService.getHash('adminmyapp'))
     this.getCurrentPlace.defineCurrentLocation();
     this.timeout = setTimeout(() => {
       this.start();
@@ -29,4 +32,6 @@ export class StartPageComponent implements OnInit {
     this.router.navigate(['../']);
     clearTimeout(this.timeout);
   }
+
+  
 }

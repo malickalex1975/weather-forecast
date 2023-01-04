@@ -1,0 +1,25 @@
+.container{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    width:300px;
+    height: 300px;
+    background-color: #eee;
+    box-shadow: 1px 1px 5px rgba(#000, 0.5);
+    border-radius: 5px;
+    &:hover{
+        background-color: #fff;
+    }
+}
+    .submit-button{
+        padding: 10px;
+        cursor: pointer;
+        &:disabled{
+        cursor: auto;
+        }
+    }

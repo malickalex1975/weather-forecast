@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PopupComponent } from './pages/popup/popup.component';
 import { MainModule } from './pages/main/main.module';
 import { MaterialModule } from './material/material.module';
+import { DenyPageComponent } from './pages/deny-page/deny-page.component';
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }

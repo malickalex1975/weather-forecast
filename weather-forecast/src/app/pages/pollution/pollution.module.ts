@@ -9,6 +9,7 @@ import { MainModule } from '../main/main.module';
 
 
 
+
 @NgModule({
   declarations: [
     PollutionComponent

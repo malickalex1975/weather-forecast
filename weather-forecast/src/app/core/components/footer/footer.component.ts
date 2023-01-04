@@ -7,9 +7,9 @@ import { ScrollService } from '../../services/scroll.service';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-  posY$$ = this.scrollService.getPositionY();
+  posY$$ = this.scrollService.getScrollHeight(document.body);
   constructor(private scrollService:ScrollService){}
   getStyle(pos:number){
-    return pos===0 ? 'height:0px;opacity:0':''
+    return pos>0 ? 'height:0px;opacity:0':''
   }
 }

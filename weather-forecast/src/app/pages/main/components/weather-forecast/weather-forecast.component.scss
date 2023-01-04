@@ -10,7 +10,7 @@
   margin-right: auto;
   transform: scale(0);
   width: 290px;
-  height: 0px;
+  height: 320px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -37,10 +37,18 @@
   }
 }
 .more {
-  height: 430px;
+  height: 520px;
 }
-
-
+.sun-time{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap:10px;
+}
+.local-time, .view-more{
+  color: #4c6df0;
+  font-size: 20px;
+}
 .current-temp {
   display: flex;
   flex-direction: column;

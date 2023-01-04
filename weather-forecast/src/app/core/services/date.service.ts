@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject , of, switchMap, tap, timer} from 'rxjs';
 import { IWeather, LANG } from 'src/app/constants';
 import { StorageService } from './storage.service';
 
@@ -7,6 +7,7 @@ import { StorageService } from './storage.service';
   providedIn: 'root',
 })
 export class DateService {
+  currentDate$=timer(0,1000).pipe(switchMap(()=>of(new Date())))
   dateArray$$ = new BehaviorSubject<any[]>([]);
   monthEN = [
     'January',
@@ -56,7 +57,8 @@ export class DateService {
   ];
   nowDay = new Date().getDate();
   nowMonth = new Date().getMonth();
-  constructor(private storage: StorageService) {}
+  constructor(private storage: StorageService) {
+  }
 
   createDateArray(list: IWeather[]) {
     let out: any[] = [];
@@ -105,5 +107,8 @@ export class DateService {
         : '';
     }
     return '';
+  }
+  getCurrentDate(){
+    return this.currentDate$
   }
 }

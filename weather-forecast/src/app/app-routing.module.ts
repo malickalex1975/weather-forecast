@@ -2,6 +2,7 @@ import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@a
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppGuardGuard } from './core/guards/app-guard.guard';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -17,6 +18,19 @@ const routes: Routes = [
       canActivate:[AppGuardGuard]
   },
   {
+    path: 'canvas',
+    loadChildren: () =>
+      import('./pages/camera-game/camera-game.module').then((m) => m.CameraGameModule),
+      canActivate:[AuthGuard]
+     
+  },
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./pages/auth/auth.module').then((m) => m.AuthModule),
+     
+  },
+  {
     path: '',
     loadChildren: () =>
       import('./pages/main/main.module').then((m) => m.MainModule),
@@ -26,7 +40,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  providers:[AppGuardGuard, {provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers:[AppGuardGuard, AuthGuard, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -54,8 +54,10 @@
 .diagramm-element {
   width: 8px;
   border: 1px solid #555;
+  transition: 200ms;
   &:hover {
     background-color: #aaa;
+    transform: translateY(-20px);
   }
 }
 .index {

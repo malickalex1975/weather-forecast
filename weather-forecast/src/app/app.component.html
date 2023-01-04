@@ -1,11 +1,12 @@
 <div class="app-container" [class.dark]="(theme$$|async)==='dark'">
 <app-header></app-header>
 <router-outlet>
-    <nav>
-        <div class="nav-buttons">
-            <div class="button-up" (click)="goUp()" [class.unvisible]="(posY$$|async)===0">▲</div>
-            <div class="button-down" (click)="goDown()"  [class.unvisible]="((posY$$ | async)! - (scrollHeight$$ | async)!) < 0">▼</div>
+    <nav *ngrxLet="scrollHeight$$ as scrollHeight">
+        <div class="nav-buttons" *ngrxLet="posY$$ as posY">
+            <div class="button-up" (click)="goUp(); checkPosition()" [class.unvisible]="posY===0">▲</div>
+            <div class="button-down" (click)="goDown(); checkPosition()"  [class.unvisible]="scrollHeight <= 0">▼</div>
         </div>
+        
     </nav>
 </router-outlet>
 <app-footer></app-footer>

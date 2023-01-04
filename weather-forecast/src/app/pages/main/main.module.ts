@@ -16,6 +16,7 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { DeveloperComponent } from './components/developer/developer.component';
 import { AboutComponent } from '../about/about.component';
 import { PopupComponent } from '../popup/popup.component';
+import { DenyPageComponent } from '../deny-page/deny-page.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { PopupComponent } from '../popup/popup.component';
     PollutionForecastElementComponent,
     DeveloperComponent,
     AboutComponent,
+    DenyPageComponent
   
   ],
   imports: [
