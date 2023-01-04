@@ -15,7 +15,7 @@
     "Visibility":"Видимость",
     "m/s":"м/с",
     "m":"м",
-    "Now":"Сейчас",
+    "Local time":"Местное время",
     "Precipitation":"Осадки",
     "Air quality in this location":"Качество воздуха в этом месте",
     "μg/m3":"мкг/м3",
@@ -42,5 +42,9 @@
     "Back":"Назад",
     "isn't defined":"не определено",
     "5 days forecast":"Прогноз на 5 дней",
-    "Gust":"Порывы"
+    "Gust":"Порывы",
+    "Daylight hours":"Световой день",
+    "start":"старт",
+    "Page is not found":"Страница не найдена",
+    "Access denied":"В доступе отказано"
 }

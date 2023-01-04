@@ -15,7 +15,7 @@
     "Visibility":"Visibility",
     "m/s":"m/s",
     "m":"m",
-    "Now":"Now",
+    "Local time":"Local time",
     "Precipitation":"Precipitation",
     "Air quality in this location":"Air quality in this location",
     "μg/m3":"μg/m3",
@@ -42,6 +42,11 @@
     "Back":"Back",
     "isn't defined":"isn't defined",
     "5 days forecast":"5 days forecast",
-    "Gust":"Gust"
+    "Gust":"Gust",
+    "Daylight hours":"Daylight hours",
+    "start":"start",
+    "Page is not found":"Page is not found",
+    "Access denied":"Access denied"
+
 
 }
