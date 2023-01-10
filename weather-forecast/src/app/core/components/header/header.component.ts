@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LANG, THEME } from 'src/app/constants';
+import { BatteryService } from '../../services/battery.service';
 import { ColorService } from '../../services/color.service';
 import { DateService } from '../../services/date.service';
 import { LanguageService } from '../../services/language.service';
 import { ScrollService } from '../../services/scroll.service';
+import { StartService } from '../../services/start.service';
 import { StorageService } from '../../services/storage.service';
 import { ThemeService } from '../../services/theme.service';
 
@@ -19,6 +21,12 @@ export class HeaderComponent {
   tempColor$$ = this.colorService.emitColor();
   posY$$ = this.scrollService.getPositionY();
   currentDate$$= this.dateService.getCurrentDate()
+  isStart$$= this.startService.getStartedSubject();
+  batteryLevel$$= this.batteryService.getLevel();
+  batteryColor$$= this.batteryService.getColor();
+  isBatteryCharging$$ =this.batteryService.getIsCharging();
+  dischargingTime$$= this.batteryService.getDischargingTime();
+  isBatteryHovered=false;
 
   constructor(
     private langService: LanguageService,
@@ -27,7 +35,10 @@ export class HeaderComponent {
     private colorService: ColorService,
     private translateService: TranslateService,
     private scrollService: ScrollService,
-    private dateService:DateService
+    private dateService:DateService,
+    private startService:StartService,
+    private batteryService:BatteryService
+
   ) {}
 
   langToggle() {
@@ -55,5 +66,11 @@ export class HeaderComponent {
   }
   exit() {
     window.history.back();
+  }
+  getBatteryStyle(level:number, color:string):string{
+    return `min-width: ${20*level}px; background-color:${color}`
+  }
+  defineLevel(level:number):number{
+    return Math.round(level*100)
   }
 }

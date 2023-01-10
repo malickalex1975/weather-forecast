@@ -5,7 +5,7 @@
     [style]="getHeaderColor(tempColor, posY)"
   >
     <p class="phrase">{{ "There is no bad weather" | translate }}...</p>
-    <p class="current-date">{{(currentDate$$|async)| date:'medium'}}</p>
+    <p class="current-date">{{ currentDate$$ | async | date : "medium" }}</p>
     <button
       class="theme"
       (click)="themeToggle()"
@@ -14,18 +14,48 @@
     <button mat-icon-button class="lang" (click)="langToggle()">
       {{ (currentLang$$ | async)?.toUpperCase() }}
     </button>
-   
-    <button   class="menu-button" [matMenuTriggerFor]="menu">
+
+    <button
+      class="menu-button"
+      [matMenuTriggerFor]="menu"
+      *ngIf="isStart$$ | async"
+    >
       <mat-icon>menu_vert</mat-icon>
     </button>
-  
-  <mat-menu  #menu>
-    <ng-container>
-    <button mat-menu-item [routerLink]='["./about"]'>{{"About developer"|translate}}</button>
-    <button mat-menu-item [routerLink]='["./canvas"]'>{{"Canvas(admin only)"|translate}}</button>
-    <button mat-menu-item (click)="exit()">{{"Back"|translate}}</button>
-    </ng-container>
-  </mat-menu>
 
+    <mat-menu #menu>
+      <ng-container>
+        <button mat-menu-item [routerLink]="['./about']">
+          {{ "About developer" | translate }}
+        </button>
+        <button mat-menu-item [routerLink]="['./canvas']">
+          {{ "Experiment(admin only)" | translate }}
+        </button>
+        <button mat-menu-item (click)="exit()">{{ "Back" | translate }}</button>
+      </ng-container>
+    </mat-menu>
+    <div
+      class="battery"
+      *ngIf="batteryLevel$$"
+      (mouseenter)="isBatteryHovered = true"
+      (mouseleave)="isBatteryHovered = false"
+    >
+      <div
+        class="battery-inner"
+        [style]="
+          getBatteryStyle((batteryLevel$$ | async)!, (batteryColor$$ | async)!)
+        "
+      >
+        <mat-icon class="charging-icon" *ngIf="isBatteryCharging$$ | async"
+          >usb</mat-icon
+        >
+      </div>
+      <span class="battery-value"
+        >{{ defineLevel((batteryLevel$$ | async)!) }}%</span
+      >
+    </div>
+    <div class="about-battery" [class.about-battery-visible]="isBatteryHovered">
+      <p>{{dischargingTime$$|async}}</p>
+    </div>
   </div>
 </div>

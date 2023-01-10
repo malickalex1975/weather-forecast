@@ -3,8 +3,8 @@
 <router-outlet>
     <nav *ngrxLet="scrollHeight$$ as scrollHeight">
         <div class="nav-buttons" *ngrxLet="posY$$ as posY">
-            <div class="button-up" (click)="goUp(); checkPosition()" [class.unvisible]="posY===0">▲</div>
-            <div class="button-down" (click)="goDown(); checkPosition()"  [class.unvisible]="scrollHeight <= 0">▼</div>
+            <div class="button-up" (click)="goUp(); checkPosition(posY==0)" [class.unvisible]="posY===0">▲</div>
+            <div class="button-down" (click)="goDown(); checkPosition(scrollHeight<=0)"  [class.unvisible]="scrollHeight <= 0">▼</div>
         </div>
         
     </nav>

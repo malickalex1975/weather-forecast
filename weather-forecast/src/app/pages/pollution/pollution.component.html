@@ -11,6 +11,8 @@
   <p >
     {{ place }} 
   </p>
+  <p>{{"latitude"|translate}}: {{lat}}°</p>
+    <p>{{"longitude"|translate}}: {{lon}}°</p>
 </div>
   <div class="pollution-container">
     <div class="inner-container" [class.container-appear]="pollution$ | async" >

@@ -3,20 +3,21 @@
   top: 0;
   left: 0;
   z-index: 14;
+  width:100vw;
 }
 .header-container {
-  position: sticky;
+  
   top: 0;
   left: 0;
   height: 50px;
-  width: 100wv;
+ 
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: 50px;
   padding-right: 20px;
   padding-left: 20px;
-  z-index: 14;
+  z-index: 15;
   transition: 0.2s;
 }
 .lang {
@@ -52,7 +53,7 @@
     opacity: 1;
   }
 }
-.menu-button{
+.menu-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -70,8 +71,56 @@
     background-color: #fff;
   }
 }
+.battery {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 20px;
+  height: 10px;
+  background-color: black;
+  border: 2px solid #eee;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.battery-inner {
+  height: 10px;
+  box-shadow: inset 1px  1px 2px #000;
+}
+.battery-value {
+  position: relative;
+  top: 0px;
+  left: -45px;
+  color:black;
+  font-size: 14px;
+}
+.charging-icon{
+  font-size: 17px;
+  position: relative;
+  top:-3px;
+  left:23px;
+}
+.about-battery{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 170px;
+  height: 60px;
+  padding: 10px;
+  background-color: #eee;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px #666;
+  top:-200px;
+  right: 10px;
+  transition: 1s;
+  z-index: -1;
+}
+.about-battery-visible{
+  top:60px;
+}
 @media (max-width: 740px) {
-  .phrase, .current-date {
+  .phrase,
+  .current-date {
     display: none;
   }
 }

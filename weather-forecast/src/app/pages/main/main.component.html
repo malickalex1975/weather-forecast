@@ -23,8 +23,8 @@
     <mat-icon *ngIf="!isUseCurrentPosition">location_off</mat-icon>
   </div>
     <div class="coords" *ngIf="isUseCurrentPosition ">
-    <p>{{"latitude"|translate}}: {{(define(lat))!|translate}}</p>
-    <p>{{"longitude"|translate}}: {{define(lon)!|translate}}</p>
+    <p>{{"latitude"|translate}}: {{(define(lat))!|translate}}°</p>
+    <p>{{"longitude"|translate}}: {{define(lon)!|translate}}°</p>
   
   </div>
   </div>

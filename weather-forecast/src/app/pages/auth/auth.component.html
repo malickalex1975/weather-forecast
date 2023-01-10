@@ -1,7 +1,23 @@
 <div class="container">
-    <h3>Login</h3>
-    <input type="text" [(ngModel)]="login" [placeholder]="'login'"  />
-    <input type="password" [(ngModel)]="password" [placeholder]="'password'">
-    <button  class='submit-button' [type]="'submit'" [disabled]="login===''||password==''" (click)="submit()">Submit</button>
-
+  <h3>Login</h3>
+  <input
+    type="text"
+    [(ngModel)]="login"
+    [placeholder]="'login'"
+    [autocomplete]="false"
+  />
+  <input
+    type="password"
+    [(ngModel)]="password"
+    [placeholder]="'password'"
+    [autocomplete]="false"
+  />
+  <button
+    class="submit-button"
+    [type]="'submit'"
+    [disabled]="login === '' || password == ''"
+    (click)="submit()"
+  >
+    Submit
+  </button>
 </div>

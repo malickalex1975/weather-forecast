@@ -9,41 +9,39 @@ import { ThemeService } from './core/services/theme.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent  implements OnInit {
+export class AppComponent implements OnInit {
   title = 'weather-forecast';
-  theme$$=this.themeService.getTheme()
+  theme$$ = this.themeService.getTheme();
   posY$$ = this.scrollService.getPositionY();
-  scrollHeight$$= new BehaviorSubject(0)
-  
+  scrollHeight$$ = new BehaviorSubject(0);
 
   constructor(
     private scrollService: ScrollService,
-    private themeService:ThemeService,
+    private themeService: ThemeService,
     translate: TranslateService,
     storage: StorageService
   ) {
-    translate.addLangs(['en', 'ru', ]);
+    translate.addLangs(['en', 'ru']);
     translate.setDefaultLang('ru');
-    const language =
-      storage.getItem(LANG) || 'ru';
+    const language = storage.getItem(LANG) || 'ru';
     translate.use(language);
   }
   ngOnInit(): void {
-    let appContainer = document.querySelector('.app-container')
-    this.scrollHeight$$=this.scrollService.getScrollHeight(appContainer!)
+    let appContainer = document.querySelector('.app-container');
+    this.scrollHeight$$ = this.scrollService.getScrollHeight(appContainer!);
   }
- 
 
-goUp(){
-  window.scrollTo(0,0);
-}
-goDown(){
-  window.scrollBy(0, window.innerHeight -150);
-}
-checkPosition(){
-  navigator.vibrate(200);
-
-}
+  goUp() {
+    window.scrollTo(0, 0);
+  }
+  goDown() {
+    window.scrollBy(0, window.innerHeight - 150);
+  }
+  checkPosition(condition:boolean) {
+    if (!condition) {
+      navigator.vibrate(50);
+    }
+  }
 }

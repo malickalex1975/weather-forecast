@@ -5,7 +5,7 @@
     border: 2px solid whitesmoke;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
     position: absolute;
-    bottom: 5px;
+    top: 60px;
     left: 10px;
     background: white;
 }
@@ -26,6 +26,7 @@
     height: 300px;
     padding: 0px;
     border: 2px solid rgb(236, 36, 36);
+    background-color: black;
 }
 .save-button{
     display: flex;
@@ -35,7 +36,7 @@
     width:50px;
     height: 30px;
     position: fixed;
-    left:50px;
+    left:0px;
     bottom: 170px;
     opacity: 0;
     visibility: hidden;
@@ -49,12 +50,21 @@
 }
 .average-color{
     position: fixed;
-    left:50vw;
+    left:400px;
     bottom: 50px;
     width: 50px;
     height: 50px;
     border: 2px solid red;
-    padding: 50px;
+    padding: 30px;
+}
+.point-color{
+    position: fixed;
+    left:400px;
+    bottom: 180px;
+    width: 50px;
+    height: 50px;
+    border: 2px solid green;
+    padding: 30px;
 }
 .display-cover {
     display: flex;
@@ -66,7 +76,7 @@
 }
 
 video {
-    width: 40vw;
+    width: 400px;
     background: rgba(0, 0, 0, 0.2);
 }
 
@@ -149,4 +159,30 @@ video {
 
 .controls > button:hover svg {
     color: white;
+}
+.average-data{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height:120px;
+    border: 1px dashed red;
+    border-radius: 5px;
+    position: fixed;
+    left:550px;
+    bottom: 50px;
+}
+.point-data{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height:120px;
+    border: 1px dashed green;
+    border-radius: 5px;
+    position: fixed;
+    left:550px;
+    bottom: 180px;
 }

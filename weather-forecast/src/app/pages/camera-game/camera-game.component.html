@@ -1,5 +1,5 @@
 <div class="display-cover">
-    <video autoplay></video>
+    <video  autoplay controls="true"></video>
     <canvas draggable="true" class="canvas d-none" (click)="isBigCanvas=!isBigCanvas " [style.width]="isBigCanvas? '40vw':'20vw'" ></canvas>
 <canvas class="canvas-2"> </canvas>
     <div class="video-options">
@@ -7,8 +7,23 @@
             <option value="">Select camera</option>
         </select>
     </div>
-    <a class="save-button" href="#" [download]="'my_photo.png'" [class.visible]="isSaveButton">Save</a>
-<div class="average-color" [style.background-color]="averageColor$$|async"></div>
+    <a class="save-button" href="#" (click)="getHref()" [download]="'my_photo.png'" [class.visible]="isSaveButton">Save</a>
+<div class="average-color" [style.background-color]="averageColor$$|async">Average colour</div>
+<div class="point-color" [style.background-color]="pointColor">Point colour</div>
+<div class="point-data">
+    <p>X= {{x}}</p>
+    <p>Y= {{y}}</p>
+    <p>R: {{pointR}}</p>
+    <p>G: {{pointG}}</p>
+    <p>B: {{pointB}}</p>
+    <p>A: {{pointA}}</p>
+</div>
+<div class="average-data">
+    <p>R: {{averageR}}</p>
+    <p>G: {{averageG}}</p>
+    <p>B: {{averageB}}</p>
+    <p>A: {{averageA}}</p>
+</div>
     <img class="screenshot-image d-none" alt="">
 
     <div class="controls">
@@ -16,6 +31,5 @@
         <button class="btn btn-info pause d-none" title="Pause"><i data-feather="pause"></i></button>
         <button class="btn btn-outline-success screenshot d-none" title="ScreenShot"><i data-feather="image"></i></button>
         <button (click)="clearCanvas()">clear canvas</button>
-        <p>{{x}} {{y}}</p>
     </div>
 </div>

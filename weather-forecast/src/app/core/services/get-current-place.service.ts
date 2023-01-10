@@ -21,16 +21,20 @@ export class GetCurrentPlaceService {
     let geolocation = navigator.geolocation;
     geolocation.getCurrentPosition(
       (pos) => {
+        this.attempts = 0;
         lat = pos?.coords?.latitude;
         lon = pos?.coords?.longitude;
         this.currentCoords$$.next({
-          lat: Number(lat.toFixed(3)),
-          lon: Number(lon.toFixed(3)),
+          lat: Number(lat.toFixed(6)),
+          lon: Number(lon.toFixed(6)),
         });
       },
-      (err) => {console.log(err.message)
-        if (this.attempts < 3) {
-          this.attempts++, this.defineCurrentLocation();
+      (err) => {
+        console.log(err.message);
+        if (this.attempts < 50) {
+          setTimeout(() => {
+            this.attempts++, this.defineCurrentLocation();
+          }, 10);
         }
       },
       {
