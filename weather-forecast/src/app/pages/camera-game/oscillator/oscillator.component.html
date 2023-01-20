@@ -1,0 +1,17 @@
+<div class="signal-options">
+    <p class="signal-title"> CHOOSE SIGNAL TYPE </p>
+    <select  [(ngModel)]="type" (ngModelChange)="changeType()">
+        <option value="sine">sine</option>
+        <option value="square">square</option>
+        <option value="sawtooth">sawtooth</option>
+        <option value="triangle">triangle</option>
+    </select>
+</div>
+
+<p>{{range}}</p>
+<h1 class="freq">{{freq}} HZ</h1>
+<div class="scale">
+    <div class="thumb"></div>
+</div>
+<div *ngIf="!isStopped" class="stop" (click)="stop();isStopped=true">STOP</div>
+<div *ngIf="isStopped" class="play" (click)="play();isStopped=false">PLAY</div>

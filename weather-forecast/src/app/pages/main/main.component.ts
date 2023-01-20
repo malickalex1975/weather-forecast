@@ -23,6 +23,8 @@ export class MainComponent implements OnInit, OnDestroy {
   isChosen$$ = this.requestService.getIsChosen();
   listRequests$$ = this.requestService.getListRequests();
   isUseCurrentPosition = true;
+  isFrameLoaded = false;
+  currentPositionStyle = '';
   subscription1?: Subscription;
   subscription2?: Subscription;
   subscription3?: Subscription;
@@ -47,22 +49,8 @@ export class MainComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription8 = this.getCurrentPlace
-      .getUsedCurrent()
-      .subscribe((value) => (this.isUseCurrentPosition = value));
-    this.requestService.setIsChosen(true);
-    this.searchRequest = this.storage.getItem(LAST_SEARCH) || '';
-    this.requestService.setCoords(
-      ...JSON.parse(this.storage.getItem(LAST_COORD) || '[]')
-    );
-    this.setCurrentPlaceCoords();
-    if (this.isUseCurrentPosition) {
-      this.useCurrentLocation();
-      this.searchRequest = '';
-    } else {
-      this.useCoords();
-      this.useRequest();
-    }
+    this.init();
+    window.onresize=()=>this.calculateCurrentPositionStyle()
   }
   rememberSearch() {
     if (this.searchRequest) {
@@ -75,7 +63,8 @@ export class MainComponent implements OnInit, OnDestroy {
     this.getCurrentPlace.setUsedCurrent(false);
   }
   getCurrentWeather(lat?: number, lon?: number) {
-    setTimeout(() => this.loadFrame(), 1000);
+    this.isFrameLoaded = false;
+    setTimeout(() => this.loadFrame(lat!, lon!), 1000);
     this.requestService.setIsChosen(true);
     this.router.navigate(['forecast', lat, lon]);
 
@@ -118,6 +107,8 @@ export class MainComponent implements OnInit, OnDestroy {
       this.lon !== 0
     ) {
       this.getCurrentWeather(this.lat, this.lon);
+    } else {
+      setTimeout(() => this.init(), 1000);
     }
   }
 
@@ -164,8 +155,42 @@ export class MainComponent implements OnInit, OnDestroy {
     this.subscription8?.unsubscribe();
   }
 
-  loadFrame() {
+  loadFrame(lat: number, lon: number) {
     let el = document.querySelector('.iframe') as HTMLIFrameElement;
-    el.src = `https://openweathermap.org/weathermap?basemap=map&cities=true&layer=radar&lat=${this.lat}&lon=${this.lon}&zoom=6`;
+    let google = document.querySelector('.google-iframe') as HTMLIFrameElement;
+    google.onload = () => {
+      this.isFrameLoaded = true;
+      this.calculateCurrentPositionStyle();
+    };
+    google.onerror = () => (this.isFrameLoaded = false);
+    el.src = `https://openweathermap.org/weathermap?basemap=map&cities=true&layer=radar&lat=${lat}&lon=${lon}&zoom=20`;
+    google.src = `https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d100000!2d${lon}!3d${lat}!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sru!2sby!4v1674040894710!5m2!1sru!2sby`;
+  }
+  init() {
+    this.setCurrentPlaceCoords();
+    this.subscription8 = this.getCurrentPlace
+      .getUsedCurrent()
+      .subscribe((value) => (this.isUseCurrentPosition = value));
+    this.requestService.setIsChosen(true);
+    this.searchRequest = this.storage.getItem(LAST_SEARCH) || '';
+    this.requestService.setCoords(
+      ...JSON.parse(this.storage.getItem(LAST_COORD) || '[]')
+    );
+
+    if (this.isUseCurrentPosition) {
+      this.useCurrentLocation();
+      this.searchRequest = '';
+    } else {
+      this.useCoords();
+      this.useRequest();
+    }
+  }
+  calculateCurrentPositionStyle() {
+    let google = document.querySelector('.google-iframe') as HTMLIFrameElement;
+    let iframeRect = google.getBoundingClientRect();
+    let currentTop = iframeRect.y + iframeRect.height / 2;
+    let currentLeft = iframeRect.x + iframeRect.width / 2;
+    let style = `top: ${currentTop - 20}px; left: ${currentLeft - 20}px;`;
+    this.currentPositionStyle = style;
   }
 }

@@ -1,8 +1,12 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Observable, of, switchMap } from 'rxjs';
 import { LanguageService } from 'src/app/core/services/language.service';
 import { DEVELOPER, DEVELOPERS } from 'src/app/developer';
 import { DEVELOPERS_RU } from 'src/app/developer-ru';
+const {MyClass}= require('src/app/my-class.js');
+
+
 
 @Component({
   selector: 'app-about',
@@ -11,10 +15,11 @@ import { DEVELOPERS_RU } from 'src/app/developer-ru';
 })
 export class AboutComponent implements OnInit {
   developers$: Observable<DEVELOPER[]> = this.getCurrentDeveloper();
+  navigator:any=navigator
   constructor(private langService: LanguageService, ) {}
-  ngOnInit(): void {
-   
-    
+  ngOnInit(): void {window.scrollTo(0,0)
+   let myclass= new MyClass()
+   myclass.logMessage()
   }
 
   getCurrentDeveloper() {

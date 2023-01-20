@@ -6,11 +6,13 @@
   >
     <p class="phrase">{{ "There is no bad weather" | translate }}...</p>
     <p class="current-date">{{ currentDate$$ | async | date : "medium" }}</p>
-    <button
-      class="theme"
-      (click)="themeToggle()"
-      [style]="getStyle(currentTheme$$ | async, posY)"
-    ></button>
+    <div class="theme-container" (click)="themeToggle()">
+      <div
+        class="theme-strip"
+        [style]="getStripStyle(currentTheme$$ | async, posY)"
+      ></div>
+      <div class="theme" [style]="getStyle(currentTheme$$ | async, posY)"></div>
+    </div>
     <button mat-icon-button class="lang" (click)="langToggle()">
       {{ (currentLang$$ | async)?.toUpperCase() }}
     </button>
@@ -25,11 +27,17 @@
 
     <mat-menu #menu>
       <ng-container>
-        <button mat-menu-item [routerLink]="['./about']">
+        <button mat-menu-item [routerLink]="['./']" *ngIf="checkPath('forecast')">
+          {{ "Weather forecast" | translate }}
+        </button>
+        <button mat-menu-item [routerLink]="['./about']" *ngIf="checkPath('about')">
           {{ "About developer" | translate }}
         </button>
-        <button mat-menu-item [routerLink]="['./canvas']">
+        <button mat-menu-item [routerLink]="['./experiments']" *ngIf="checkPath('experiments')">
           {{ "Experiment(admin only)" | translate }}
+        </button>
+        <button mat-menu-item [routerLink]="['./oscillator']"*ngIf="checkPath('oscillator')">
+          {{ "Oscillator(admin only)" | translate }}
         </button>
         <button mat-menu-item (click)="exit()">{{ "Back" | translate }}</button>
       </ng-container>
@@ -54,8 +62,13 @@
         >{{ defineLevel((batteryLevel$$ | async)!) }}%</span
       >
     </div>
-    <div class="about-battery" [class.about-battery-visible]="isBatteryHovered">
-      <p>{{dischargingTime$$|async}}</p>
+    <div
+      class="about-battery"
+      [class.about-battery-visible]="
+        isBatteryHovered && (dischargingTime$$ | async) !== ''
+      "
+    >
+      <p>{{ dischargingTime$$ | async }}</p>
     </div>
   </div>
 </div>

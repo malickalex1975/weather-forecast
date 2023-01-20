@@ -12,7 +12,7 @@ export class GetCurrentPlaceService {
   isUsedCurrent$$ = new BehaviorSubject(
     JSON.parse(this.storage.getItem(USE_CURRENT_POSITION) || 'true')
   );
-  constructor(private storage: StorageService) {}
+  constructor(private storage: StorageService) {this.defineCurrentLocation}
 
   defineCurrentLocation() {
     let lat = 0;

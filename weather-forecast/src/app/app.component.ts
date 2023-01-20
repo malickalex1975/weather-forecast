@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
     translate.use(language);
   }
   ngOnInit(): void {
-    let appContainer = document.querySelector('.app-container');
+    let appContainer = document.querySelector('.app-container') as HTMLElement;
     this.scrollHeight$$ = this.scrollService.getScrollHeight(appContainer!);
   }
 
@@ -44,4 +44,5 @@ export class AppComponent implements OnInit {
       navigator.vibrate(50);
     }
   }
+  
 }

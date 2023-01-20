@@ -1,35 +1,112 @@
-<div class="display-cover">
-    <video  autoplay controls="true"></video>
-    <canvas draggable="true" class="canvas d-none" (click)="isBigCanvas=!isBigCanvas " [style.width]="isBigCanvas? '40vw':'20vw'" ></canvas>
-<canvas class="canvas-2"> </canvas>
-    <div class="video-options">
-        <select name="" id="" class="custom-select">
-            <option value="">Select camera</option>
-        </select>
-    </div>
-    <a class="save-button" href="#" (click)="getHref()" [download]="'my_photo.png'" [class.visible]="isSaveButton">Save</a>
-<div class="average-color" [style.background-color]="averageColor$$|async">Average colour</div>
-<div class="point-color" [style.background-color]="pointColor">Point colour</div>
-<div class="point-data">
-    <p>X= {{x}}</p>
-    <p>Y= {{y}}</p>
-    <p>R: {{pointR}}</p>
-    <p>G: {{pointG}}</p>
-    <p>B: {{pointB}}</p>
-    <p>A: {{pointA}}</p>
-</div>
-<div class="average-data">
-    <p>R: {{averageR}}</p>
-    <p>G: {{averageG}}</p>
-    <p>B: {{averageB}}</p>
-    <p>A: {{averageA}}</p>
-</div>
-    <img class="screenshot-image d-none" alt="">
+<div class="display-cover" [class.dark]="(theme$$|async)==='dark'">
+  <div class="input-container">
+    <p>filter by color:</p>
+    <input
+      type="color"
+      class="input-color"
+      [(ngModel)]="inputColor"
+      (ngModelChange)="convertToRGB(inputColor);useFilter(applyFilter);this.isResetHidden=false;"
+    />
+    <p> color delta: {{inputDelta}}</p>
+    <input
+      type="range"
+      class="input-delta"
+      [(ngModel)]="inputDelta"
+      (ngModelChange)="useFilter(applyFilter);this.isResetHidden=false;"
+      max="255"
+      min="0"
+      value="10"
+      step="5"
+    />
+  </div>
+  <div class="filter-container">
+    <p style="color: red"> filter R: {{filterR}}</p>
+    <input
+      type="range"
+      class="input-delta"
+      [(ngModel)]="filterR"
+      (ngModelChange)="useFilter(applyMultyFilter);this.isResetHidden=false;"
+      max="255"
+      min="-255"
+      value="0"
+      step="1"
+    />
+    <p style="color: green"> filter G: {{filterG}}</p>
+    <input
+      type="range"
+      class="input-delta"
+      [(ngModel)]="filterG"
+      (ngModelChange)="useFilter(applyMultyFilter);this.isResetHidden=false;"
+      max="255"
+      min="-255"
+      value="0"
+      step="1"
+    />
+    <p style="color: blue"> filter B: {{filterB}}</p>
+    <input
+      type="range"
+      class="input-delta"
+      [(ngModel)]="filterB"
+      (ngModelChange)="useFilter(applyMultyFilter);this.isResetHidden=false;"
+      max="255"
+      min="-255"
+      value="0"
+      step="1"
+    />
+    
+  </div>
+  <div class="reset-button" (click)="resetAll()" *ngIf="!isResetHidden">reset all</div>
+  <video autoplay controls="true"></video>
+  <canvas
+    draggable="true"
+    class="canvas d-none"
+    (click)="isBigCanvas = !isBigCanvas"
+    [style.width]="isBigCanvas ? '40vw' : '20vw'"
+  ></canvas>
+  <canvas class="canvas-2"> </canvas>
+  <div class="video-options">
+    <select name="" id="" class="custom-select">
+      <option value="">Select camera</option>
+    </select>
+  </div>
+  <a
+    class="save-button"
+    href="#"
+    (click)="getHref()"
+    [download]="'my_photo.png'"
+    [class.visible]="isSaveButton"
+    >Save</a
+  >
+  <div class="average-color" [style.background-color]="averageColor$$ | async" [style.color]="averageTitleColor">
+    Average colour
+  </div>
+  <div class="point-color" [style.background-color]="pointColor" [style.color]="pointTitleColor" >
+    Point colour
+  </div>
+  <div class="point-data">
+    <p>X= {{ x }}</p>
+    <p>Y= {{ y }}</p>
+    <p>R: {{ pointR }}</p>
+    <p>G: {{ pointG }}</p>
+    <p>B: {{ pointB }}</p>
+    <p>A: {{ pointA }}</p>
+  </div>
+  <div class="average-data">
+    <p>R: {{ averageR }}</p>
+    <p>G: {{ averageG }}</p>
+    <p>B: {{ averageB }}</p>
+    <p>A: {{ averageA }}</p>
+  </div>
 
-    <div class="controls">
-        <button class="btn btn-danger play" title="Play"><i data-feather="play-circle"></i></button>
-        <button class="btn btn-info pause d-none" title="Pause"><i data-feather="pause"></i></button>
-        <button class="btn btn-outline-success screenshot d-none" title="ScreenShot"><i data-feather="image"></i></button>
-        <button (click)="clearCanvas()">clear canvas</button>
-    </div>
+  <div class="controls">
+    <button class="btn btn-danger play" title="Play"><p>play</p></button>
+    <button class="btn btn-info pause d-none" title="Pause">pause</button>
+    <button
+      class="btn btn-outline-success screenshot d-none"
+      title="ScreenShot"
+    >
+      shot
+    </button>
+    <button (click)="clearCanvas()">clear</button>
+  </div>
 </div>

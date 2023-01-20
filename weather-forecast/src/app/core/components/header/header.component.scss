@@ -3,14 +3,11 @@
   top: 0;
   left: 0;
   z-index: 14;
-  width:100vw;
 }
 .header-container {
-  
   top: 0;
   left: 0;
   height: 50px;
- 
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -37,21 +34,38 @@
     background-color: #fff;
   }
 }
+.theme-container{
+  display:flex;
+  flex-direction: column;
+  width: 60px;
+  height: 40px;
+  cursor: pointer;
+}
 .theme {
+  position: relative;
+  top:-1px;
+  left:-20px;
   margin-left: 20px;
   width: 20px;
   height: 20px;
   border-radius: 50%;
   border: 1px solid transparent;
-  opacity: 0.6;
   transition: 200ms;
-  cursor: pointer;
+ 
   &:hover {
-    opacity: 0.8;
+    
   }
   &:active {
-    opacity: 1;
+    
   }
+}
+.theme-strip {
+  position: relative;
+  top:15px;
+  width: 40px;
+  height: 10px;
+  border-radius: 10px;
+  background-color: #aaa;
 }
 .menu-button {
   display: flex;
@@ -84,22 +98,22 @@
 }
 .battery-inner {
   height: 10px;
-  box-shadow: inset 1px  1px 2px #000;
+  box-shadow: inset 1px 1px 2px #000;
 }
 .battery-value {
   position: relative;
   top: 0px;
   left: -45px;
-  color:black;
+  color: black;
   font-size: 14px;
 }
-.charging-icon{
+.charging-icon {
   font-size: 17px;
   position: relative;
-  top:-3px;
-  left:23px;
+  top: -3px;
+  left: 23px;
 }
-.about-battery{
+.about-battery {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -110,13 +124,13 @@
   background-color: #eee;
   border-radius: 5px;
   box-shadow: 1px 1px 5px #666;
-  top:-200px;
+  top: -200px;
   right: 10px;
   transition: 1s;
   z-index: -1;
 }
-.about-battery-visible{
-  top:60px;
+.about-battery-visible {
+  top: 60px;
 }
 @media (max-width: 740px) {
   .phrase,

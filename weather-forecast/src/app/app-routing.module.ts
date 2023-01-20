@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppGuardGuard } from './core/guards/app-guard.guard';
 import { AuthGuard } from './core/guards/auth.guard';
+import { OscillatorComponent } from './pages/camera-game/oscillator/oscillator.component';
 
 const routes: Routes = [
   {
@@ -18,14 +19,20 @@ const routes: Routes = [
       canActivate:[AppGuardGuard]
   },
   {
-    path: 'canvas',
+    path: 'experiments',
     loadChildren: () =>
       import('./pages/camera-game/camera-game.module').then((m) => m.CameraGameModule),
-      canActivate:[AuthGuard]
+      canActivate:[]
      
   },
   {
-    path: 'login',
+    path: 'oscillator',
+    component:OscillatorComponent,
+      
+     
+  },
+  {
+    path: 'login/:url',
     loadChildren: () =>
       import('./pages/auth/auth.module').then((m) => m.AuthModule),
      

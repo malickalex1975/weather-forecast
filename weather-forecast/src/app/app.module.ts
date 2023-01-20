@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -11,15 +12,14 @@ import { StartPageComponent } from './pages/start-page/start-page.component';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PopupComponent } from './pages/popup/popup.component';
-import { MainModule } from './pages/main/main.module';
 import { MaterialModule } from './material/material.module';
-import { DenyPageComponent } from './pages/deny-page/deny-page.component';
+import { OscillatorComponent } from './pages/camera-game/oscillator/oscillator.component';
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent, StartPageComponent,PopupComponent],
+  declarations: [AppComponent, StartPageComponent,PopupComponent, OscillatorComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

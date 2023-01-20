@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 @Component({
   selector: 'app-camera-game',
@@ -7,15 +8,26 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./camera-game.component.scss'],
 })
 export class CameraGameComponent implements OnInit {
+  pointTitleColor = '#eee';
+  averageTitleColor = '#eee';
+  inputColor: string = '';
+  inputDelta: number = 10;
   isBigCanvas = false;
   dataArray: number[] = [];
+  isResetHidden=true;
   averageR = 0;
   averageG = 0;
   averageB = 0;
   averageA = 1;
+  colR = 0;
+  colB = 0;
+  colG = 0;
+  filterR = 0;
+  filterG = 0;
+  filterB = 0;
   pointR: number | '-' = '-';
   pointG: number | '-' = '-';
-  pointB : number | '-' = '-';
+  pointB: number | '-' = '-';
   pointA: number | '-' = '-';
   averageColor$$?: BehaviorSubject<string>;
   pointColor = 'rgba(0,0,0,1)';
@@ -24,6 +36,11 @@ export class CameraGameComponent implements OnInit {
   x: number | '-' = '-';
   y: number | '-' = '-';
   isMouseDown = false;
+  canvasWidth = 640;
+  canvasHeight = 480;
+  theme$$ = this.themeService.getTheme();
+
+  constructor(private themeService: ThemeService) {}
 
   ngOnInit(): void {
     this.averageColor$$ = new BehaviorSubject(`rgba(0,0,0,1)`);
@@ -34,20 +51,22 @@ export class CameraGameComponent implements OnInit {
     ) as HTMLOptionElement;
     const video = document.querySelector('video');
     const canvas = document.querySelector('.canvas') as HTMLCanvasElement;
+    this.toggleFullscreen(canvas);
     const canvas2 = document.querySelector('.canvas-2') as HTMLCanvasElement;
-    canvas2.width = 300;
-    canvas2.height = 300;
     document.addEventListener('mousedown', () => (this.isMouseDown = true));
     document.addEventListener('mouseup', () => (this.isMouseDown = false));
     canvas2.addEventListener('mouseleave', () => {
       this.x = '-';
       this.y = '-';
-      this.pointR='-';
-      this.pointG='-';
-      this.pointB='-';
-      this.pointA='-';
+      this.pointR = '-';
+      this.pointG = '-';
+      this.pointB = '-';
+      this.pointA = '-';
+      this.pointColor = 'rgba(0,0,0,1)';
+      this.pointTitleColor = '#eee';
     });
     canvas2.addEventListener('mousemove', (e) => {
+      console.log(this.canvasWidth, this.canvasHeight);
       this.isSaveButton = true;
       let elX = canvas2.getBoundingClientRect().x;
       let elY = canvas2.getBoundingClientRect().y;
@@ -124,24 +143,23 @@ export class CameraGameComponent implements OnInit {
     const doScreenshot = () => {
       canvas!.width = video!.videoWidth;
       canvas!.height = video!.videoHeight;
+      this.canvasWidth = video!.videoWidth;
+      this.canvasHeight = video!.videoHeight;
       canvas!.getContext('2d')!.drawImage(video!, 0, 0);
       screenshotImage!.src = canvas!.toDataURL('image/webp');
 
       let ctx = canvas!.getContext('2d');
-      let y = ctx?.getImageData(0, 0, video!.videoWidth, video!.videoHeight);
-
-      
+      let y = ctx?.getImageData(0, 0, this.canvasWidth, this.canvasHeight);
+      this.createAverageColor(y!);
 
       let z = new ImageData(
-        this.createMonoImage(y!.data),
-        video!.videoWidth,
-        video!.videoHeight,
+        this.applyFilter(y!.data),
+        this.canvasWidth,
+        this.canvasHeight,
         { colorSpace: 'srgb' }
       );
-
-      // canvas2.width = video!.videoWidth;
-      //canvas2.height = video!.videoHeight;
-
+      canvas2!.width = this.canvasWidth;
+      canvas2!.height = this.canvasHeight;
       let ctx2 = canvas2.getContext('2d');
       ctx2?.putImageData(z, 0, 0);
     };
@@ -175,6 +193,11 @@ export class CameraGameComponent implements OnInit {
     this.averageColor$$?.next(
       `rgba(${this.averageR},${this.averageG},${this.averageB},${this.averageA}`
     );
+    let avr = (this.averageB + this.averageG + this.averageR) / 3;
+    this.averageTitleColor = avr > 150 ? '#000' : '#eee';
+    if (this.averageA === 0) {
+      this.pointTitleColor = '#f00';
+    }
   }
   createMonoImage(arr: Uint8ClampedArray): Uint8ClampedArray {
     let len = arr.length;
@@ -208,9 +231,63 @@ export class CameraGameComponent implements OnInit {
     }
     return out;
   }
+  applyFilter(arr: Uint8ClampedArray): Uint8ClampedArray {
+    if (
+      (this.colB === 0 && this.colG === 0 && this.colR === 0) ||
+      (this.colB === 255 && this.colG === 255 && this.colR === 255)
+    ) {
+      return arr;
+    }
+    let len = arr.length;
+    let out = new Uint8ClampedArray(len);
+    for (let i = 0; i < len; i = i + 4) {
+      let r = arr[i + 0];
+      let g = arr[i + 1];
+      let b = arr[i + 2];
+      if (
+        r >= this.colR - this.inputDelta &&
+        r <= this.colR + this.inputDelta &&
+        g >= this.colG - this.inputDelta &&
+        g <= this.colG + this.inputDelta &&
+        b >= this.colB - this.inputDelta &&
+        b <= this.colB + this.inputDelta
+      ) {
+        out[i + 0] = r;
+        out[i + 1] = g;
+        out[i + 2] = b;
+      } else {
+        out[i + 0] = 0;
+        out[i + 1] = 0;
+        out[i + 2] = 0;
+      }
+
+      out[i + 3] = arr[i + 3];
+    }
+    return out;
+  }
+  applyMultyFilter(arr: Uint8ClampedArray): Uint8ClampedArray {
+    if (this.filterB === 0 && this.filterG === 0 && this.filterR === 0) {
+      return arr;
+    }
+    let len = arr.length;
+    let out = new Uint8ClampedArray(len);
+    for (let i = 0; i < len; i = i + 4) {
+      let r = arr[i + 0];
+      let g = arr[i + 1];
+      let b = arr[i + 2];
+
+      out[i + 0] = r + this.filterR;
+      out[i + 1] = g + this.filterG;
+      out[i + 2] = b + this.filterB;
+
+      out[i + 3] = arr[i + 3];
+    }
+    return out;
+  }
+
   drawCanvas(x: number, y: number) {
     const canvas2 = document.querySelector('.canvas-2') as HTMLCanvasElement;
-    let ctx = canvas2.getContext('2d')!;
+    let ctx = canvas2.getContext('2d', { willReadFrequently: true })!;
     if (!this.isMouseDown) {
       ctx.beginPath();
       return;
@@ -221,19 +298,16 @@ export class CameraGameComponent implements OnInit {
     ctx.lineTo(x, y);
 
     ctx.stroke();
-    let img = ctx.getImageData(0, 0, 300, 300);
-    setTimeout(() => this.createAverageColor(img), 0);
 
-    
+    let img = ctx.getImageData(0, 0, this.canvasWidth, this.canvasHeight);
+    setTimeout(() => this.createAverageColor(img), 0);
   }
   clearCanvas() {
     this.isSaveButton = false;
     const canvas2 = document.querySelector('.canvas-2') as HTMLCanvasElement;
-    canvas2.width = 300;
-    canvas2.height = 300;
-    let ctx = canvas2.getContext('2d')!;
+    let ctx = canvas2.getContext('2d', { willReadFrequently: true })!;
     ctx.beginPath();
-    ctx.clearRect(0, 0, canvas2.width, canvas2.height);
+    ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
     this.drawCanvas(0, 0);
   }
   getHref() {
@@ -249,13 +323,78 @@ export class CameraGameComponent implements OnInit {
   }
   definePoint(x: number, y: number) {
     const canvas2 = document.querySelector('.canvas-2') as HTMLCanvasElement;
-    let ctx = canvas2.getContext('2d')!;
-    ctx.beginPath()
+    let ctx = canvas2.getContext('2d', { willReadFrequently: true })!;
+    ctx.beginPath();
     let img = ctx.getImageData(x, y, 1, 1);
     this.pointR = img.data[0];
     this.pointG = img.data[1];
     this.pointB = img.data[2];
-    this.pointA = Math.round(img.data[3]/255);
+    this.pointA = Math.round(img.data[3] / 255);
     this.pointColor = `rgba(${this.pointR},${this.pointG},${this.pointB},${this.pointA})`;
+    let avr = (this.pointR + this.pointB + this.pointG) / 3;
+    this.pointTitleColor = avr > 150 ? '#000' : '#eee';
+    if (this.pointA === 0) {
+      this.pointTitleColor = '#f00';
+    }
+  }
+
+  toggleFullscreen(el: HTMLElement) {
+    el.addEventListener('dblclick', () => {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        el.requestFullscreen().catch((err) => console.log(err));
+      }
+    });
+  }
+  convertToRGB(color: string) {
+    this.colR = parseInt(color.slice(1, 3), 16);
+    this.colG = parseInt(color.slice(3, 5), 16);
+    this.colB = parseInt(color.slice(5), 16);
+  }
+  useFilter(f: Function) {
+    let func: Function = function () {};
+    const canvas = document.querySelector('.canvas') as HTMLCanvasElement;
+    const canvas2 = document.querySelector('.canvas-2') as HTMLCanvasElement;
+    let ctx = canvas!.getContext('2d');
+    let y = ctx?.getImageData(0, 0, this.canvasWidth, this.canvasHeight);
+
+    let z = new ImageData(
+      f.call(this, y!.data),
+      this.canvasWidth,
+      this.canvasHeight,
+      { colorSpace: 'srgb' }
+    );
+    canvas2!.width = this.canvasWidth;
+    canvas2!.height = this.canvasHeight;
+    let ctx2 = canvas2.getContext('2d');
+    ctx2?.putImageData(z, 0, 0);
+    let w = ctx2?.getImageData(0, 0, this.canvasWidth, this.canvasHeight);
+    this.createAverageColor(w!);
+  }
+
+  resetAll = () => {
+    this.colR = 0;
+    this.colB = 0;
+    this.colG = 0;
+    this.filterR = 0;
+    this.filterG = 0;
+    this.filterB = 0;
+    this.inputDelta = 10;
+    this.inputColor = '';
+    this.useFilter(this.applyFilter);
+    this.isResetHidden=true;
+  };
+  checkFilters() {
+    return (
+      this.colR === 0 &&
+      this.colB === 0 &&
+      this.colG === 0 &&
+      this.filterR === 0 &&
+      this.filterG === 0 &&
+      this.filterB === 0 &&
+      this.inputDelta === 10 &&
+      this.inputColor === ''
+    );
   }
 }

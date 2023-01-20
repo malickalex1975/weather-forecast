@@ -1,75 +1,86 @@
-<div class="main-container" *ngrxLet="isChosen$$ as isChosen ">
+<div class="main-container" *ngrxLet="isChosen$$ as isChosen">
   <div class="inner-container" *ngrxLet="currentWeather$ as current">
-  <div class="input-container">
-    <mat-icon class="icon-search">search</mat-icon>
-    <input
-    list="listRequests"
-      type="search"
-      class="input-search"
-      [placeholder]="'search place' | translate"
-      [(ngModel)]="searchRequest"
-      (ngModelChange)="rememberSearch(); findPlaces()"
-      autofocus
-    />
-    <datalist id="listRequests">
-<option *ngFor="let value of listRequests$$| async">{{value}}</option>
-    </datalist>
-<div class="current-place-container">
-    <div class="radio-container">
-    <input type="checkbox" id="radio-button" [(ngModel)]="isUseCurrentPosition"
-    (ngModelChange)="changeSearch()">
-    <label for="radio-button">{{"Use your current position"|translate}}</label>
-    <mat-icon *ngIf="isUseCurrentPosition">location_on</mat-icon>
-    <mat-icon *ngIf="!isUseCurrentPosition">location_off</mat-icon>
-  </div>
-    <div class="coords" *ngIf="isUseCurrentPosition ">
-    <p>{{"latitude"|translate}}: {{(define(lat))!|translate}}°</p>
-    <p>{{"longitude"|translate}}: {{define(lon)!|translate}}°</p>
-  
-  </div>
-  </div>
-</div>
-  <p
-    class="link-pollution"
-    [routerLink]="[
-      '../pollution',
-      lat,
-      lon,
-      [current?.name, current?.sys?.country].join(', ')
-    ]"
-    *ngIf="isChosen"
-  >
-    {{ "Air quality in this location" | translate }}...
-  </p>
-  <div class="places-container" *ngIf="isChosen == false">
-    <div
-      class="place-item"
-      *ngFor="let place of places$ | async"
-      (click)="
-        getCurrentWeather(place.lat, place.lon);
-
-        rememberCoords(place.lat, place.lon);
-       
-        rememberPlace(place)
-      "
-    >
-      <span>{{ place.name }}</span>
-      <span> , </span>
-      <span>{{ place.country }}</span>
-      <span> , </span>
-      <span>{{ place.state }}</span>
-      <div class="flag-small" [style]="getFlagStyle(place.country)"></div>
+    <div class="input-container">
+      <mat-icon class="icon-search">search</mat-icon>
+      <input
+        list="listRequests"
+        type="search"
+        class="input-search"
+        [placeholder]="'search place' | translate"
+        [(ngModel)]="searchRequest"
+        (ngModelChange)="rememberSearch(); findPlaces()"
+        autofocus
+      />
+      <datalist id="listRequests">
+        <option *ngFor="let value of listRequests$$ | async">
+          {{ value }}
+        </option>
+      </datalist>
+      <div class="current-place-container">
+        <div class="radio-container">
+          <input
+            type="checkbox"
+            id="radio-button"
+            [(ngModel)]="isUseCurrentPosition"
+            (ngModelChange)="changeSearch()"
+          />
+          <label for="radio-button">{{
+            "Use your current position" | translate
+          }}</label>
+          <mat-icon *ngIf="isUseCurrentPosition">location_on</mat-icon>
+          <mat-icon *ngIf="!isUseCurrentPosition">location_off</mat-icon>
+        </div>
+        <div class="coords" *ngIf="isUseCurrentPosition">
+          <p>{{ "latitude" | translate }}: {{ define(lat)! | translate }}°</p>
+          <p>{{ "longitude" | translate }}: {{ define(lon)! | translate }}°</p>
+        </div>
+      </div>
     </div>
-  </div>
-  
- 
-<router-outlet></router-outlet>
-
-  <iframe class="iframe" src= ''></iframe>
-
-
-
-
-  <app-last-places class="last-places"></app-last-places>
+    <p
+      class="link-pollution"
+      [routerLink]="[
+        '../pollution',
+        lat,
+        lon,
+        [current?.name, current?.sys?.country].join(', ')
+      ]"
+      *ngIf="isChosen"
+    >
+      {{ "Air quality in this location" | translate }}...
+    </p>
+    
+    <div class="places-container" *ngIf="isChosen == false">
+      <div
+        class="place-item"
+        *ngFor="let place of places$ | async"
+        (click)="
+          getCurrentWeather(place.lat, place.lon);
+          rememberCoords(place.lat, place.lon);
+          rememberPlace(place)
+        "
+      >
+        <span>{{ place.name }}</span>
+        <span> , </span>
+        <span>{{ place.country }}</span>
+        <span> , </span>
+        <span>{{ place.state }}</span>
+        <div class="flag-small" [style]="getFlagStyle(place.country)"></div>
+      </div>
+    </div>
+    <div class=" google-iframe-container">
+    <iframe class="google-iframe"
+    src=""
+    style="border: 0"
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+  ></iframe>
+  <div class="current-position" *ngIf="isFrameLoaded" [style]="currentPositionStyle"></div>
 </div>
+    <router-outlet></router-outlet>
+
+    <iframe class="iframe" src="" [loading]="'lazy'"></iframe>
+    
+
+    <app-last-places class="last-places"></app-last-places>
+  </div>
 </div>

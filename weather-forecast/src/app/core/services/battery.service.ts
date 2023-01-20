@@ -34,7 +34,7 @@ export class BatteryService {
       return;
     }
     let battery = await this.getBattery().catch((e) => console.log(e));
-    //console.log(battery)
+    //console.log(battery);
     this.isCharging$$.next(battery.charging);
     if (!battery.charging) {
       this.color$$.next(this.defineColor(battery.level));
@@ -42,7 +42,9 @@ export class BatteryService {
       this.color$$.next('#0f0');
     }
     this.level$$.next(battery.level);
-    this.dischargingTime$$.next(this.defineTime(battery.dischargingTime));
+    if (battery.dischargingTime != 0 && battery.dischargingTime !== Infinity) {
+      this.dischargingTime$$.next(this.defineTime(battery.dischargingTime));
+    }
   }
   defineColor(value: number) {
     return value > 0.8 ? '#0d0' : value > 0.25 ? '#cf0' : '#d00';

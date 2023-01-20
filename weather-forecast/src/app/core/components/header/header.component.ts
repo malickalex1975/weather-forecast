@@ -53,9 +53,17 @@ export class HeaderComponent {
   getStyle(theme: string | null, posY: number) {
     let part1 =
       theme === 'light'
-        ? 'background-color: yellow;'
-        : 'background-color: black;';
-    let part2 = posY === 0 ? 'transform: scale(1.5);' : '';
+        ? 'background-color: yellow; left: -20px;'
+        : 'background-color: black; left: 0px;';
+    let part2 = posY === 0 ? 'transform: scale(1.2);' : '';
+    return part1 + part2;
+  }
+  getStripStyle(theme: string | null, posY: number) {
+    let part1 =
+      theme === 'light'
+        ? 'background-color: #aaa; '
+        : 'background-color: yellow;';
+    let part2 = posY === 0 ? 'transform: scaleY(1.2);' : '';
     return part1 + part2;
   }
   getHeaderColor(color: string, posY: number) {
@@ -72,5 +80,9 @@ export class HeaderComponent {
   }
   defineLevel(level:number):number{
     return Math.round(level*100)
+    
+  }checkPath(path:string):boolean{
+    return !window.location.href.includes(path)
   }
+
 }

@@ -1,6 +1,6 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { NotFoundComponent } from '../not-found/not-found.component';
@@ -15,8 +15,8 @@ import { PollutionForecastElementComponent } from './components/pollution-foreca
 import { MaterialModule } from 'src/app/material/material.module';
 import { DeveloperComponent } from './components/developer/developer.component';
 import { AboutComponent } from '../about/about.component';
-import { PopupComponent } from '../popup/popup.component';
 import { DenyPageComponent } from '../deny-page/deny-page.component';
+
 
 @NgModule({
   declarations: [
@@ -41,5 +41,6 @@ import { DenyPageComponent } from '../deny-page/deny-page.component';
     MaterialModule,
   ],
   exports: [PollutionForecastElementComponent, MaterialModule],
+  providers:[]
 })
 export class MainModule {}
