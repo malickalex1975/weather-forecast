@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, switchMap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { USE_CURRENT_POSITION } from 'src/app/constants';
 import { StorageService } from './storage.service';
 

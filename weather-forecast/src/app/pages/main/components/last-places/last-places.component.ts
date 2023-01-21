@@ -27,7 +27,7 @@ export class LastPlacesComponent {
     this.requestService.setCoords(place.lat, place.lon);
     this.storage.setItem(LAST_COORD, JSON.stringify([place.lat, place.lon]));
     this.getCurrentPlaceService.setUsedCurrent(false);
-    this.router.navigate(['/forecast', place.lat, place.lon])
+    //this.router.navigate(['/forecast', place.lat, place.lon])
     window.scrollTo(0, 0);
   }
   clean() {

@@ -18,8 +18,7 @@ export class AboutComponent implements OnInit {
   navigator:any=navigator
   constructor(private langService: LanguageService, ) {}
   ngOnInit(): void {window.scrollTo(0,0)
-   let myclass= new MyClass()
-   myclass.logMessage()
+   
   }
 
   getCurrentDeveloper() {

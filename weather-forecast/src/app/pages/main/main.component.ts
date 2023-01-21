@@ -50,7 +50,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.init();
-    window.onresize=()=>this.calculateCurrentPositionStyle()
+    window.onresize = () => this.calculateCurrentPositionStyle();
   }
   rememberSearch() {
     if (this.searchRequest) {
@@ -163,28 +163,33 @@ export class MainComponent implements OnInit, OnDestroy {
       this.calculateCurrentPositionStyle();
     };
     google.onerror = () => (this.isFrameLoaded = false);
-    el.src = `https://openweathermap.org/weathermap?basemap=map&cities=true&layer=radar&lat=${lat}&lon=${lon}&zoom=20`;
+    el.src = `https://openweathermap.org/weathermap?basemap=map&cities=true&layer=radar&lat=${lat}&lon=${lon}&zoom=6`;
     google.src = `https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d100000!2d${lon}!3d${lat}!3m2!1i1024!2i768!4f13.1!5e1!3m2!1sru!2sby!4v1674040894710!5m2!1sru!2sby`;
   }
   init() {
-    this.setCurrentPlaceCoords();
     this.subscription8 = this.getCurrentPlace
       .getUsedCurrent()
-      .subscribe((value) => (this.isUseCurrentPosition = value));
-    this.requestService.setIsChosen(true);
-    this.searchRequest = this.storage.getItem(LAST_SEARCH) || '';
-    this.requestService.setCoords(
-      ...JSON.parse(this.storage.getItem(LAST_COORD) || '[]')
-    );
+      .subscribe((value) => {
+        this.isUseCurrentPosition = value;
+        this.requestService.setIsChosen(true);
+        this.searchRequest = this.storage.getItem(LAST_SEARCH) || '';
+        this.requestService.setCoords(
+          ...JSON.parse(this.storage.getItem(LAST_COORD) || '[]')
+        );
 
-    if (this.isUseCurrentPosition) {
-      this.useCurrentLocation();
-      this.searchRequest = '';
-    } else {
-      this.useCoords();
-      this.useRequest();
-    }
+        if (this.isUseCurrentPosition) {
+          this.setCurrentPlaceCoords();
+          this.useCurrentLocation();
+          this.searchRequest = '';
+         
+        } else {
+          this.useCoords();
+          this.useRequest();
+
+        }
+      });
   }
+
   calculateCurrentPositionStyle() {
     let google = document.querySelector('.google-iframe') as HTMLIFrameElement;
     let iframeRect = google.getBoundingClientRect();

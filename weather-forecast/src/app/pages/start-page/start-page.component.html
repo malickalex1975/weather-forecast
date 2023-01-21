@@ -1,8 +1,9 @@
 
 <div class="container">
     <div class="intro">
+        <h1 class="title" (click)="start()">WeatherCock</h1>
         <p>{{"Welcome to the App"| translate}}</p>
         <p>{{"I hope you will like my weather forecast service"|translate}}</p>
     </div>
-    <div class="start-button" (click)="start()">{{"start"| translate}} {{5-(number$|async)!}}</div>
+    <div class="start-button" (click)="start()">{{"start"| translate}} {{10-(number$|async)!}}</div>
 </div>

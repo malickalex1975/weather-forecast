@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ThemeService } from 'src/app/core/services/theme.service';
+const { MyClass } = require('src/app/my-class.js');
 
 @Component({
   selector: 'app-camera-game',
@@ -14,7 +15,7 @@ export class CameraGameComponent implements OnInit {
   inputDelta: number = 10;
   isBigCanvas = false;
   dataArray: number[] = [];
-  isResetHidden=true;
+  isResetHidden = true;
   averageR = 0;
   averageG = 0;
   averageB = 0;
@@ -39,12 +40,12 @@ export class CameraGameComponent implements OnInit {
   canvasWidth = 640;
   canvasHeight = 480;
   theme$$ = this.themeService.getTheme();
+  myclass = new MyClass();
 
   constructor(private themeService: ThemeService) {}
 
   ngOnInit(): void {
     this.averageColor$$ = new BehaviorSubject(`rgba(0,0,0,1)`);
-
     const controls = document.querySelector('.controls');
     const cameraOptions = document.querySelector(
       '.video-options>select'
@@ -383,7 +384,7 @@ export class CameraGameComponent implements OnInit {
     this.inputDelta = 10;
     this.inputColor = '';
     this.useFilter(this.applyFilter);
-    this.isResetHidden=true;
+    this.isResetHidden = true;
   };
   checkFilters() {
     return (
@@ -396,5 +397,27 @@ export class CameraGameComponent implements OnInit {
       this.inputDelta === 10 &&
       this.inputColor === ''
     );
+  }
+ detectFace() {
+    const canvas2 = document.querySelector('.canvas-2');
+    if (canvas2) {
+      if (this.myclass.checkFD()) {
+        this.myclass.detect(canvas2).then((detectedFaces:any)=>
+        this.drawRects(detectedFaces))
+      }
+    } else console.log('no image to detect');
+  }
+  drawRects(detectedFaces: Array<any>) {
+    const canvas2 = document.querySelector('.canvas-2') as HTMLCanvasElement;
+    const ctx = canvas2!.getContext('2d')!;
+    for (const face of detectedFaces) {
+      const x = face.boundingBox.x;
+      const y = face.boundingBox.y;
+      const width = face.boundingBox.width;
+      const height = face.boundingBox.height;
+      ctx.beginPath();
+      ctx.strokeStyle = '#0ff';
+      ctx.strokeRect(x, y, width, height);
+    }
   }
 }

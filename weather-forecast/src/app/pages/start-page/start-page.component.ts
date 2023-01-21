@@ -22,7 +22,7 @@ export class StartPageComponent implements OnInit {
     this.getCurrentPlace.defineCurrentLocation();
     this.timeout = setTimeout(() => {
       this.start();
-    }, 5000);
+    }, 10000);
   }
   start() {
     this.startService.setStarted();

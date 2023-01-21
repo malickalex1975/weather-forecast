@@ -1,17 +1,29 @@
-
 export class MyClass {
-  message = "hello bro";
-
-  logMessage() {
-    console.log(this.message);
+  constructor() {
+    this.checkFD;
   }
-}
-let mc= new MyClass()
-mc.logMessage()
 
-if('BarcodeDetector' in window){
-  let bd= new BarcodeDetector();
+  checkFD() {
+    if ("FaceDetector" in window) {
+      alert("FaceDetector is supported");
+      return true;
+    } else {
+      alert("FaceDetector is not supported");
+      return false;
+    }
+  }
+  detect(theImage) {
+    try {
+      let faceDetector = new FaceDetector({
+        fastMode: false,
+        maxDetectedFaces: 10,
+      });
 
-}else{
-  alert("BarcodeDetector is not supported")
+      let detectedFaces =  faceDetector.detect(theImage);
+      return   detectedFaces
+      
+    } catch (err) {
+      console.error("Face Detection failed, boo.", err);
+    }
+  }
 }

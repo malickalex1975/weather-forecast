@@ -77,10 +77,10 @@
   <div class="current-position" *ngIf="isFrameLoaded" [style]="currentPositionStyle"></div>
 </div>
     <router-outlet></router-outlet>
-
+<div class="iframe-container">
     <iframe class="iframe" src="" [loading]="'lazy'"></iframe>
     
-
+  </div>
     <app-last-places class="last-places"></app-last-places>
   </div>
 </div>
