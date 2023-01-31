@@ -1,69 +1,140 @@
-<div class="display-cover" [class.dark]="(theme$$|async)==='dark'">
+<div class="display-cover" [class.dark]="(theme$$ | async) === 'dark'">
   <div class="input-container">
-    <p>filter by color:</p>
-    <input
-      type="color"
-      class="input-color"
-      [(ngModel)]="inputColor"
-      (ngModelChange)="convertToRGB(inputColor);useFilter(applyFilter);this.isResetHidden=false;"
-    />
-    <p> color delta: {{inputDelta}}</p>
-    <input
-      type="range"
-      class="input-delta"
-      [(ngModel)]="inputDelta"
-      (ngModelChange)="useFilter(applyFilter);this.isResetHidden=false;"
-      max="255"
-      min="0"
-      value="10"
-      step="5"
-    />
+    <div class="input-wrapper">
+      <p>contrast delta: {{ contrastDelta }}</p>
+      <input
+        type="range"
+        class="contrast-delta"
+        [(ngModel)]="contrastDelta"
+        (ngModelChange)="
+          isContrast = true; applyContrast(); this.isResetHidden = false
+        "
+        max="255"
+        min="0"
+        value="0"
+        step="1"
+      />
+    </div>
+    <div class="input-wrapper">
+      <p>contrast level: {{ contrastLevel }}</p>
+      <input
+        type="range"
+        class="input-delta"
+        [(ngModel)]="contrastLevel"
+        (ngModelChange)="
+          isContrast = true; applyContrast(); this.isResetHidden = false
+        "
+        max="255"
+        min="0"
+        value="122"
+        step="1"
+      />
+    </div>
+    <div class="input-wrapper">
+      <p>accuracy: {{ accuracy }} %</p>
+      <input
+        type="range"
+        class="accuracy"
+        [(ngModel)]="accuracy"
+        (ngModelChange)="this.isResetHidden = false"
+        max="100"
+        min="0"
+        value="100"
+        step="1"
+      />
+    </div>
+    <div class="input-wrapper">
+      <p>error value: {{ errorsQuantity }}</p>
+      <input
+        type="range"
+        class="errors"
+        [(ngModel)]="errorsQuantity"
+        (ngModelChange)="this.isResetHidden = false"
+        max="255"
+        min="0"
+        value="10"
+        step="1"
+      />
+    </div>
+    <div class="input-wrapper">
+      <p>load file:</p>
+      <input
+        type="file"
+        accept="image/*"
+        class="file-input"
+        (input)="loadFile()"
+      />
+    </div>
   </div>
   <div class="filter-container">
-    <p style="color: red"> filter R: {{filterR}}</p>
+    <p style="color: red">filter R: {{ filterR }}</p>
     <input
       type="range"
       class="input-delta"
       [(ngModel)]="filterR"
-      (ngModelChange)="useFilter(applyMultyFilter);this.isResetHidden=false;"
+      (ngModelChange)="useFilter(applyMultyFilter); this.isResetHidden = false"
       max="255"
       min="-255"
       value="0"
       step="1"
     />
-    <p style="color: green"> filter G: {{filterG}}</p>
+    <p style="color: green">filter G: {{ filterG }}</p>
     <input
       type="range"
       class="input-delta"
       [(ngModel)]="filterG"
-      (ngModelChange)="useFilter(applyMultyFilter);this.isResetHidden=false;"
+      (ngModelChange)="useFilter(applyMultyFilter); this.isResetHidden = false"
       max="255"
       min="-255"
       value="0"
       step="1"
     />
-    <p style="color: blue"> filter B: {{filterB}}</p>
+    <p style="color: blue">filter B: {{ filterB }}</p>
     <input
       type="range"
       class="input-delta"
       [(ngModel)]="filterB"
-      (ngModelChange)="useFilter(applyMultyFilter);this.isResetHidden=false;"
+      (ngModelChange)="useFilter(applyMultyFilter); this.isResetHidden = false"
       max="255"
       min="-255"
       value="0"
       step="1"
     />
-    
   </div>
-  <div class="reset-button" (click)="resetAll()" *ngIf="!isResetHidden">reset all</div>
-  <video autoplay controls="true"></video>
+  <div class="reset-button" (click)="resetAll()" *ngIf="!isResetHidden">
+    reset all
+  </div>
+
+  <div class="user-adjusment">
+    <div
+      class="fragment-decrease"
+      (click)="decreaseFragment()"
+      [class.adjustment-disable]="userRectWidth <= 20"
+    >
+      -
+    </div>
+    <p class="fragment-value">{{ userRectWidth }}</p>
+    <div
+      class="fragment-increase"
+      (click)="increaseFragment()"
+      [class.adjustment-disable]="userRectWidth >= 100"
+    >
+      +
+    </div>
+  </div>
+  <div class="video-wrapper">
+    <video autoplay></video>
+    <p *ngIf="!streamStarted">No video</p>
+  </div>
+
   <canvas
     draggable="true"
-    class="canvas d-none"
+    class="canvas"
     (click)="isBigCanvas = !isBigCanvas"
     [style.width]="isBigCanvas ? '40vw' : '20vw'"
   ></canvas>
   <canvas class="canvas-2"> </canvas>
+  <canvas class="canvas-3"> </canvas>
   <div class="video-options">
     <select name="" id="" class="custom-select">
       <option value="">Select camera</option>
@@ -77,10 +148,18 @@
     [class.visible]="isSaveButton"
     >Save</a
   >
-  <div class="average-color" [style.background-color]="averageColor$$ | async" [style.color]="averageTitleColor">
+  <div
+    class="average-color"
+    [style.background-color]="averageColor$$ | async"
+    [style.color]="averageTitleColor"
+  >
     Average colour
   </div>
-  <div class="point-color" [style.background-color]="pointColor" [style.color]="pointTitleColor" >
+  <div
+    class="point-color"
+    [style.background-color]="pointColor"
+    [style.color]="pointTitleColor"
+  >
     Point colour
   </div>
   <div class="point-data">
@@ -107,7 +186,26 @@
     >
       shot
     </button>
-    <button (click)="clearCanvas()">clear</button>
-    <button (click)="detectFace()">detect</button>
+    <button (click)="clearCanvas(); isContrast = false">clear</button>
+    <button (click)="detectFace()" [class.invisible]="!z">detect</button>
+    <button
+      (click)="isContrast = !isContrast; applyContrast()"
+      [class.invisible]="!z"
+    >
+      contr
+    </button>
+    <button (click)="find(); isContrast = false" [class.invisible]="!z">
+      find
+    </button>
+    <button
+      (click)="matching = 0; sameArr = []; findTheSame()"
+      [class.invisible]="!z"
+    >
+      same
+    </button>
   </div>
+  <div class="loading" *ngIf="isLoading">
+    <mat-spinner diameter="100" color="primary"></mat-spinner>
+  </div>
+  <div class="matching">{{ matching }}</div>
 </div>

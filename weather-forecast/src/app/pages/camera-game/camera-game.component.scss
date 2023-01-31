@@ -1,10 +1,20 @@
 .input-container {
   position: absolute;
-  top: 10px;
+  top: 0px;
   left: 20px;
   display: flex;
-  gap: 50px;
+  gap: 20px;
   min-width: 700px;
+}
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 40px;
+  padding: 10px;
+  border: 2px dotted red;
 }
 .input-color {
   width: 30px;
@@ -38,10 +48,16 @@
   bottom: 70px;
   width: 640px;
   height: 480px;
-
   padding: 0px;
   border: 2px solid rgb(236, 36, 36);
   background-color: black;
+}
+.canvas-3 {
+  position: fixed;
+  left: 700px;
+  bottom: 300px;
+  padding: 0px;
+  border: 2px solid rgb(80, 13, 237);
 }
 .save-button {
   display: flex;
@@ -62,6 +78,10 @@
 .visible {
   opacity: 1;
   visibility: visible;
+}
+.invisible {
+  opacity: 0;
+  visibility: hidden;
 }
 .average-color {
   position: fixed;
@@ -89,12 +109,28 @@
   margin: 2% auto;
   position: relative;
 }
+.video-wrapper{
+  position: relative;
+  left: 270px;
+  width: 320px;
+  height: auto;
+  top: 70px;
+  z-index: 10;
+  & p{
+    position: relative;
+    left: 70px;
+    top: -120px; 
+    font-size: 40px;
+  }
+}
 
 video {
   position: relative;
-  left: 270px;
-  width: 400px;
+  left: 0px;
+  width: 320px;
+  top: 0px;
   background: rgba(0, 0, 0, 0.2);
+  
 }
 
 .video-options {
@@ -105,13 +141,12 @@ video {
 
 .controls {
   position: fixed;
-  right: 20px;
-  top: 120px;
+  right: 40px;
+  top: 140px;
   display: flex;
-}
-
-.controls {
   flex-direction: column;
+  gap: 5px;
+  max-height: 350px;
 }
 
 .controls button:nth-child(1) {
@@ -179,7 +214,7 @@ video {
 }
 .reset-button {
   position: absolute;
-  top: 50px;
+  top: 70px;
   left: 170px;
   min-width: 120px;
   height: 50px;
@@ -193,13 +228,81 @@ video {
   &:hover {
     background-color: #ccc;
   }
-  &:active{
+  &:active {
     background-color: red;
-    color:#eee
+    color: #eee;
   }
-  &disabled{
+  &disabled {
     cursor: auto;
     opacity: 0.3;
-    color:#666
+    color: #666;
   }
+}
+.file-input {
+  width: 140px;
+}
+.user-adjusment {
+  position: fixed;
+  right: 120px;
+  bottom: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 120px;
+  height: 60px;
+  border: 2px dotted blue;
+  font-size: 32px;
+  color: #888;
+}
+.fragment-increase,
+.fragment-decrease {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  &:hover {
+    background-color: #eee;
+    color: #000;
+  }
+  &:active {
+    background-color: #888;
+    color: #fff;
+  }
+}
+.adjustment-disable {
+  color: #eee;
+  cursor: auto;
+  &:hover {
+    background-color: transparent;
+    color: #eee;
+  }
+  &:active {
+    background-color: transparent;
+    color: #eee;
+  }
+}
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 50%;
+  right: 50%;
+}
+.matching {
+  width: 70px;
+  height: 40px;
+  border:2px solid red;
+  position: fixed;
+  top:140px;
+  left:550px;
+  color:red;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
 }

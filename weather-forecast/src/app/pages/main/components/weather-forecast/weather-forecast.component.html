@@ -1,4 +1,4 @@
-<div class="container" *ngrxLet="isChosen$$ as isChosen">
+<div class="container1" *ngrxLet="isChosen$$ as isChosen">
   <div class="loading" [class.visible]="isChosen && !(currentWeather$ | async)">
     <p>{{ "LOADING" | translate }}...</p>
     <mat-spinner diameter="30" color="primary"></mat-spinner>

@@ -60,7 +60,7 @@ export class MainComponent implements OnInit, OnDestroy {
   findPlaces() {
     this.requestService.setIsChosen(false);
     this.requestService.setRequest(this.searchRequest);
-    this.getCurrentPlace.setUsedCurrent(false);
+    this.isUseCurrentPosition=false
   }
   getCurrentWeather(lat?: number, lon?: number) {
     this.isFrameLoaded = false;
@@ -195,7 +195,14 @@ export class MainComponent implements OnInit, OnDestroy {
     let iframeRect = google.getBoundingClientRect();
     let currentTop = iframeRect.y + iframeRect.height / 2;
     let currentLeft = iframeRect.x + iframeRect.width / 2;
-    let style = `top: ${currentTop - 20}px; left: ${currentLeft - 20}px;`;
+    let style = `top: ${currentTop - 25}px; left: ${currentLeft - 25}px;`;
     this.currentPositionStyle = style;
+  }
+  scrollDown(){
+    const el=document.querySelector(".container1");
+    if(el){
+      let posY= el.getBoundingClientRect().y;
+      window.scrollBy(0,posY-50)
+    }
   }
 }

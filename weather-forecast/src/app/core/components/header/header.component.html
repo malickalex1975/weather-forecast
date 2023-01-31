@@ -27,7 +27,7 @@
 
     <mat-menu #menu>
       <ng-container>
-        <button mat-menu-item [routerLink]="['./']" *ngIf="checkPath('forecast')">
+        <button mat-menu-item [routerLink]="['./']" *ngIf="checkPath('/forecast/')">
           {{ "Weather forecast" | translate }}
         </button>
         <button mat-menu-item [routerLink]="['./about']" *ngIf="checkPath('about')">

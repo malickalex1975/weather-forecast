@@ -22,13 +22,13 @@ const routes: Routes = [
     path: 'experiments',
     loadChildren: () =>
       import('./pages/camera-game/camera-game.module').then((m) => m.CameraGameModule),
-      canActivate:[]
+      canActivate:[AuthGuard]
      
   },
   {
     path: 'oscillator',
     component:OscillatorComponent,
-      
+    canActivate:[AuthGuard]
      
   },
   {

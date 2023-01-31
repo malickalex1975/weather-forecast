@@ -56,7 +56,6 @@ export class PollutionForecastElementComponent implements OnInit {
 
   toggleFullscreen(el: HTMLElement) {
     el.addEventListener('dblclick', () => {
-      console.log('dblclicked');
       if (document.fullscreenElement) {
         document.exitFullscreen();
       } else {

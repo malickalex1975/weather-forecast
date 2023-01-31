@@ -74,9 +74,12 @@
     loading="lazy"
     referrerpolicy="no-referrer-when-downgrade"
   ></iframe>
-  <div class="current-position" *ngIf="isFrameLoaded" [style]="currentPositionStyle"></div>
+  <div class="current-position" *ngIf="isFrameLoaded" [style]="currentPositionStyle" (click)="scrollDown()">
+    <div class='current-position-background'></div>
+    <p class="frame-temp">{{((currentWeather$|async).main.temp).toFixed(1)}}℃</p>
+  </div>
 </div>
-    <router-outlet></router-outlet>
+    <router-outlet ></router-outlet>
 <div class="iframe-container">
     <iframe class="iframe" src="" [loading]="'lazy'"></iframe>
     
